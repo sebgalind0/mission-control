@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { MessageSquare, Mic, Loader2, Bell } from 'lucide-react';
 import Sidebar from '@/components/Sidebar';
-import FleetOverview from '@/components/screens/FleetOverview';
+import IsometricOffice from '@/components/IsometricOffice';
 import CommandCenter from '@/components/screens/CommandCenter';
 import TaskBoard from '@/components/screens/TaskBoard';
 import Projects from '@/components/screens/Projects';
@@ -73,7 +73,7 @@ export default function Home() {
   const renderScreen = () => {
     switch (activeScreen) {
       case 'fleet':
-        return <FleetOverview onAgentClick={(name, emoji) => setChatLogModal({ isOpen: true, agentName: name, agentEmoji: emoji })} />;
+        return <IsometricOffice onAgentClick={(name, emoji) => setChatLogModal({ isOpen: true, agentName: name, agentEmoji: emoji })} />;
       case 'command':
         return <CommandCenter onAgentClick={(name, emoji) => setChatLogModal({ isOpen: true, agentName: name, agentEmoji: emoji })} />;
       case 'tasks':
@@ -109,7 +109,7 @@ export default function Home() {
       case 'settings':
         return <Settings />;
       default:
-        return <FleetOverview onAgentClick={(name, emoji) => setChatLogModal({ isOpen: true, agentName: name, agentEmoji: emoji })} />;
+        return <IsometricOffice onAgentClick={(name, emoji) => setChatLogModal({ isOpen: true, agentName: name, agentEmoji: emoji })} />;
     }
   };
 
