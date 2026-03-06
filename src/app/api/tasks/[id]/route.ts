@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 import { prisma } from '@/lib/prisma';
 import { Priority, Status } from '@prisma/client';
 import { emitNotification, shouldRequireApproval } from '@/lib/taskUtils';
