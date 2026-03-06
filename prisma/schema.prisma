@@ -1,0 +1,66 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  priority    Priority @default(MEDIUM)
+  status      Status   @default(BACKLOG)
+  assignee    String
+  tag         String?
+  
+  // Approval workflow fields
+  requiresApproval Boolean  @default(false)
+  approvedBy       String?
+  rejectedBy       String?
+  rejectionReason  String?  @db.Text
+  approvedAt       DateTime?
+  rejectedAt       DateTime?
+  
+  // Task management
+  deadline         DateTime?
+  
+  // Timestamps
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  
+  // Relations
+  comments         Comment[]
+  
+  @@index([assignee])
+  @@index([status])
+  @@index([requiresApproval])
+  @@index([createdAt])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  author    String
+  taskId    String
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  
+  @@index([taskId])
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum Status {
+  BACKLOG
+  IN_PROGRESS
+  REVIEW
+  DONE
+}
