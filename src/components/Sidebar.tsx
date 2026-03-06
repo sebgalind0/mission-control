@@ -2,8 +2,8 @@
 
 import {
   LayoutDashboard, MessageSquare, Kanban, FolderKanban, Calendar,
-  Clock, Brain, FileText, Users, BarChart3, ShieldCheck, Activity,
-  Monitor, Plug, Trophy, FileBarChart, Store, Settings, ChevronDown, Search
+  Brain, FileText, BarChart3,
+  Monitor, Plug, Settings, ChevronDown, Search
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -20,23 +20,14 @@ const mainNav = [
 ];
 
 const toolsNav = [
-  { id: 'crons', label: 'Cron Jobs', icon: Clock },
   { id: 'memory', label: 'Memory', icon: Brain },
   { id: 'docs', label: 'Documents', icon: FileText },
   { id: 'analytics', label: 'Analytics', icon: BarChart3 },
-  { id: 'approvals', label: 'Approvals', icon: ShieldCheck },
-];
-
-const teamNav = [
-  { id: 'activity', label: 'Activity', icon: Activity },
-  { id: 'gamification', label: 'Gamification', icon: Trophy },
-  { id: 'reports', label: 'Reports', icon: FileBarChart },
 ];
 
 const systemNav = [
   { id: 'system', label: 'System', icon: Monitor },
   { id: 'integrations', label: 'Integrations', icon: Plug },
-  { id: 'marketplace', label: 'Marketplace', icon: Store },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
@@ -110,7 +101,6 @@ export default function Sidebar({ onNavigate, activeScreen }: SidebarProps) {
       <nav className="flex-1 overflow-y-auto pt-2 pb-4">
         <NavSection label="Main" items={mainNav} activeScreen={activeScreen} onNavigate={onNavigate} />
         <NavSection label="Tools" items={toolsNav} activeScreen={activeScreen} onNavigate={onNavigate} />
-        <NavSection label="Team" items={teamNav} activeScreen={activeScreen} onNavigate={onNavigate} />
         <NavSection label="System" items={systemNav} activeScreen={activeScreen} onNavigate={onNavigate} />
       </nav>
 
