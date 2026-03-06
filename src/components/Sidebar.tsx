@@ -28,7 +28,6 @@ const toolsNav = [
 ];
 
 const teamNav = [
-  { id: 'team', label: 'Team', icon: Users },
   { id: 'activity', label: 'Activity', icon: Activity },
   { id: 'gamification', label: 'Gamification', icon: Trophy },
   { id: 'reports', label: 'Reports', icon: FileBarChart },

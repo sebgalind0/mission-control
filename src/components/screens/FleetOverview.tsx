@@ -1,5 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+import { Network } from 'lucide-react';
+import OrgChartModal from '../OrgChartModal';
+import FleetActionButtons from '../FleetActionButtons';
+
 interface FleetOverviewProps {
   onAgentClick?: (name: string, emoji: string) => void;
 }
@@ -32,6 +37,7 @@ const agents = [
 ];
 
 export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
+  const [isOrgChartOpen, setIsOrgChartOpen] = useState(false);
   const onlineCount = agents.filter(a => a.status === 'online').length;
   const totalCrons = agents.reduce((sum, a) => sum + a.crons, 0);
   const totalSkills = agents.reduce((sum, a) => sum + a.skills.length, 0);
@@ -40,12 +46,21 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
   return (
     <div className="space-y-8">
       {/* Breadcrumb */}
-      <div>
-        <p className="text-[11px] font-medium uppercase tracking-widest text-zinc-500 mb-2">
-          Mission Control › Fleet Overview
-        </p>
-        <h1 className="text-2xl font-semibold tracking-tight text-white">Fleet Overview</h1>
-        <p className="text-sm text-zinc-500 mt-1">18 agents across 5 departments</p>
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-[11px] font-medium uppercase tracking-widest text-zinc-500 mb-2">
+            Mission Control › Fleet Overview
+          </p>
+          <h1 className="text-2xl font-semibold tracking-tight text-white">Fleet Overview</h1>
+          <p className="text-sm text-zinc-500 mt-1">18 agents across 5 departments</p>
+        </div>
+        <button
+          onClick={() => setIsOrgChartOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-[#18181b] border border-[#27272a] rounded-lg text-sm text-white hover:border-[#3f3f46] hover:bg-[#1f1f23] transition-all"
+        >
+          <Network size={16} />
+          View Org Chart
+        </button>
       </div>
 
       {/* Stats */}
@@ -63,6 +78,9 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
           </div>
         ))}
       </div>
+
+      {/* Action Buttons */}
+      <FleetActionButtons />
 
       {/* Agents by Department */}
       {depts.map((dept) => {
@@ -114,6 +132,9 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
           </div>
         );
       })}
+
+      {/* Org Chart Modal */}
+      <OrgChartModal isOpen={isOrgChartOpen} onClose={() => setIsOrgChartOpen(false)} />
     </div>
   );
 }
