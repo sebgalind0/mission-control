@@ -9,10 +9,12 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function getPrisma() {
-  const connectionString = process.env.DATABASE_URL;
+  // Use a dummy URL during build phase (Next.js static analysis)
+  // Real DATABASE_URL will be used at runtime
+  const connectionString = process.env.DATABASE_URL || 'postgresql://dummy:dummy@localhost:5432/dummy';
 
-  if (!connectionString) {
-    throw new Error('DATABASE_URL environment variable is not set');
+  if (!process.env.DATABASE_URL && process.env.NODE_ENV === 'production') {
+    console.warn('DATABASE_URL not set - using dummy for build phase');
   }
 
   if (!globalForPrisma.prisma) {
