@@ -97,8 +97,11 @@ export default function Projects() {
         })}
         
         {/* Empty State */}
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6 flex items-center justify-center">
-          <p className="text-sm text-zinc-500">No other active projects</p>
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6 flex items-center justify-center min-h-[200px]">
+          <div className="text-center">
+            <p className="text-sm text-zinc-400 mb-1">The fleet's laser-focused on Mission Control.</p>
+            <p className="text-xs text-zinc-600">Start another project when you're ready to scale.</p>
+          </div>
         </div>
       </div>
     </div>

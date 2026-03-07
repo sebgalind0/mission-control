@@ -232,8 +232,11 @@ export default function DocsLibrary() {
               </div>
             </>
           ) : (
-            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
-              Select a file to view its content
+            <div className="flex items-center justify-center h-full text-center px-8">
+              <div>
+                <p className="text-sm text-zinc-400 mb-1">Pick a file from the left to dive in.</p>
+                <p className="text-xs text-zinc-600">Workspace docs, configs, and markdown memories live here.</p>
+              </div>
             </div>
           )}
         </div>
