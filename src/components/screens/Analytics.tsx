@@ -17,12 +17,13 @@ const totalTasks = agents.reduce((s, a) => s + a.tasks, 0);
 interface ModelUsage {
   agent: string;
   model: string;
-  tokens: number;
+  tokensUsed: number;
   cost: number;
 }
 
 interface EmbeddingUsage {
-  provider: string;
+  service: string;
+  requests: number;
   tokens: number;
   cost: number;
 }
@@ -44,13 +45,13 @@ export default function Analytics() {
     // Fetch model usage
     fetch('/api/analytics/models')
       .then(res => res.json())
-      .then(data => setModelUsage(data))
+      .then(data => setModelUsage(data.modelUsage || []))
       .catch(err => console.error('Failed to fetch model usage:', err));
 
     // Fetch embeddings
     fetch('/api/analytics/embeddings')
       .then(res => res.json())
-      .then(data => setEmbeddings(data))
+      .then(data => setEmbeddings(data.embeddingsUsage || []))
       .catch(err => console.error('Failed to fetch embeddings:', err))
       .finally(() => setLoading(false));
   }, []);
@@ -67,7 +68,13 @@ export default function Analytics() {
       try {
         const res = await fetch(`/api/analytics/agents/${agentId}`);
         const data = await res.json();
-        setAgentDetails(prev => ({ ...prev, [agentId]: data }));
+        // Map API response to component's expected structure
+        const mappedDetails: AgentDetail = {
+          completionRate: data.performance?.completionRate || 0,
+          avgTaskTime: data.performance?.avgTaskTimeHours ? `${data.performance.avgTaskTimeHours}h` : '0h',
+          cost: data.performance?.cost || 0,
+        };
+        setAgentDetails(prev => ({ ...prev, [agentId]: mappedDetails }));
       } catch (err) {
         console.error(`Failed to fetch details for agent ${agentId}:`, err);
       }
@@ -139,7 +146,7 @@ export default function Analytics() {
                     <tr key={idx} className="hover:bg-[#1f1f23] transition-colors">
                       <td className="px-6 py-4 text-sm text-white">{item.agent}</td>
                       <td className="px-6 py-4 text-sm text-zinc-400 font-mono">{item.model}</td>
-                      <td className="px-6 py-4 text-sm text-zinc-300 text-right font-mono">{item.tokens.toLocaleString()}</td>
+                      <td className="px-6 py-4 text-sm text-zinc-300 text-right font-mono">{item.tokensUsed.toLocaleString()}</td>
                       <td className="px-6 py-4 text-sm text-zinc-300 text-right font-mono">${item.cost.toFixed(4)}</td>
                     </tr>
                   ))}
@@ -171,7 +178,7 @@ export default function Analytics() {
           ) : (
             embeddings.map((emb, idx) => (
               <div key={idx} className="bg-[#18181b] border border-[#27272a] rounded-xl p-6 hover:bg-[#1f1f23] hover:border-[#3f3f46] transition-all">
-                <p className="text-xs text-zinc-500 font-medium mb-3">{emb.provider}</p>
+                <p className="text-xs text-zinc-500 font-medium mb-3">{emb.service}</p>
                 <div className="space-y-2">
                   <div className="flex justify-between items-baseline">
                     <span className="text-sm text-zinc-400">Tokens</span>
