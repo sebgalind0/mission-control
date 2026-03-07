@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Send, Loader2, Activity, Clock, AlertCircle } from 'lucide-react';
+import { Send, Loader2, Activity, Clock, AlertCircle, TrendingUp, Users, Zap } from 'lucide-react';
 
 interface CommandCenterProps {
   onAgentClick?: (name: string, emoji: string) => void;
@@ -32,6 +32,14 @@ interface CommandResponse {
   timestamp: string;
 }
 
+interface ActivityStats {
+  totalEvents: number;
+  eventsLastHour: number;
+  eventsLast24h: number;
+  activeAgents: number;
+  activeWork: number;
+}
+
 // Format relative time
 const formatRelativeTime = (timestamp: string) => {
   const now = new Date();
@@ -50,19 +58,26 @@ const formatRelativeTime = (timestamp: string) => {
 export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
   const [activities, setActivities] = useState<ActivityEvent[]>([]);
   const [activeWork, setActiveWork] = useState<ActiveWorkItem[]>([]);
+  const [stats, setStats] = useState<ActivityStats>({
+    totalEvents: 0,
+    eventsLastHour: 0,
+    eventsLast24h: 0,
+    activeAgents: 0,
+    activeWork: 0,
+  });
   const [commandInput, setCommandInput] = useState('');
   const [commandResponse, setCommandResponse] = useState<CommandResponse | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const activityEndRef = useRef<HTMLDivElement>(null);
 
-  // Fetch activity stream
+  // Fetch activity feed from new endpoint
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const res = await fetch('/api/activity/stream');
+        const res = await fetch('/api/activity/feed?limit=50');
         if (res.ok) {
           const data = await res.json();
-          setActivities(data);
+          setActivities(data.events || []);
         }
       } catch (error) {
         console.error('Failed to fetch activities:', error);
@@ -70,7 +85,26 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
     };
 
     fetchActivities();
-    const interval = setInterval(fetchActivities, 3000); // Poll every 3s
+    const interval = setInterval(fetchActivities, 5000); // Poll every 5s
+    return () => clearInterval(interval);
+  }, []);
+
+  // Fetch activity stats
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch('/api/activity/stats');
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch stats:', error);
+      }
+    };
+
+    fetchStats();
+    const interval = setInterval(fetchStats, 5000); // Poll every 5s
     return () => clearInterval(interval);
   }, []);
 
@@ -136,8 +170,63 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
         <p className="text-sm text-zinc-500 mt-1">Real-time fleet activity and command execution</p>
       </div>
 
+      {/* Stats Cards */}
+      <div className="grid grid-cols-4 gap-4">
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] transition-colors">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-lg bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
+              <Activity size={20} className="text-blue-400" />
+            </div>
+            <div>
+              <p className="text-xs text-zinc-500 uppercase tracking-wider">Total Events</p>
+              <p className="text-2xl font-semibold text-white">{stats.totalEvents}</p>
+            </div>
+          </div>
+          <p className="text-xs text-zinc-600">All-time activity</p>
+        </div>
+
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] transition-colors">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-lg bg-green-600/10 border border-green-500/20 flex items-center justify-center">
+              <TrendingUp size={20} className="text-green-400" />
+            </div>
+            <div>
+              <p className="text-xs text-zinc-500 uppercase tracking-wider">Last Hour</p>
+              <p className="text-2xl font-semibold text-white">{stats.eventsLastHour}</p>
+            </div>
+          </div>
+          <p className="text-xs text-zinc-600">Recent activity</p>
+        </div>
+
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] transition-colors">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-lg bg-purple-600/10 border border-purple-500/20 flex items-center justify-center">
+              <Users size={20} className="text-purple-400" />
+            </div>
+            <div>
+              <p className="text-xs text-zinc-500 uppercase tracking-wider">Active Agents</p>
+              <p className="text-2xl font-semibold text-white">{stats.activeAgents}</p>
+            </div>
+          </div>
+          <p className="text-xs text-zinc-600">Currently working</p>
+        </div>
+
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] transition-colors">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-lg bg-orange-600/10 border border-orange-500/20 flex items-center justify-center">
+              <Zap size={20} className="text-orange-400" />
+            </div>
+            <div>
+              <p className="text-xs text-zinc-500 uppercase tracking-wider">Active Work</p>
+              <p className="text-2xl font-semibold text-white">{stats.activeWork}</p>
+            </div>
+          </div>
+          <p className="text-xs text-zinc-600">Tasks in progress</p>
+        </div>
+      </div>
+
       {/* Layout: Activity Feed (60%) + Command Bar + Active Work (30%) */}
-      <div className="grid grid-rows-[60fr_auto_30fr] gap-4" style={{ height: 'calc(100vh - 280px)' }}>
+      <div className="grid grid-rows-[60fr_auto_30fr] gap-4" style={{ height: 'calc(100vh - 420px)' }}>
         
         {/* 1. ACTIVITY FEED (Top 60%) */}
         <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col">
