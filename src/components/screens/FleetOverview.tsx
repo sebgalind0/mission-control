@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Network, Grid3x3, List } from 'lucide-react';
+import { Network } from 'lucide-react';
 import OrgChartModal from '../OrgChartModal';
 import FleetActionButtons from '../FleetActionButtons';
-import PixelOffice from '../PixelOffice';
 
 interface FleetOverviewProps {
   onAgentClick?: (name: string, emoji: string) => void;
@@ -39,7 +38,6 @@ const agents = [
 
 export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
   const [isOrgChartOpen, setIsOrgChartOpen] = useState(false);
-  const [view, setView] = useState<'list' | 'office'>('office');
   const onlineCount = agents.filter(a => a.status === 'online').length;
   const totalCrons = agents.reduce((sum, a) => sum + a.crons, 0);
   const totalSkills = agents.reduce((sum, a) => sum + a.skills.length, 0);
@@ -56,39 +54,13 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
           <h1 className="text-2xl font-semibold tracking-tight text-white">Fleet Overview</h1>
           <p className="text-sm text-zinc-500 mt-1">18 agents across 5 departments</p>
         </div>
-        <div className="flex gap-2">
-          <div className="flex gap-1 bg-[#18181b] border border-[#27272a] rounded-lg p-1">
-            <button
-              onClick={() => setView('office')}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded text-sm transition-all ${
-                view === 'office'
-                  ? 'bg-[#3b82f6] text-white'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <Grid3x3 size={14} />
-              Office
-            </button>
-            <button
-              onClick={() => setView('list')}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded text-sm transition-all ${
-                view === 'list'
-                  ? 'bg-[#3b82f6] text-white'
-                  : 'text-zinc-400 hover:text-white'
-              }`}
-            >
-              <List size={14} />
-              List
-            </button>
-          </div>
-          <button
-            onClick={() => setIsOrgChartOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#18181b] border border-[#27272a] rounded-lg text-sm text-white hover:border-[#3f3f46] hover:bg-[#1f1f23] transition-all"
-          >
-            <Network size={16} />
-            Org Chart
-          </button>
-        </div>
+        <button
+          onClick={() => setIsOrgChartOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 bg-[#18181b] border border-[#27272a] rounded-lg text-sm text-white hover:border-[#3f3f46] hover:bg-[#1f1f23] transition-all"
+        >
+          <Network size={16} />
+          View Org Chart
+        </button>
       </div>
 
       {/* Stats */}
@@ -108,17 +80,10 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
       </div>
 
       {/* Action Buttons */}
-      {view === 'list' && <FleetActionButtons />}
+      <FleetActionButtons />
 
-      {/* Pixel Office View */}
-      {view === 'office' && (
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden">
-          <PixelOffice />
-        </div>
-      )}
-
-      {/* Agents by Department (List View) */}
-      {view === 'list' && depts.map((dept) => {
+      {/* Agents by Department */}
+      {depts.map((dept) => {
         const deptAgents = agents.filter(a => a.dept === dept);
         return (
           <div key={dept}>
