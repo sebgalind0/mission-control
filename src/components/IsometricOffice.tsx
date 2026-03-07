@@ -268,6 +268,37 @@ export default function IsometricOffice({ onAgentClick }: IsometricOfficeProps) 
   const [hoveredAgent, setHoveredAgent] = useState<Agent | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isOrgChartOpen, setIsOrgChartOpen] = useState(false);
+  
+  // Camera controls state
+  const [cameraOffset, setCameraOffset] = useState({ x: 0, y: 0 });
+  const [cameraZoom, setCameraZoom] = useState(1);
+  const isDraggingRef = useRef(false);
+  const dragStartRef = useRef({ x: 0, y: 0 });
+
+  // Reset camera to default position
+  const resetCamera = () => {
+    if (!appRef.current) return;
+    
+    gsap.to(appRef.current.stage, {
+      x: 0,
+      y: 0,
+      duration: 0.3,
+      ease: 'power2.out',
+      onUpdate: () => {
+        setCameraOffset({ x: appRef.current!.stage.x, y: appRef.current!.stage.y });
+      }
+    });
+    
+    gsap.to(appRef.current.stage.scale, {
+      x: 1,
+      y: 1,
+      duration: 0.3,
+      ease: 'power2.out',
+      onUpdate: () => {
+        setCameraZoom(appRef.current!.stage.scale.x);
+      }
+    });
+  };
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -413,6 +444,46 @@ export default function IsometricOffice({ onAgentClick }: IsometricOfficeProps) 
     };
   }, []);
 
+  // Pan handler (click + drag)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDraggingRef.current = true;
+    dragStartRef.current = { x: e.clientX - cameraOffset.x, y: e.clientY - cameraOffset.y };
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current || !appRef.current) return;
+    
+    const newX = e.clientX - dragStartRef.current.x;
+    const newY = e.clientY - dragStartRef.current.y;
+    
+    appRef.current.stage.x = newX;
+    appRef.current.stage.y = newY;
+    setCameraOffset({ x: newX, y: newY });
+  };
+
+  const handleMouseUp = () => {
+    isDraggingRef.current = false;
+  };
+
+  // Zoom handler (scroll wheel)
+  const handleWheel = (e: React.WheelEvent) => {
+    if (!appRef.current) return;
+    e.preventDefault();
+    
+    const delta = -e.deltaY * 0.001;
+    const newZoom = Math.min(Math.max(cameraZoom + delta, 0.5), 2.0);
+    
+    gsap.to(appRef.current.stage.scale, {
+      x: newZoom,
+      y: newZoom,
+      duration: 0.3,
+      ease: 'power2.out',
+      onUpdate: () => {
+        setCameraZoom(appRef.current!.stage.scale.x);
+      }
+    });
+  };
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -427,10 +498,23 @@ export default function IsometricOffice({ onAgentClick }: IsometricOfficeProps) 
 
       {/* Canvas Container */}
       <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 relative overflow-hidden">
+        {/* Reset View Button */}
+        <button
+          onClick={resetCamera}
+          className="absolute top-8 right-8 z-10 px-4 py-2 bg-[#27272a] hover:bg-[#3f3f46] border border-[#3f3f46] rounded-lg text-sm text-white transition-colors"
+        >
+          Reset View
+        </button>
+        
         <div 
           ref={canvasRef}
-          className="relative"
+          className="relative cursor-grab active:cursor-grabbing"
           style={{ width: '1600px', height: '1000px', margin: '0 auto' }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onWheel={handleWheel}
         />
 
         {/* Tooltip */}

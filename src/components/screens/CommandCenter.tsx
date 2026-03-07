@@ -1,102 +1,299 @@
 'use client';
 
-import { useState } from 'react';
-import { Send } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Send, Loader2, Activity, Clock, AlertCircle } from 'lucide-react';
 
 interface CommandCenterProps {
   onAgentClick?: (name: string, emoji: string) => void;
 }
 
-const agents = [
-  { id: 'main', name: 'Rick Sanchez', color: '#3b82f6', initial: 'R' },
-  { id: 'popeye', name: 'Cleopatra', color: '#22c55e', initial: 'C' },
-  { id: 'nico', name: 'El Father', color: '#f59e0b', initial: 'E' },
-  { id: 'together', name: 'Dr. Ashley', color: '#a855f7', initial: 'A' },
-  { id: 'tesla', name: 'Tesla', color: '#06b6d4', initial: 'T' },
-];
+interface ActivityEvent {
+  id: string;
+  agent: string;
+  action: string;
+  metadata?: Record<string, any>;
+  timestamp: string;
+}
 
-const initialMessages = [
-  { id: 1, sender: 'user', text: 'Check my email inbox for anything urgent', timestamp: '8:15 AM' },
-  { id: 2, sender: 'Rick Sanchez', agentId: 'main', text: 'Found 3 unread emails. One from Yitzhak (Fethr) about dev environment setup — marked as important. Two newsletters archived.', timestamp: '8:15 AM' },
-  { id: 3, sender: 'user', text: 'What\'s the team status today?', timestamp: '9:30 AM' },
-  { id: 4, sender: 'Rick Sanchez', agentId: 'main', text: 'All 5 agents online. 19 cron jobs active. Cleopatra ran morning health check. Tesla completed 2 tutoring sessions. El Father submitted a research summary. Dr. Ashley is idle — no sessions scheduled today.', timestamp: '9:30 AM' },
-  { id: 5, sender: 'user', text: 'Have Cleopatra pull my WHOOP data', timestamp: '10:00 AM' },
-  { id: 6, sender: 'Cleopatra', agentId: 'popeye', text: 'WHOOP data pulled. Recovery: 82% (green). HRV: 68ms. Sleep performance: 91%. Strain yesterday: 14.2. You\'re cleared for a hard workout today.', timestamp: '10:01 AM' },
-  { id: 7, sender: 'user', text: 'Tesla, how\'s Nico doing with the robotics project?', timestamp: '11:15 AM' },
-  { id: 8, sender: 'Tesla', agentId: 'tesla', text: 'Nico completed the servo calibration module yesterday. Currently working on inverse kinematics basics. He\'s 68% through the curriculum. Ahead of schedule by 2 days.', timestamp: '11:15 AM' },
-];
+interface ActiveWorkItem {
+  id: string;
+  agent: string;
+  task: string;
+  status: 'running' | 'blocked' | 'paused';
+  progress?: number;
+  startedAt: string;
+  metadata?: Record<string, any>;
+}
+
+interface CommandResponse {
+  status: string;
+  targetAgents: string[];
+  response: string;
+  timestamp: string;
+}
+
+// Format relative time
+const formatRelativeTime = (timestamp: string) => {
+  const now = new Date();
+  const then = new Date(timestamp);
+  const diffMs = now.getTime() - then.getTime();
+  const diffSec = Math.floor(diffMs / 1000);
+  const diffMin = Math.floor(diffSec / 60);
+  const diffHr = Math.floor(diffMin / 60);
+  
+  if (diffSec < 60) return `${diffSec}s ago`;
+  if (diffMin < 60) return `${diffMin}m ago`;
+  if (diffHr < 24) return `${diffHr}h ago`;
+  return new Date(timestamp).toLocaleDateString();
+};
 
 export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
-  const [messages] = useState(initialMessages);
-  const [input, setInput] = useState('');
+  const [activities, setActivities] = useState<ActivityEvent[]>([]);
+  const [activeWork, setActiveWork] = useState<ActiveWorkItem[]>([]);
+  const [commandInput, setCommandInput] = useState('');
+  const [commandResponse, setCommandResponse] = useState<CommandResponse | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const activityEndRef = useRef<HTMLDivElement>(null);
 
-  const getAgent = (agentId: string) => agents.find(a => a.id === agentId);
+  // Fetch activity stream
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const res = await fetch('/api/activity/stream');
+        if (res.ok) {
+          const data = await res.json();
+          setActivities(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch activities:', error);
+      }
+    };
+
+    fetchActivities();
+    const interval = setInterval(fetchActivities, 3000); // Poll every 3s
+    return () => clearInterval(interval);
+  }, []);
+
+  // Fetch active work
+  useEffect(() => {
+    const fetchActiveWork = async () => {
+      try {
+        const res = await fetch('/api/work/active');
+        if (res.ok) {
+          const data = await res.json();
+          setActiveWork(data.tasks || []);
+        }
+      } catch (error) {
+        console.error('Failed to fetch active work:', error);
+      }
+    };
+
+    fetchActiveWork();
+    const interval = setInterval(fetchActiveWork, 5000); // Poll every 5s
+    return () => clearInterval(interval);
+  }, []);
+
+  // Auto-scroll activity feed to bottom
+  useEffect(() => {
+    activityEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [activities]);
+
+  // Submit command
+  const handleCommandSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!commandInput.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setCommandResponse(null);
+
+    try {
+      const res = await fetch('/api/command/execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: commandInput }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setCommandResponse(data);
+        setCommandInput('');
+      }
+    } catch (error) {
+      console.error('Command execution failed:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Breadcrumb */}
       <div>
         <p className="text-[11px] font-medium uppercase tracking-widest text-zinc-500 mb-2">
           Mission Control › Command Center
         </p>
         <h1 className="text-2xl font-semibold tracking-tight text-white">Command Center</h1>
-        <p className="text-sm text-zinc-500 mt-1">Communicate with your agent fleet</p>
+        <p className="text-sm text-zinc-500 mt-1">Real-time fleet activity and command execution</p>
       </div>
 
-      {/* Chat Interface */}
-      <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: 'calc(100vh - 280px)' }}>
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          {messages.map((msg) => {
-            if (msg.sender === 'user') {
-              return (
-                <div key={msg.id} className="flex justify-end">
-                  <div className="max-w-[70%]">
-                    <div className="bg-blue-600/10 border border-blue-500/20 rounded-xl px-4 py-3">
-                      <p className="text-sm text-zinc-200">{msg.text}</p>
-                    </div>
-                    <p className="text-[11px] text-zinc-600 mt-1 text-right">{msg.timestamp}</p>
-                  </div>
-                </div>
-              );
-            }
-
-            const agent = getAgent(msg.agentId || 'main');
-            return (
-              <div key={msg.id} className="flex gap-3">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 cursor-pointer"
-                  style={{ backgroundColor: agent?.color || '#6b7280' }}
-                  onClick={() => onAgentClick?.(msg.sender, agent?.initial || '?')}
-                >
-                  <span className="text-white text-xs font-semibold">{agent?.initial || '?'}</span>
-                </div>
-                <div className="max-w-[70%]">
-                  <p className="text-[11px] text-zinc-500 mb-1 font-medium">{msg.sender}</p>
-                  <div className="bg-[#111113] border border-[#27272a] rounded-xl px-4 py-3">
-                    <p className="text-sm text-zinc-300">{msg.text}</p>
-                  </div>
-                  <p className="text-[11px] text-zinc-600 mt-1">{msg.timestamp}</p>
-                </div>
+      {/* Layout: Activity Feed (60%) + Command Bar + Active Work (30%) */}
+      <div className="grid grid-rows-[60fr_auto_30fr] gap-4" style={{ height: 'calc(100vh - 280px)' }}>
+        
+        {/* 1. ACTIVITY FEED (Top 60%) */}
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col">
+          <div className="px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
+            <Activity size={16} className="text-zinc-400" />
+            <h2 className="text-sm font-semibold text-white">Activity Feed</h2>
+            <span className="ml-auto text-xs text-zinc-500">{activities.length} events</span>
+          </div>
+          <div className="flex-1 overflow-y-auto p-4 space-y-2">
+            {activities.length === 0 ? (
+              <div className="flex items-center justify-center h-full text-zinc-600 text-sm">
+                No activity yet
               </div>
-            );
-          })}
+            ) : (
+              <>
+                {activities.map((activity) => (
+                  <div
+                    key={activity.id}
+                    className="flex items-start gap-3 p-3 bg-[#111113] border border-[#27272a] rounded-lg hover:border-[#3f3f46] transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
+                      <span className="text-xs font-semibold text-blue-400">
+                        {activity.agent.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-sm font-medium text-white">{activity.agent}</span>
+                        <span className="text-xs text-zinc-500">·</span>
+                        <span className="text-xs text-zinc-500">{formatRelativeTime(activity.timestamp)}</span>
+                      </div>
+                      <p className="text-sm text-zinc-400 mt-0.5">{activity.action}</p>
+                      {activity.metadata && Object.keys(activity.metadata).length > 0 && (
+                        <pre className="text-xs text-zinc-600 mt-1 font-mono">
+                          {JSON.stringify(activity.metadata, null, 2)}
+                        </pre>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                <div ref={activityEndRef} />
+              </>
+            )}
+          </div>
         </div>
 
-        {/* Input Bar */}
-        <div className="border-t border-[#27272a] p-4">
-          <div className="flex items-center gap-3">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Send a command to your fleet..."
-              className="flex-1 bg-[#111113] border border-[#27272a] rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 transition-colors"
-            />
-            <button className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors flex items-center gap-2 text-sm font-medium">
-              <Send size={14} />
-              Send
-            </button>
+        {/* 2. COMMAND BAR (Middle) */}
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4">
+          <form onSubmit={handleCommandSubmit} className="space-y-3">
+            <div className="flex items-center gap-3">
+              <input
+                type="text"
+                value={commandInput}
+                onChange={(e) => setCommandInput(e.target.value)}
+                placeholder="What do you need?"
+                disabled={isSubmitting}
+                className="flex-1 bg-[#111113] border border-[#27272a] rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 transition-colors disabled:opacity-50"
+              />
+              <button
+                type="submit"
+                disabled={isSubmitting || !commandInput.trim()}
+                className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors flex items-center gap-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 size={14} className="animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <Send size={14} />
+                    Execute
+                  </>
+                )}
+              </button>
+            </div>
+            
+            {/* Inline Response */}
+            {commandResponse && (
+              <div className="bg-[#111113] border border-green-500/20 rounded-lg p-3">
+                <div className="flex items-start gap-2">
+                  <div className="w-5 h-5 rounded bg-green-600/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-xs text-green-400">✓</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm text-green-400 font-medium mb-1">Command received</p>
+                    <p className="text-sm text-zinc-400">{commandResponse.response}</p>
+                    <p className="text-xs text-zinc-600 mt-1">
+                      Routed to: {commandResponse.targetAgents.join(', ')}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </form>
+        </div>
+
+        {/* 3. ACTIVE WORK (Bottom 30%) */}
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col">
+          <div className="px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
+            <Clock size={16} className="text-zinc-400" />
+            <h2 className="text-sm font-semibold text-white">Active Work</h2>
+            <span className="ml-auto text-xs text-zinc-500">{activeWork.length} tasks</span>
+          </div>
+          <div className="flex-1 overflow-y-auto p-4">
+            {activeWork.length === 0 ? (
+              <div className="flex items-center justify-center h-full text-zinc-600 text-sm">
+                No active work
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                {activeWork.map((work) => (
+                  <div
+                    key={work.id}
+                    className="bg-[#111113] border border-[#27272a] rounded-lg p-4 hover:border-[#3f3f46] transition-colors"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded bg-purple-600/10 border border-purple-500/20 flex items-center justify-center">
+                          <span className="text-xs font-semibold text-purple-400">
+                            {work.agent.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        <span className="text-xs font-medium text-white">{work.agent}</span>
+                      </div>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                        work.status === 'running' 
+                          ? 'bg-green-600/10 text-green-400' 
+                          : work.status === 'blocked'
+                          ? 'bg-red-600/10 text-red-400'
+                          : 'bg-yellow-600/10 text-yellow-400'
+                      }`}>
+                        {work.status}
+                      </span>
+                    </div>
+                    <p className="text-sm text-zinc-300 mb-2">{work.task}</p>
+                    
+                    {/* Progress bar */}
+                    {typeof work.progress === 'number' && (
+                      <div className="mt-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs text-zinc-500">Progress</span>
+                          <span className="text-xs text-zinc-400">{work.progress}%</span>
+                        </div>
+                        <div className="h-1.5 bg-[#27272a] rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-blue-600 rounded-full transition-all duration-300"
+                            style={{ width: `${work.progress}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
