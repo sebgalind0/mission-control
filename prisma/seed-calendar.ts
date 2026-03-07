@@ -1,4 +1,4 @@
-import { PrismaClient, TaskStatus, TaskPriority, CalendarEventType } from '@prisma/client';
+import { PrismaClient, Status, Priority, CalendarEventType } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -19,30 +19,30 @@ async function main() {
       data: {
         title: 'Implement user authentication',
         description: 'Add JWT-based auth with refresh tokens',
-        status: TaskStatus.IN_PROGRESS,
-        priority: TaskPriority.HIGH,
+        status: Status.IN_PROGRESS,
+        priority: Priority.HIGH,
         assignee: 'bolt@jexhq.com',
-        dueDate: new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000), // 2 days from now
+        deadline: new Date(today.getTime() + 2 * 24 * 60 * 60 * 1000), // 2 days from now
       },
     }),
     prisma.task.create({
       data: {
         title: 'Optimize database queries',
         description: 'Add indexes and reduce N+1 queries',
-        status: TaskStatus.IN_PROGRESS,
-        priority: TaskPriority.MEDIUM,
+        status: Status.IN_PROGRESS,
+        priority: Priority.MEDIUM,
         assignee: 'bolt@jexhq.com',
-        dueDate: new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000),
+        deadline: new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000),
       },
     }),
     prisma.task.create({
       data: {
         title: 'Build calendar seeding script',
         description: 'Populate calendar with real events from tasks',
-        status: TaskStatus.IN_PROGRESS,
-        priority: TaskPriority.URGENT,
+        status: Status.IN_PROGRESS,
+        priority: Priority.HIGH,
         assignee: 'bolt@jexhq.com',
-        dueDate: today, // Today
+        deadline: today, // Today
       },
     }),
 
@@ -51,20 +51,20 @@ async function main() {
       data: {
         title: 'API documentation review',
         description: 'Review and update OpenAPI specs',
-        status: TaskStatus.REVIEW,
-        priority: TaskPriority.MEDIUM,
+        status: Status.REVIEW,
+        priority: Priority.MEDIUM,
         assignee: 'fuse@jexhq.com',
-        dueDate: new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000),
+        deadline: new Date(today.getTime() + 1 * 24 * 60 * 60 * 1000),
       },
     }),
     prisma.task.create({
       data: {
         title: 'Security audit findings',
         description: 'Review and address security scan results',
-        status: TaskStatus.REVIEW,
-        priority: TaskPriority.HIGH,
+        status: Status.REVIEW,
+        priority: Priority.HIGH,
         assignee: 'rick@jexhq.com',
-        dueDate: today,
+        deadline: today,
       },
     }),
 
@@ -73,30 +73,30 @@ async function main() {
       data: {
         title: 'Setup Prisma schema',
         description: 'Configure database models and migrations',
-        status: TaskStatus.DONE,
-        priority: TaskPriority.HIGH,
+        status: Status.DONE,
+        priority: Priority.HIGH,
         assignee: 'bolt@jexhq.com',
-        dueDate: new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000), // Yesterday
+        deadline: new Date(today.getTime() - 1 * 24 * 60 * 60 * 1000), // Yesterday
       },
     }),
     prisma.task.create({
       data: {
         title: 'Deploy staging environment',
         description: 'Configure CI/CD pipeline for staging',
-        status: TaskStatus.DONE,
-        priority: TaskPriority.MEDIUM,
+        status: Status.DONE,
+        priority: Priority.MEDIUM,
         assignee: 'fuse@jexhq.com',
-        dueDate: new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000),
+        deadline: new Date(today.getTime() - 2 * 24 * 60 * 60 * 1000),
       },
     }),
     prisma.task.create({
       data: {
         title: 'Setup monitoring',
         description: 'Configure error tracking and performance monitoring',
-        status: TaskStatus.DONE,
-        priority: TaskPriority.MEDIUM,
+        status: Status.DONE,
+        priority: Priority.MEDIUM,
         assignee: 'bolt@jexhq.com',
-        dueDate: new Date(today.getTime() - 3 * 24 * 60 * 60 * 1000),
+        deadline: new Date(today.getTime() - 3 * 24 * 60 * 60 * 1000),
       },
     }),
 
@@ -105,20 +105,20 @@ async function main() {
       data: {
         title: 'Design new dashboard layout',
         description: 'Create mockups for analytics dashboard',
-        status: TaskStatus.TODO,
-        priority: TaskPriority.LOW,
+        status: Status.BACKLOG,
+        priority: Priority.LOW,
         assignee: 'phoenix@jexhq.com',
-        dueDate: new Date(today.getTime() + 5 * 24 * 60 * 60 * 1000),
+        deadline: new Date(today.getTime() + 5 * 24 * 60 * 60 * 1000),
       },
     }),
     prisma.task.create({
       data: {
         title: 'Implement rate limiting',
         description: 'Add Redis-based rate limiting to API',
-        status: TaskStatus.TODO,
-        priority: TaskPriority.MEDIUM,
+        status: Status.BACKLOG,
+        priority: Priority.MEDIUM,
         assignee: 'bolt@jexhq.com',
-        dueDate: new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000),
+        deadline: new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000),
       },
     }),
   ]);
@@ -129,31 +129,31 @@ async function main() {
   const taskEvents = [];
 
   for (const task of tasks) {
-    if (!task.dueDate) continue;
+    if (!task.deadline) continue;
 
     let eventTitle = '';
-    let eventType = CalendarEventType.TASK_EVENT;
-    let startTime = task.dueDate;
-    let endTime = new Date(task.dueDate.getTime() + 60 * 60 * 1000); // 1 hour duration
+    let eventType: CalendarEventType = CalendarEventType.TASK_EVENT;
+    let startTime = task.deadline;
+    let endTime = new Date(task.deadline.getTime() + 60 * 60 * 1000); // 1 hour duration
 
     switch (task.status) {
-      case TaskStatus.IN_PROGRESS:
+      case Status.IN_PROGRESS:
         eventTitle = `🚀 ${task.title}`;
         // Schedule during work hours (10 AM - 5 PM)
-        startTime = new Date(task.dueDate);
+        startTime = new Date(task.deadline);
         startTime.setHours(10 + Math.floor(Math.random() * 7), 0, 0, 0);
         endTime = new Date(startTime.getTime() + 2 * 60 * 60 * 1000); // 2 hours
         break;
       
-      case TaskStatus.REVIEW:
+      case Status.REVIEW:
         eventTitle = `🔍 Review: ${task.title}`;
         eventType = CalendarEventType.MEETING;
-        startTime = new Date(task.dueDate);
+        startTime = new Date(task.deadline);
         startTime.setHours(14, 0, 0, 0); // 2 PM review meetings
         endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // 1 hour
         break;
       
-      case TaskStatus.DONE:
+      case Status.DONE:
         eventTitle = `✅ Completed: ${task.title}`;
         // Keep original due date
         break;
