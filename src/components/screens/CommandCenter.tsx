@@ -508,7 +508,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
               type="text"
               value={commandInput}
               onChange={(e) => setCommandInput(e.target.value)}
-              placeholder="What do you need?"
+              placeholder="Try: 'Neo, add hover effects' or 'Deploy to staging'"
               disabled={isSubmitting}
               className="flex-1 bg-[#111113] border border-[#27272a] rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 transition-colors disabled:opacity-50"
             />
