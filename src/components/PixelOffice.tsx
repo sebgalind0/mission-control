@@ -164,6 +164,80 @@ function gridToIso(gridX: number, gridY: number) {
   };
 }
 
+// Desk positions within each zone (relative to zone origin)
+const deskPositions = {
+  exec: [
+    { x: 1.5, y: 1.5 }, // Rick's executive desk
+  ],
+  engineering: [
+    { x: 1.2, y: 1.2 }, // Desk 1
+    { x: 3.2, y: 1.2 }, // Desk 2
+    { x: 1.2, y: 2.8 }, // Desk 3
+    { x: 3.2, y: 2.8 }, // Desk 4
+    { x: 2.2, y: 2.0 }, // Desk 5 (center)
+  ],
+  design: [
+    { x: 1.0, y: 1.5 }, // Desk 1
+    { x: 2.5, y: 1.5 }, // Desk 2
+  ],
+  cafe: [
+    { x: 0.8, y: 1.0 }, // Casual spot 1
+    { x: 1.5, y: 0.8 }, // Casual spot 2
+    { x: 2.2, y: 1.2 }, // Casual spot 3
+    { x: 1.0, y: 2.0 }, // Casual spot 4
+    { x: 2.0, y: 2.2 }, // Casual spot 5
+  ],
+  conference: [
+    { x: 1.5, y: 1.5 }, // Seat 1
+    { x: 2.5, y: 1.5 }, // Seat 2
+    { x: 3.5, y: 1.5 }, // Seat 3
+    { x: 1.5, y: 2.5 }, // Seat 4
+    { x: 2.5, y: 2.5 }, // Seat 5
+    { x: 3.5, y: 2.5 }, // Seat 6
+  ],
+  'help-desk': [
+    { x: 1.5, y: 1.2 }, // Support station 1
+    { x: 1.5, y: 3.0 }, // Support station 2
+  ],
+  operations: [
+    { x: 1.2, y: 1.2 }, // Desk 1
+    { x: 1.8, y: 1.8 }, // Desk 2
+  ],
+};
+
+// Get agent position based on status
+function getAgentPosition(agent: Agent, agentIndex: number): { gridX: number; gridY: number } {
+  let targetZone = agent.zone;
+  
+  // Status-based positioning
+  if (agent.status === 'idle') {
+    targetZone = 'cafe'; // Idle agents go to cafe
+  } else if (agent.status === 'blocked') {
+    targetZone = 'help-desk'; // Blocked agents go to help desk
+  }
+  
+  const zone = zones[targetZone];
+  if (!zone) return { gridX: 0, gridY: 0 };
+  
+  const positions = deskPositions[targetZone];
+  if (!positions || positions.length === 0) {
+    // Fallback to center if no positions defined
+    return {
+      gridX: zone.gridX + zone.width / 2,
+      gridY: zone.gridY + zone.height / 2,
+    };
+  }
+  
+  // Assign desk position based on agent index within the zone
+  const posIndex = agentIndex % positions.length;
+  const pos = positions[posIndex];
+  
+  return {
+    gridX: zone.gridX + pos.x,
+    gridY: zone.gridY + pos.y,
+  };
+}
+
 export default function PixelOffice() {
   const canvasRef = useRef<HTMLDivElement>(null);
   const appRef = useRef<PIXI.Application | null>(null);
@@ -282,14 +356,35 @@ export default function PixelOffice() {
         });
       });
 
-      // Add agents
+      // Add agents with proper desk positioning
+      // Group agents by their target zone (accounting for status)
+      const agentsByTargetZone = new Map<string, Agent[]>();
+      agents.forEach((agent) => {
+        let targetZone = agent.zone;
+        if (agent.status === 'idle') targetZone = 'cafe';
+        if (agent.status === 'blocked') targetZone = 'help-desk';
+        
+        if (!agentsByTargetZone.has(targetZone)) {
+          agentsByTargetZone.set(targetZone, []);
+        }
+        agentsByTargetZone.get(targetZone)!.push(agent);
+      });
+
       agents.forEach((agent) => {
         const zone = zones[agent.zone];
         if (!zone) return;
 
-        // Calculate agent position within zone
-        const agentGridX = zone.gridX + zone.width / 2 + (Math.random() - 0.5) * 2;
-        const agentGridY = zone.gridY + zone.height / 2 + (Math.random() - 0.5) * 2;
+        // Determine target zone based on status
+        let targetZone = agent.zone;
+        if (agent.status === 'idle') targetZone = 'cafe';
+        if (agent.status === 'blocked') targetZone = 'help-desk';
+
+        // Get agent index within its target zone
+        const zoneAgents = agentsByTargetZone.get(targetZone) || [];
+        const agentIndexInZone = zoneAgents.indexOf(agent);
+
+        // Calculate agent position using new function
+        const { gridX: agentGridX, gridY: agentGridY } = getAgentPosition(agent, agentIndexInZone);
         const agentPos = gridToIso(agentGridX, agentGridY);
 
         // Create agent container
