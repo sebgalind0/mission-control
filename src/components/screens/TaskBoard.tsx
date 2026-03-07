@@ -453,7 +453,7 @@ function TaskCard({ task, agents, onApprove, onReject, onClick }: TaskCardProps)
           {task.tag}
         </span>
         <div className="flex items-center gap-2">
-          <span className="text-[11px] text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="text-[11px] text-zinc-500">
             {agent?.name}
           </span>
           <div
