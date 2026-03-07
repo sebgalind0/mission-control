@@ -49,6 +49,17 @@ const agents: Agent[] = [
   { id: 'tesla', name: 'Tesla', role: 'Robotics Tutor', dept: 'Contractors', status: 'working', zone: 'help-desk', initial: 'T', color: '#06b6d4' },
 ];
 
+// Zone colors for floor tinting
+const zoneColors: Record<string, number> = {
+  'exec': 0x3b82f6,      // Blue
+  'engineering': 0x3b82f6, // Blue
+  'design': 0x8b5cf6,     // Purple
+  'conference': 0xef4444,  // Red
+  'operations': 0x10b981,  // Green
+  'help-desk': 0xeab308,   // Yellow
+  'cafe': 0xf97316        // Warm orange
+};
+
 // Zone positions in isometric space (X, Y in pixels)
 const zonePositions: Record<string, { x: number; y: number; agents: Array<{ dx: number; dy: number }> }> = {
   'exec': { 
@@ -110,10 +121,167 @@ const zonePositions: Record<string, { x: number; y: number; agents: Array<{ dx: 
   }
 };
 
+// Isometric helpers
+function toIso(x: number, y: number): { x: number; y: number } {
+  return {
+    x: (x - y) * 24,
+    y: (x + y) * 12
+  };
+}
+
+// Draw isometric floor tile
+function createFloorTile(color1: number, color2: number, tint: number): PIXI.Graphics {
+  const tile = new PIXI.Graphics();
+  
+  // Diamond shape (isometric tile)
+  tile.moveTo(0, -12);
+  tile.lineTo(24, 0);
+  tile.lineTo(0, 12);
+  tile.lineTo(-24, 0);
+  tile.lineTo(0, -12);
+  tile.fill({ color: color1, alpha: 0.8 });
+  
+  // Zone tint overlay
+  tile.moveTo(0, -12);
+  tile.lineTo(24, 0);
+  tile.lineTo(0, 12);
+  tile.lineTo(-24, 0);
+  tile.lineTo(0, -12);
+  tile.fill({ color: tint, alpha: 0.15 });
+  
+  // Border
+  tile.moveTo(0, -12);
+  tile.lineTo(24, 0);
+  tile.lineTo(0, 12);
+  tile.lineTo(-24, 0);
+  tile.lineTo(0, -12);
+  tile.stroke({ color: 0x27272a, width: 1 });
+  
+  return tile;
+}
+
+// Create desk furniture
+function createDesk(): PIXI.Graphics {
+  const desk = new PIXI.Graphics();
+  
+  // Shadow (ellipse underneath)
+  desk.ellipse(0, 18, 20, 8);
+  desk.fill({ color: 0x000000, alpha: 0.2 });
+  
+  // Desk surface (isometric rectangle)
+  desk.moveTo(0, 0);
+  desk.lineTo(20, 10);
+  desk.lineTo(0, 20);
+  desk.lineTo(-20, 10);
+  desk.lineTo(0, 0);
+  desk.fill({ color: 0x52525b });
+  
+  // Desk front
+  desk.moveTo(0, 20);
+  desk.lineTo(20, 10);
+  desk.lineTo(20, 14);
+  desk.lineTo(0, 24);
+  desk.lineTo(0, 20);
+  desk.fill({ color: 0x3f3f46 });
+  
+  // Desk side
+  desk.moveTo(0, 20);
+  desk.lineTo(-20, 10);
+  desk.lineTo(-20, 14);
+  desk.lineTo(0, 24);
+  desk.lineTo(0, 20);
+  desk.fill({ color: 0x27272a });
+  
+  return desk;
+}
+
+// Create chair furniture
+function createChair(): PIXI.Graphics {
+  const chair = new PIXI.Graphics();
+  
+  // Shadow
+  chair.ellipse(0, 12, 8, 4);
+  chair.fill({ color: 0x000000, alpha: 0.15 });
+  
+  // Seat
+  chair.moveTo(0, -2);
+  chair.lineTo(8, 2);
+  chair.lineTo(0, 6);
+  chair.lineTo(-8, 2);
+  chair.lineTo(0, -2);
+  chair.fill({ color: 0x3f3f46 });
+  
+  // Backrest
+  chair.rect(-6, -8, 12, 8);
+  chair.fill({ color: 0x52525b });
+  
+  return chair;
+}
+
+// Create plant furniture
+function createPlant(): PIXI.Graphics {
+  const plant = new PIXI.Graphics();
+  
+  // Shadow
+  plant.ellipse(0, 14, 10, 4);
+  plant.fill({ color: 0x000000, alpha: 0.2 });
+  
+  // Pot (isometric cube)
+  plant.moveTo(0, 0);
+  plant.lineTo(8, 4);
+  plant.lineTo(0, 8);
+  plant.lineTo(-8, 4);
+  plant.lineTo(0, 0);
+  plant.fill({ color: 0x52525b });
+  
+  // Leaves (simple circles)
+  plant.circle(-3, -8, 5);
+  plant.fill({ color: 0x22c55e, alpha: 0.8 });
+  plant.circle(3, -6, 4);
+  plant.fill({ color: 0x16a34a, alpha: 0.8 });
+  plant.circle(0, -10, 6);
+  plant.fill({ color: 0x15803d, alpha: 0.8 });
+  
+  return plant;
+}
+
+// Create conference table
+function createTable(): PIXI.Graphics {
+  const table = new PIXI.Graphics();
+  
+  // Shadow
+  table.ellipse(0, 32, 35, 12);
+  table.fill({ color: 0x000000, alpha: 0.2 });
+  
+  // Table top (larger isometric rectangle)
+  table.moveTo(0, 0);
+  table.lineTo(40, 20);
+  table.lineTo(0, 40);
+  table.lineTo(-40, 20);
+  table.lineTo(0, 0);
+  table.fill({ color: 0x52525b });
+  
+  // Table front
+  table.moveTo(0, 40);
+  table.lineTo(40, 20);
+  table.lineTo(40, 24);
+  table.lineTo(0, 44);
+  table.lineTo(0, 40);
+  table.fill({ color: 0x3f3f46 });
+  
+  return table;
+}
+
 // Sprite creator functions
 function createWorkingSprite(color: string, initial: string): PIXI.Container {
   const container = new PIXI.Container();
   const colorValue = parseInt(color.replace('#', ''), 16);
+
+  // Shadow under agent
+  const shadow = new PIXI.Graphics();
+  shadow.ellipse(0, 28, 16, 6);
+  shadow.fill({ color: 0x000000, alpha: 0.3 });
+  container.addChild(shadow);
 
   // Desk (simple rectangle)
   const desk = new PIXI.Graphics();
@@ -164,6 +332,12 @@ function createIdleSprite(color: string, initial: string): PIXI.Container {
   const container = new PIXI.Container();
   const colorValue = parseInt(color.replace('#', ''), 16);
 
+  // Shadow under agent
+  const shadow = new PIXI.Graphics();
+  shadow.ellipse(0, 28, 12, 5);
+  shadow.fill({ color: 0x000000, alpha: 0.25 });
+  container.addChild(shadow);
+
   // Body (standing - taller rectangle)
   const body = new PIXI.Graphics();
   body.roundRect(-10, -5, 20, 30, 4);
@@ -210,6 +384,12 @@ function createIdleSprite(color: string, initial: string): PIXI.Container {
 function createBlockedSprite(color: string, initial: string): PIXI.Container {
   const container = new PIXI.Container();
   const colorValue = parseInt(color.replace('#', ''), 16);
+
+  // Shadow under agent
+  const shadow = new PIXI.Graphics();
+  shadow.ellipse(0, 28, 12, 5);
+  shadow.fill({ color: 0x000000, alpha: 0.25 });
+  container.addChild(shadow);
 
   // Body (standing - taller rectangle)
   const body = new PIXI.Graphics();
@@ -318,27 +498,129 @@ export default function IsometricOffice({ onAgentClick }: IsometricOfficeProps) 
 
       canvasRef.current?.appendChild(app.canvas as HTMLCanvasElement);
 
-      // Draw isometric grid (simple floor tiles)
-      const gridContainer = new PIXI.Container();
-      app.stage.addChild(gridContainer);
+      // Layer 1: Floor tiles (checkered isometric pattern)
+      const floorContainer = new PIXI.Container();
+      app.stage.addChild(floorContainer);
 
-      // Draw simple isometric floor grid
-      for (let row = 0; row < 10; row++) {
-        for (let col = 0; col < 15; col++) {
-          const isoX = (col - row) * 48;
-          const isoY = (col + row) * 24;
+      const gridWidth = 30;
+      const gridHeight = 20;
+      const baseX = 600;
+      const baseY = 200;
+
+      for (let row = 0; row < gridHeight; row++) {
+        for (let col = 0; col < gridWidth; col++) {
+          const iso = toIso(col, row);
+          const x = baseX + iso.x;
+          const y = baseY + iso.y;
           
-          const tile = new PIXI.Graphics();
-          tile.rect(0, 0, 96, 48);
-          tile.fill({ color: 0x18181b, alpha: 0.3 });
-          tile.stroke({ color: 0x27272a, width: 1 });
+          // Checkered pattern
+          const isLight = (col + row) % 2 === 0;
+          const baseColor1 = isLight ? 0x18181b : 0x27272a;
+          const baseColor2 = isLight ? 0x27272a : 0x18181b;
           
-          tile.x = 400 + isoX;
-          tile.y = 200 + isoY;
+          // Determine zone tint based on position
+          let zoneTint = 0x18181b;
+          if (col >= 8 && col < 16 && row >= 6 && row < 12) {
+            zoneTint = zoneColors['engineering']; // Blue zone
+          } else if (col >= 16 && col < 24 && row >= 8 && row < 14) {
+            zoneTint = zoneColors['design']; // Purple zone
+          } else if (col >= 20 && col < 28 && row >= 2 && row < 8) {
+            zoneTint = zoneColors['conference']; // Red zone
+          } else if (col >= 2 && col < 8 && row >= 10 && row < 16) {
+            zoneTint = zoneColors['operations']; // Green zone
+          } else if (col >= 18 && col < 26 && row >= 14 && row < 18) {
+            zoneTint = zoneColors['help-desk']; // Yellow zone
+          } else if (col >= 0 && col < 6 && row >= 4 && row < 10) {
+            zoneTint = zoneColors['cafe']; // Warm zone
+          }
           
-          gridContainer.addChild(tile);
+          const tile = createFloorTile(baseColor1, baseColor2, zoneTint);
+          tile.x = x;
+          tile.y = y;
+          floorContainer.addChild(tile);
         }
       }
+
+      // Layer 2: Furniture
+      const furnitureContainer = new PIXI.Container();
+      app.stage.addChild(furnitureContainer);
+
+      // Engineering zone furniture
+      for (let i = 0; i < 5; i++) {
+        const desk = createDesk();
+        desk.x = 800 + (i % 2 === 0 ? -80 : 80);
+        desk.y = 300 + Math.floor(i / 2) * 60 - 40;
+        furnitureContainer.addChild(desk);
+        
+        const chair = createChair();
+        chair.x = desk.x;
+        chair.y = desk.y + 30;
+        furnitureContainer.addChild(chair);
+      }
+
+      // Design zone furniture
+      const designDesk1 = createDesk();
+      designDesk1.x = 560;
+      designDesk1.y = 480;
+      furnitureContainer.addChild(designDesk1);
+      
+      const designDesk2 = createDesk();
+      designDesk2.x = 640;
+      designDesk2.y = 480;
+      furnitureContainer.addChild(designDesk2);
+
+      // Conference zone - big table
+      const conferenceTable = createTable();
+      conferenceTable.x = 1100;
+      conferenceTable.y = 380;
+      furnitureContainer.addChild(conferenceTable);
+
+      // Add some plants around the office
+      const plantPositions = [
+        { x: 700, y: 250 },
+        { x: 900, y: 450 },
+        { x: 500, y: 550 },
+        { x: 1050, y: 650 },
+        { x: 350, y: 350 }
+      ];
+      
+      plantPositions.forEach(pos => {
+        const plant = createPlant();
+        plant.x = pos.x;
+        plant.y = pos.y;
+        furnitureContainer.addChild(plant);
+      });
+
+      // Operations zone furniture
+      const opsDesk = createDesk();
+      opsDesk.x = 400;
+      opsDesk.y = 580;
+      furnitureContainer.addChild(opsDesk);
+
+      // Help desk zone furniture
+      for (let i = 0; i < 4; i++) {
+        const helpDesk = createDesk();
+        helpDesk.x = 1000 + (i % 2 === 0 ? -80 : 80);
+        helpDesk.y = 700 + Math.floor(i / 2) * 50 - 40;
+        furnitureContainer.addChild(helpDesk);
+      }
+
+      // Cafe zone - small tables
+      const cafeTable1 = createTable();
+      cafeTable1.x = 200;
+      cafeTable1.y = 380;
+      cafeTable1.scale.set(0.6);
+      furnitureContainer.addChild(cafeTable1);
+      
+      const cafeTable2 = createTable();
+      cafeTable2.x = 200;
+      cafeTable2.y = 450;
+      cafeTable2.scale.set(0.6);
+      furnitureContainer.addChild(cafeTable2);
+
+      // Layer 3: Agents
+      const agentsContainer = new PIXI.Container();
+      app.stage.addChild(agentsContainer);
 
       // Group agents by zone
       const agentsByZone = agents.reduce((acc, agent) => {
@@ -398,7 +680,7 @@ export default function IsometricOffice({ onAgentClick }: IsometricOfficeProps) 
             });
           });
 
-          app.stage.addChild(sprite);
+          agentsContainer.addChild(sprite);
 
           // Add GSAP animations based on status
           if (agent.status === 'working') {
