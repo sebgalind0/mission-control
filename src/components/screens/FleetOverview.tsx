@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Network } from 'lucide-react';
+import { Network, LayoutGrid, List } from 'lucide-react';
 import OrgChartModal from '../OrgChartModal';
 import FleetActionButtons from '../FleetActionButtons';
+import PixelOffice from '../PixelOffice';
 
 interface FleetOverviewProps {
   onAgentClick?: (name: string, emoji: string) => void;
@@ -11,9 +12,9 @@ interface FleetOverviewProps {
 
 const agents = [
   // Executive
-  { id: 'main', name: 'Rick Sanchez', role: 'CEO', dept: 'Executive', model: 'Claude Opus 4.6', status: 'online', color: '#3b82f6', initial: 'R', crons: 8, skills: ['Orchestration', 'Intel', 'Ops'], lastActive: '2m ago' },
+  { id: 'main', name: 'Rick Sanchez', role: 'CEO', dept: 'Executive', model: 'Claude Opus 4.6', status: 'working', color: '#3b82f6', initial: 'R', crons: 8, skills: ['Orchestration', 'Intel', 'Ops'], lastActive: '2m ago' },
   // Engineering
-  { id: 'larry', name: 'Larry', role: 'CTO', dept: 'Engineering', model: 'Sonnet 4.5', status: 'online', color: '#10b981', initial: 'L', crons: 0, skills: ['Architecture', 'Code Review'], lastActive: 'new' },
+  { id: 'larry', name: 'Larry', role: 'CTO', dept: 'Engineering', model: 'Sonnet 4.5', status: 'working', color: '#10b981', initial: 'L', crons: 0, skills: ['Architecture', 'Code Review'], lastActive: 'new' },
   { id: 'neo', name: 'Neo', role: 'Frontend', dept: 'Engineering', model: 'Sonnet 4.5', status: 'online', color: '#6366f1', initial: 'N', crons: 0, skills: ['React', 'Next.js'], lastActive: 'new' },
   { id: 'bolt', name: 'Bolt', role: 'Backend', dept: 'Engineering', model: 'Sonnet 4.5', status: 'online', color: '#eab308', initial: 'B', crons: 0, skills: ['APIs', 'Database'], lastActive: 'new' },
   { id: 'roger', name: 'Roger', role: 'Infrastructure', dept: 'Engineering', model: 'Sonnet 4.5', status: 'online', color: '#f97316', initial: 'Ro', crons: 0, skills: ['AWS', 'DevOps'], lastActive: 'new' },
@@ -107,8 +108,20 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2.5">
                         <h3 className="text-sm font-semibold text-white">{agent.name}</h3>
-                        <span className={`inline-flex items-center gap-1 text-[11px] font-medium ${agent.status === 'online' ? 'text-emerald-400' : 'text-amber-400'}`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${agent.status === 'online' ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
+                        <span className={`inline-flex items-center gap-1 text-[11px] font-medium ${
+                          agent.status === 'working' ? 'text-emerald-400' : 
+                          agent.status === 'online' ? 'text-emerald-400' : 'text-amber-400'
+                        }`}>
+                          <span 
+                            className={`w-1.5 h-1.5 rounded-full ${
+                              agent.status === 'working' ? 'bg-emerald-400 animate-pulse' : 
+                              agent.status === 'online' ? 'bg-emerald-400' : 'bg-amber-400'
+                            }`}
+                            style={agent.status === 'working' ? {
+                              boxShadow: '0 0 8px rgba(52, 211, 153, 0.6)',
+                              animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                            } : undefined}
+                          ></span>
                           {agent.status}
                         </span>
                       </div>
