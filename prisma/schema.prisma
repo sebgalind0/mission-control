@@ -89,3 +89,26 @@ model ActiveWork {
   @@index([agent])
   @@index([status])
 }
+
+model CalendarEvent {
+  id             String            @id @default(cuid())
+  title          String
+  description    String?
+  type           CalendarEventType @default(TASK_EVENT)
+  startTime      DateTime
+  endTime        DateTime?
+  taskId         String?
+  isRecurring    Boolean           @default(false)
+  recurrenceRule String?          // RRULE format
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([startTime])
+  @@index([taskId])
+}
+
+enum CalendarEventType {
+  TASK_EVENT
+  MEETING
+  RECURRING
+}

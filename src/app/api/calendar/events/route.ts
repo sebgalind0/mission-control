@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 import { prisma } from '@/lib/prisma';
-import { Status } from '@prisma/client';
+import { CalendarEventType } from '@prisma/client';
 
 interface CalendarEvent {
   id: string;
@@ -18,16 +18,16 @@ interface CalendarEvent {
   description: string;
 }
 
-function mapTaskStatus(status: Status): 'scheduled' | 'in_review' | 'completed' {
-  switch (status) {
-    case Status.REVIEW:
-      return 'in_review';
-    case Status.DONE:
-      return 'completed';
-    case Status.BACKLOG:
-    case Status.IN_PROGRESS:
+function mapEventType(type: CalendarEventType): 'task' | 'cron' | 'activity' {
+  switch (type) {
+    case CalendarEventType.TASK_EVENT:
+      return 'task';
+    case CalendarEventType.MEETING:
+      return 'activity';
+    case CalendarEventType.RECURRING:
+      return 'cron';
     default:
-      return 'scheduled';
+      return 'task';
   }
 }
 
@@ -57,45 +57,34 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Build where clause for tasks
-    const where: any = {
-      deadline: {
-        gte: start,
-        lte: end,
+    // Fetch calendar events in the date range
+    const calendarEvents = await prisma.calendarEvent.findMany({
+      where: {
+        startTime: {
+          gte: start,
+          lte: end,
+        },
       },
-    };
-
-    if (agentFilter.length > 0) {
-      where.assignee = { in: agentFilter };
-    }
-
-    // Fetch tasks with deadlines in range
-    const tasks = await prisma.task.findMany({
-      where,
-      orderBy: { deadline: 'asc' },
+      orderBy: { startTime: 'asc' },
     });
 
-    // Transform tasks to calendar events
-    const events: CalendarEvent[] = tasks.map(task => ({
-      id: task.id,
-      type: 'task' as const,
-      title: task.title,
-      agent: task.assignee,
-      department: null, // TODO: Map agent to department
-      project: task.tag || null,
-      start: task.deadline!.toISOString(),
-      end: task.deadline!.toISOString(), // Tasks are point-in-time
-      status: mapTaskStatus(task.status),
-      description: task.description,
+    // Transform CalendarEvent to frontend format
+    const events: CalendarEvent[] = calendarEvents.map(event => ({
+      id: event.id,
+      type: mapEventType(event.type),
+      title: event.title,
+      agent: null, // CalendarEvent doesn't have agent field yet
+      department: null,
+      project: null,
+      start: event.startTime.toISOString(),
+      end: event.endTime?.toISOString() || event.startTime.toISOString(),
+      status: 'scheduled', // CalendarEvent doesn't have status field yet
+      description: event.description || '',
     }));
 
-    // TODO: Add cron jobs integration
-    // TODO: Add agent activity integration
-
-    // Filter by project if specified
-    const filteredEvents = projectFilter.length > 0
-      ? events.filter(e => e.project && projectFilter.includes(e.project))
-      : events;
+    // Filter by agent if specified (when agent field is added to CalendarEvent)
+    // Filter by project if specified (when project field is added to CalendarEvent)
+    const filteredEvents = events;
 
     return NextResponse.json({
       events: filteredEvents,
