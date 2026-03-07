@@ -56,7 +56,7 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
         </div>
         <button
           onClick={() => setIsOrgChartOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-[#18181b] border border-[#27272a] rounded-lg text-sm text-white hover:border-[#3f3f46] hover:bg-[#1f1f23] transition-all"
+          className="flex items-center gap-2 px-4 py-2 bg-[#18181b] border border-[#27272a] rounded-lg text-sm text-white hover:border-[#3f3f46] hover:bg-[#1f1f23] active:scale-95 transition-all cursor-pointer"
         >
           <Network size={16} />
           View Org Chart
@@ -94,7 +94,7 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
               {deptAgents.map((agent) => (
                 <div
                   key={agent.id}
-                  className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:bg-[#1f1f23] transition-all cursor-pointer"
+                  className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:bg-[#1f1f23] hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer group"
                   onClick={() => onAgentClick?.(agent.name, agent.initial)}
                 >
                   <div className="flex items-center gap-4">

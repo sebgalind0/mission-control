@@ -264,7 +264,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
 
       {/* Stats Cards - TODAY's data */}
       <div className="grid grid-cols-4 gap-4">
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] transition-colors">
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-lg bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
               <Activity size={20} className="text-blue-400" />
@@ -277,7 +277,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
           <p className="text-xs text-zinc-600">Since midnight</p>
         </div>
 
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] transition-colors">
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 cursor-pointer">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-lg bg-green-600/10 border border-green-500/20 flex items-center justify-center">
               <GitCommit size={20} className="text-green-400" />
@@ -295,7 +295,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
           <p className="text-xs text-zinc-600">Last hour</p>
         </div>
 
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] transition-colors">
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 cursor-pointer">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-lg bg-purple-600/10 border border-purple-500/20 flex items-center justify-center">
               <Users size={20} className="text-purple-400" />
@@ -308,7 +308,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
           <p className="text-xs text-zinc-600">Right now</p>
         </div>
 
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] transition-colors">
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-lg bg-orange-600/10 border border-orange-500/20 flex items-center justify-center">
               <Zap size={20} className="text-orange-400" />
@@ -493,7 +493,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
             <button
               type="submit"
               disabled={isSubmitting || !commandInput.trim()}
-              className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors flex items-center gap-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-500 active:scale-95 transition-all flex items-center gap-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {isSubmitting ? (
                 <>
