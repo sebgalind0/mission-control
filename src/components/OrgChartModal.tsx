@@ -254,27 +254,27 @@ export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
         </div>
 
         {/* Org Chart */}
-        <div className="p-12">
-          <div className="flex flex-col items-center gap-12">
+        <div className="p-8">
+          <div className="flex flex-col items-center gap-8">
             {/* CEO Level */}
             {ceo && (
-              <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-col items-center gap-4">
                 {renderAgent(ceo)}
-                <div className="w-px h-12 bg-[#27272a]" />
+                <div className="w-px h-8 bg-[#27272a]" />
               </div>
             )}
 
             {/* Level 1 (Department Heads) */}
-            <div className="flex items-start gap-12 flex-wrap justify-center">
+            <div className="flex items-start gap-6 flex-wrap justify-center max-w-5xl">
               {level1.map((manager) => {
                 const reports = level2ByParent(manager.id);
                 return (
-                  <div key={manager.id} className="flex flex-col items-center gap-6">
+                  <div key={manager.id} className="flex flex-col items-center gap-4">
                     {renderAgent(manager)}
                     {reports.length > 0 && (
                       <>
-                        <div className="w-px h-12 bg-[#27272a]" />
-                        <div className="flex gap-4 flex-wrap justify-center max-w-md">
+                        <div className="w-px h-8 bg-[#27272a]" />
+                        <div className="flex gap-3 flex-wrap justify-center max-w-xs">
                           {reports.map((report) => renderAgent(report))}
                         </div>
                       </>
@@ -288,12 +288,12 @@ export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
             {contractors.length > 0 && (
               <>
                 <div className="w-full border-t border-[#27272a]" />
-                <div className="flex flex-col items-center gap-6">
+                <div className="flex flex-col items-center gap-4">
                   <div className="text-center">
                     <h3 className="text-base font-semibold text-white">Contractors</h3>
                     <p className="text-xs text-zinc-500 mt-1">Independent specialists · {contractors.length} total</p>
                   </div>
-                  <div className="flex gap-4 flex-wrap justify-center">
+                  <div className="flex gap-3 flex-wrap justify-center">
                     {contractors.map((contractor) => renderAgent(contractor))}
                   </div>
                 </div>
