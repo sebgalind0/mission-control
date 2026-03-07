@@ -334,8 +334,9 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
           </div>
           <div className="flex-1 overflow-y-auto p-4 space-y-2">
             {activities.length === 0 ? (
-              <div className="flex items-center justify-center h-full text-zinc-600 text-sm">
-                No activity today
+              <div className="flex flex-col items-center justify-center h-full gap-3">
+                <Activity size={32} className="text-zinc-700" />
+                <p className="text-sm text-zinc-500">All quiet. Your agents are standing by.</p>
               </div>
             ) : (
               <>
@@ -381,8 +382,9 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
             </div>
             <div className="flex-1 overflow-y-auto p-4 space-y-2">
               {activeAgents.length === 0 ? (
-                <div className="flex items-center justify-center h-full text-zinc-600 text-sm">
-                  No agents active
+                <div className="flex flex-col items-center justify-center h-full gap-3">
+                  <Bot size={32} className="text-zinc-700" />
+                  <p className="text-sm text-zinc-500">No agents deployed. Ready when you are.</p>
                 </div>
               ) : (
                 activeAgents.map((agent, idx) => (
@@ -431,8 +433,9 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
             </div>
             <div className="flex-1 overflow-y-auto p-4 space-y-2">
               {activeWork.length === 0 ? (
-                <div className="flex items-center justify-center h-full text-zinc-600 text-sm">
-                  No work in progress
+                <div className="flex flex-col items-center justify-center h-full gap-3">
+                  <Clock size={32} className="text-zinc-700" />
+                  <p className="text-sm text-zinc-500">All caught up. No tasks running.</p>
                 </div>
               ) : (
                 activeWork.map((work) => (
