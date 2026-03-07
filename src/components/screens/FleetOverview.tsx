@@ -98,11 +98,16 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
                   onClick={() => onAgentClick?.(agent.name, agent.initial)}
                 >
                   <div className="flex items-center gap-4">
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ backgroundColor: agent.color }}
-                    >
-                      <span className="text-white text-xs font-bold">{agent.initial}</span>
+                    <div className="relative">
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                        style={{ backgroundColor: agent.color }}
+                      >
+                        <span className="text-white text-xs font-bold">{agent.initial}</span>
+                      </div>
+                      {agent.status === 'working' && (
+                        <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full animate-pulse shadow-lg shadow-emerald-500/50" />
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2.5">
