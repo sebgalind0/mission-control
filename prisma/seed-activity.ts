@@ -1,7 +1,13 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
 
-const prisma = new PrismaClient();
+const connectionString = process.env.DATABASE_URL!;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log('🌱 Seeding activity events...');
@@ -144,6 +150,44 @@ async function main() {
   }
 
   console.log(`✅ Created ${activities.length} activity events`);
+  
+  // Seed active work (2 active agents + 1 task in progress)
+  console.log('🌱 Seeding active work...');
+  
+  const activeWorkItems = [
+    {
+      agent: 'Neo',
+      task: 'Implementing Phase 2 UX improvements for Mission Control Dashboard',
+      status: 'running',
+      progress: 65,
+      metadata: {
+        phase: 2,
+        tasks: ['hover states', 'port fix', 'empty states', 'seed data'],
+        completed: ['hover states', 'port fix', 'empty states'],
+      },
+      startedAt: new Date(now.getTime() - 45 * 60 * 1000), // Started 45 minutes ago
+    },
+    {
+      agent: 'Bolt',
+      task: 'Optimizing API response times for activity feed endpoints',
+      status: 'running',
+      progress: 30,
+      metadata: {
+        target: 'sub-100ms',
+        current: '250ms',
+        optimization: 'database indexing',
+      },
+      startedAt: new Date(now.getTime() - 20 * 60 * 1000), // Started 20 minutes ago
+    },
+  ];
+  
+  for (const work of activeWorkItems) {
+    await prisma.activeWork.create({
+      data: work,
+    });
+  }
+  
+  console.log(`✅ Created ${activeWorkItems.length} active work items`);
 }
 
 main()
