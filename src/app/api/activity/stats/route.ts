@@ -29,10 +29,10 @@ export async function GET(request: NextRequest) {
     
     const activeAgents = activeAgentsData.length;
     
-    // Get active work count
-    const activeWorkCount = await prisma.workItem.count({
+    // Get active work count from Task table
+    const activeWorkCount = await prisma.task.count({
       where: { 
-        status: { in: ['running', 'blocked', 'paused'] },
+        status: { in: ['IN_PROGRESS', 'REVIEW'] },
       },
     });
     
