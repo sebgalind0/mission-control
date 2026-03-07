@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { Network } from 'lucide-react';
 import OrgChartModal from '../OrgChartModal';
 import FleetActionButtons from '../FleetActionButtons';
-import StarOfficeSync from '../StarOfficeSync';
 
 interface FleetOverviewProps {
   onAgentClick?: (name: string, emoji: string) => void;
@@ -82,26 +81,6 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
 
       {/* Action Buttons */}
       <FleetActionButtons />
-
-      {/* Star-Office Integration */}
-      <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 overflow-hidden">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-sm font-semibold text-white">Live Office View</h2>
-            <p className="text-xs text-zinc-500 mt-0.5">Real-time agent activity visualization</p>
-          </div>
-          <StarOfficeSync agents={agents} />
-        </div>
-        <div className="rounded-lg overflow-hidden border border-[#27272a]" style={{ height: '720px' }}>
-          <iframe
-            src="http://127.0.0.1:19000"
-            width="100%"
-            height="100%"
-            style={{ border: 'none', display: 'block' }}
-            title="Star Office Live View"
-          />
-        </div>
-      </div>
 
       {/* Agents by Department */}
       {depts.map((dept) => {
