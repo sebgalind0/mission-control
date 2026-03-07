@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Send, Loader2, Activity, Clock, AlertCircle, TrendingUp, Users, Zap, GitCommit, Bot, CheckCircle, XCircle, Play, Pause } from 'lucide-react';
+import { useActivityStream } from '@/hooks/useActivityStream';
 
 interface CommandCenterProps {
   onAgentClick?: (name: string, emoji: string) => void;
@@ -100,6 +101,22 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const activityEndRef = useRef<HTMLDivElement>(null);
+
+  // SSE real-time activity stream
+  const { events: liveEvents, isConnected: sseConnected } = useActivityStream(true);
+
+  // Merge live events with fetched activities
+  useEffect(() => {
+    if (liveEvents.length > 0) {
+      setActivities(prev => {
+        // Merge new live events, removing duplicates by ID
+        const merged = [...liveEvents, ...prev];
+        const unique = Array.from(new Map(merged.map(e => [e.id, e])).values());
+        return unique.slice(0, 100); // Keep last 100
+      });
+      setLastUpdate(new Date());
+    }
+  }, [liveEvents]);
 
   // Fetch activity feed - LIVE data
   useEffect(() => {
@@ -256,8 +273,10 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
             <p className="text-sm text-zinc-500 mt-1">Live mission control nerve center</p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-xs text-zinc-500">Live · Updated {formatRelativeTime(lastUpdate.toISOString())}</span>
+            <div className={`w-2 h-2 rounded-full ${sseConnected ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
+            <span className="text-xs text-zinc-500">
+              {sseConnected ? 'Live Stream' : 'Polling'} · Updated {formatRelativeTime(lastUpdate.toISOString())}
+            </span>
           </div>
         </div>
       </div>
