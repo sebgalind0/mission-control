@@ -272,167 +272,324 @@ function createTable(): PIXI.Graphics {
   return table;
 }
 
-// Sprite creator functions
-function createWorkingSprite(color: string, initial: string): PIXI.Container {
+// Sprite creator functions - Habbo Hotel style pixel art
+function createWorkingSprite(color: string, name: string): PIXI.Container {
   const container = new PIXI.Container();
   const colorValue = parseInt(color.replace('#', ''), 16);
 
   // Shadow under agent
   const shadow = new PIXI.Graphics();
-  shadow.ellipse(0, 28, 16, 6);
+  shadow.ellipse(0, 32, 14, 5);
   shadow.fill({ color: 0x000000, alpha: 0.3 });
   container.addChild(shadow);
 
-  // Desk (simple rectangle)
+  // Desk (isometric cube)
   const desk = new PIXI.Graphics();
-  desk.rect(-18, 10, 36, 20);
+  // Top
+  desk.moveTo(0, 8);
+  desk.lineTo(20, 16);
+  desk.lineTo(0, 24);
+  desk.lineTo(-20, 16);
+  desk.lineTo(0, 8);
   desk.fill({ color: 0x3f3f46 });
-  desk.stroke({ color: 0x52525b, width: 1 });
+  // Front face
+  desk.moveTo(0, 24);
+  desk.lineTo(20, 16);
+  desk.lineTo(20, 22);
+  desk.lineTo(0, 30);
+  desk.lineTo(0, 24);
+  desk.fill({ color: 0x27272a });
   container.addChild(desk);
 
-  // Agent body (rounded rectangle sitting at desk)
-  const body = new PIXI.Graphics();
-  body.roundRect(-12, -10, 24, 20, 4);
-  body.fill({ color: colorValue });
-  body.stroke({ color: 0xffffff, width: 1, alpha: 0.3 });
-  container.addChild(body);
+  // LEGS (sitting position, isometric)
+  const legs = new PIXI.Graphics();
+  // Left leg
+  legs.rect(-8, 18, 6, 10);
+  legs.fill({ color: colorValue, alpha: 0.9 });
+  // Right leg
+  legs.rect(2, 18, 6, 10);
+  legs.fill({ color: colorValue, alpha: 0.9 });
+  container.addChild(legs);
 
-  // Head (circle)
+  // TORSO (isometric rectangular body)
+  const torso = new PIXI.Graphics();
+  // Main body - isometric front
+  torso.moveTo(0, -6);
+  torso.lineTo(10, -2);
+  torso.lineTo(10, 14);
+  torso.lineTo(0, 18);
+  torso.lineTo(-10, 14);
+  torso.lineTo(-10, -2);
+  torso.lineTo(0, -6);
+  torso.fill({ color: colorValue });
+  // Shading for depth
+  torso.moveTo(0, -6);
+  torso.lineTo(-10, -2);
+  torso.lineTo(-10, 14);
+  torso.lineTo(0, 18);
+  torso.fill({ color: colorValue, alpha: 0.7 });
+  // Arms
+  // Left arm (typing)
+  torso.rect(-14, 2, 5, 12);
+  torso.fill({ color: colorValue, alpha: 0.85 });
+  // Right arm (typing)
+  torso.rect(9, 2, 5, 12);
+  torso.fill({ color: colorValue, alpha: 0.85 });
+  container.addChild(torso);
+
+  // HEAD (isometric cube-like)
   const head = new PIXI.Graphics();
-  head.circle(0, -18, 8);
+  // Face (front)
+  head.moveTo(0, -22);
+  head.lineTo(7, -18);
+  head.lineTo(7, -10);
+  head.lineTo(0, -6);
+  head.lineTo(-7, -10);
+  head.lineTo(-7, -18);
+  head.lineTo(0, -22);
   head.fill({ color: colorValue });
-  head.stroke({ color: 0xffffff, width: 1, alpha: 0.3 });
+  // Top of head (lighter)
+  head.moveTo(0, -22);
+  head.lineTo(7, -18);
+  head.lineTo(0, -14);
+  head.lineTo(-7, -18);
+  head.lineTo(0, -22);
+  head.fill({ color: colorValue, alpha: 0.6 });
+  // Hair detail (dark strip)
+  head.rect(-6, -21, 12, 3);
+  head.fill({ color: 0x000000, alpha: 0.4 });
+  // Eyes (simple dots)
+  head.circle(-3, -16, 1);
+  head.fill({ color: 0xffffff });
+  head.circle(3, -16, 1);
+  head.fill({ color: 0xffffff });
   container.addChild(head);
 
-  // Initial text on head
-  const text = new PIXI.Text({
-    text: initial,
+  // NAME TAG (floating above head)
+  const nameTag = new PIXI.Graphics();
+  nameTag.roundRect(-20, -36, 40, 10, 3);
+  nameTag.fill({ color: 0x18181b, alpha: 0.9 });
+  nameTag.stroke({ color: colorValue, width: 1 });
+  container.addChild(nameTag);
+  
+  const nameText = new PIXI.Text({
+    text: name,
     style: {
       fontFamily: 'Inter, system-ui, sans-serif',
-      fontSize: 8,
+      fontSize: 7,
       fontWeight: '600',
       fill: 0xffffff,
       align: 'center',
     }
   });
-  text.anchor.set(0.5);
-  text.y = -18;
-  container.addChild(text);
-
-  // Keyboard indicator (small rectangle)
-  const keyboard = new PIXI.Graphics();
-  keyboard.rect(-8, 15, 16, 6);
-  keyboard.fill({ color: 0x52525b });
-  container.addChild(keyboard);
+  nameText.anchor.set(0.5);
+  nameText.position.set(0, -31);
+  container.addChild(nameText);
 
   return container;
 }
 
-function createIdleSprite(color: string, initial: string): PIXI.Container {
+function createIdleSprite(color: string, name: string): PIXI.Container {
   const container = new PIXI.Container();
   const colorValue = parseInt(color.replace('#', ''), 16);
 
   // Shadow under agent
   const shadow = new PIXI.Graphics();
-  shadow.ellipse(0, 28, 12, 5);
+  shadow.ellipse(0, 26, 12, 5);
   shadow.fill({ color: 0x000000, alpha: 0.25 });
   container.addChild(shadow);
 
-  // Body (standing - taller rectangle)
-  const body = new PIXI.Graphics();
-  body.roundRect(-10, -5, 20, 30, 4);
-  body.fill({ color: colorValue, alpha: 0.7 });
-  body.stroke({ color: 0xffffff, width: 1, alpha: 0.3 });
-  container.addChild(body);
+  // LEGS (standing position)
+  const legs = new PIXI.Graphics();
+  // Left leg
+  legs.rect(-6, 10, 5, 16);
+  legs.fill({ color: colorValue, alpha: 0.8 });
+  // Right leg
+  legs.rect(1, 10, 5, 16);
+  legs.fill({ color: colorValue, alpha: 0.8 });
+  container.addChild(legs);
 
-  // Head (circle)
+  // TORSO (isometric standing body)
+  const torso = new PIXI.Graphics();
+  // Main body - isometric
+  torso.moveTo(0, -10);
+  torso.lineTo(8, -6);
+  torso.lineTo(8, 10);
+  torso.lineTo(0, 14);
+  torso.lineTo(-8, 10);
+  torso.lineTo(-8, -6);
+  torso.lineTo(0, -10);
+  torso.fill({ color: colorValue, alpha: 0.7 });
+  // Shading
+  torso.moveTo(0, -10);
+  torso.lineTo(-8, -6);
+  torso.lineTo(-8, 10);
+  torso.lineTo(0, 14);
+  torso.fill({ color: colorValue, alpha: 0.5 });
+  // Arms (relaxed at sides)
+  torso.rect(-12, 0, 4, 14);
+  torso.fill({ color: colorValue, alpha: 0.6 });
+  torso.rect(8, 0, 4, 14);
+  torso.fill({ color: colorValue, alpha: 0.6 });
+  container.addChild(torso);
+
+  // HEAD (isometric)
   const head = new PIXI.Graphics();
-  head.circle(0, -18, 8);
+  // Face
+  head.moveTo(0, -26);
+  head.lineTo(7, -22);
+  head.lineTo(7, -14);
+  head.lineTo(0, -10);
+  head.lineTo(-7, -14);
+  head.lineTo(-7, -22);
+  head.lineTo(0, -26);
   head.fill({ color: colorValue, alpha: 0.7 });
-  head.stroke({ color: 0xffffff, width: 1, alpha: 0.3 });
+  // Top
+  head.moveTo(0, -26);
+  head.lineTo(7, -22);
+  head.lineTo(0, -18);
+  head.lineTo(-7, -22);
+  head.lineTo(0, -26);
+  head.fill({ color: colorValue, alpha: 0.5 });
+  // Hair
+  head.rect(-6, -25, 12, 3);
+  head.fill({ color: 0x000000, alpha: 0.3 });
+  // Eyes
+  head.circle(-3, -20, 1);
+  head.fill({ color: 0xffffff, alpha: 0.7 });
+  head.circle(3, -20, 1);
+  head.fill({ color: 0xffffff, alpha: 0.7 });
   container.addChild(head);
 
-  // Initial text on head
-  const text = new PIXI.Text({
-    text: initial,
+  // NAME TAG
+  const nameTag = new PIXI.Graphics();
+  nameTag.roundRect(-20, -40, 40, 10, 3);
+  nameTag.fill({ color: 0x18181b, alpha: 0.8 });
+  nameTag.stroke({ color: colorValue, width: 1, alpha: 0.7 });
+  container.addChild(nameTag);
+  
+  const nameText = new PIXI.Text({
+    text: name,
     style: {
       fontFamily: 'Inter, system-ui, sans-serif',
-      fontSize: 8,
+      fontSize: 7,
       fontWeight: '600',
       fill: 0xffffff,
       align: 'center',
     }
   });
-  text.anchor.set(0.5);
-  text.y = -18;
-  container.addChild(text);
-
-  // Arms (casual pose)
-  const leftArm = new PIXI.Graphics();
-  leftArm.rect(-12, 0, 4, 12);
-  leftArm.fill({ color: colorValue, alpha: 0.7 });
-  container.addChild(leftArm);
-
-  const rightArm = new PIXI.Graphics();
-  rightArm.rect(8, 0, 4, 12);
-  rightArm.fill({ color: colorValue, alpha: 0.7 });
-  container.addChild(rightArm);
+  nameText.anchor.set(0.5);
+  nameText.position.set(0, -35);
+  nameText.alpha = 0.8;
+  container.addChild(nameText);
 
   return container;
 }
 
-function createBlockedSprite(color: string, initial: string): PIXI.Container {
+function createBlockedSprite(color: string, name: string): PIXI.Container {
   const container = new PIXI.Container();
   const colorValue = parseInt(color.replace('#', ''), 16);
 
   // Shadow under agent
   const shadow = new PIXI.Graphics();
-  shadow.ellipse(0, 28, 12, 5);
+  shadow.ellipse(0, 26, 12, 5);
   shadow.fill({ color: 0x000000, alpha: 0.25 });
   container.addChild(shadow);
 
-  // Body (standing - taller rectangle)
-  const body = new PIXI.Graphics();
-  body.roundRect(-10, -5, 20, 30, 4);
-  body.fill({ color: colorValue });
-  body.stroke({ color: 0xef4444, width: 2 });
-  container.addChild(body);
+  // LEGS (standing position)
+  const legs = new PIXI.Graphics();
+  legs.rect(-6, 10, 5, 16);
+  legs.fill({ color: colorValue });
+  legs.rect(1, 10, 5, 16);
+  legs.fill({ color: colorValue });
+  container.addChild(legs);
 
-  // Head (circle)
+  // TORSO (stressed pose - arms up)
+  const torso = new PIXI.Graphics();
+  torso.moveTo(0, -10);
+  torso.lineTo(8, -6);
+  torso.lineTo(8, 10);
+  torso.lineTo(0, 14);
+  torso.lineTo(-8, 10);
+  torso.lineTo(-8, -6);
+  torso.lineTo(0, -10);
+  torso.fill({ color: colorValue });
+  torso.stroke({ color: 0xef4444, width: 1.5 });
+  // Shading
+  torso.moveTo(0, -10);
+  torso.lineTo(-8, -6);
+  torso.lineTo(-8, 10);
+  torso.lineTo(0, 14);
+  torso.fill({ color: colorValue, alpha: 0.8 });
+  // Arms raised (stressed)
+  torso.rect(-12, -8, 4, 10);
+  torso.fill({ color: colorValue });
+  torso.rect(8, -8, 4, 10);
+  torso.fill({ color: colorValue });
+  container.addChild(torso);
+
+  // HEAD (isometric with stress indicator)
   const head = new PIXI.Graphics();
-  head.circle(0, -18, 8);
+  head.moveTo(0, -26);
+  head.lineTo(7, -22);
+  head.lineTo(7, -14);
+  head.lineTo(0, -10);
+  head.lineTo(-7, -14);
+  head.lineTo(-7, -22);
+  head.lineTo(0, -26);
   head.fill({ color: colorValue });
-  head.stroke({ color: 0xef4444, width: 2 });
+  head.stroke({ color: 0xef4444, width: 1.5 });
+  // Top
+  head.moveTo(0, -26);
+  head.lineTo(7, -22);
+  head.lineTo(0, -18);
+  head.lineTo(-7, -22);
+  head.lineTo(0, -26);
+  head.fill({ color: colorValue, alpha: 0.7 });
+  // Hair (stressed - spiky)
+  head.rect(-6, -25, 12, 3);
+  head.fill({ color: 0xef4444, alpha: 0.5 });
+  // Eyes (worried)
+  head.circle(-3, -20, 1.5);
+  head.fill({ color: 0xffffff });
+  head.circle(3, -20, 1.5);
+  head.fill({ color: 0xffffff });
   container.addChild(head);
 
-  // Initial text on head
-  const text = new PIXI.Text({
-    text: initial,
+  // NAME TAG (red border for blocked)
+  const nameTag = new PIXI.Graphics();
+  nameTag.roundRect(-20, -40, 40, 10, 3);
+  nameTag.fill({ color: 0x18181b, alpha: 0.9 });
+  nameTag.stroke({ color: 0xef4444, width: 1.5 });
+  container.addChild(nameTag);
+  
+  const nameText = new PIXI.Text({
+    text: name,
     style: {
       fontFamily: 'Inter, system-ui, sans-serif',
-      fontSize: 8,
+      fontSize: 7,
       fontWeight: '600',
-      fill: 0xffffff,
+      fill: 0xef4444,
       align: 'center',
     }
   });
-  text.anchor.set(0.5);
-  text.y = -18;
-  container.addChild(text);
+  nameText.anchor.set(0.5);
+  nameText.position.set(0, -35);
+  container.addChild(nameText);
 
-  // Question mark overhead
+  // Question mark overhead (pulsing)
   const questionMark = new PIXI.Text({
     text: '?',
     style: {
       fontFamily: 'Inter, system-ui, sans-serif',
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: 'bold',
       fill: 0xef4444,
       align: 'center',
     }
   });
   questionMark.anchor.set(0.5);
-  questionMark.y = -35;
+  questionMark.y = -52;
   container.addChild(questionMark);
 
   return container;
@@ -642,11 +799,11 @@ export default function IsometricOffice({ onAgentClick }: IsometricOfficeProps) 
           // Create agent sprite based on status
           let sprite: PIXI.Container;
           if (agent.status === 'working') {
-            sprite = createWorkingSprite(agent.color, agent.initial);
+            sprite = createWorkingSprite(agent.color, agent.name);
           } else if (agent.status === 'idle') {
-            sprite = createIdleSprite(agent.color, agent.initial);
+            sprite = createIdleSprite(agent.color, agent.name);
           } else {
-            sprite = createBlockedSprite(agent.color, agent.initial);
+            sprite = createBlockedSprite(agent.color, agent.name);
           }
 
           sprite.x = x;
