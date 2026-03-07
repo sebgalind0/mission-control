@@ -18,6 +18,7 @@ const orgData = [
     color: '#3b82f6',
     initial: 'R',
     level: 0,
+    status: 'working',
     children: ['larry', 'george']
   },
   // CTO
@@ -29,6 +30,7 @@ const orgData = [
     color: '#10b981',
     initial: 'L',
     level: 1,
+    status: 'working',
     parent: 'rick',
     children: ['neo', 'bolt', 'roger', 'kai']
   },
@@ -41,6 +43,7 @@ const orgData = [
     color: '#6366f1',
     initial: 'N',
     level: 2,
+    status: 'working',
     parent: 'larry'
   },
   {
@@ -51,6 +54,7 @@ const orgData = [
     color: '#eab308',
     initial: 'B',
     level: 2,
+    status: 'working',
     parent: 'larry'
   },
   {
@@ -61,6 +65,7 @@ const orgData = [
     color: '#f97316',
     initial: 'Ro',
     level: 2,
+    status: 'idle',
     parent: 'larry'
   },
   {
@@ -71,6 +76,7 @@ const orgData = [
     color: '#ec4899',
     initial: 'K',
     level: 2,
+    status: 'working',
     parent: 'larry'
   },
   // Design Team (parallel to Larry)
@@ -82,6 +88,7 @@ const orgData = [
     color: '#f59e0b',
     initial: 'G',
     level: 1,
+    status: 'working',
     parent: 'rick',
     children: ['jobs']
   },
@@ -93,6 +100,7 @@ const orgData = [
     color: '#a3a3a3',
     initial: 'SJ',
     level: 2,
+    status: 'working',
     parent: 'george'
   }
 ];
@@ -115,11 +123,21 @@ export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
     <div key={agent.id} className="flex flex-col items-center">
       <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4 hover:border-[#3f3f46] transition-colors min-w-[160px]">
         <div className="flex flex-col items-center gap-3">
-          <div
-            className="w-12 h-12 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: agent.color }}
-          >
-            <span className="text-white text-sm font-bold">{agent.initial}</span>
+          <div className="relative">
+            <div
+              className="w-12 h-12 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: agent.color }}
+            >
+              <span className="text-white text-sm font-bold">{agent.initial}</span>
+            </div>
+            {/* Status indicator */}
+            <div
+              className={`absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full border-2 border-[#18181b] ${
+                agent.status === 'working' ? 'bg-green-400' :
+                agent.status === 'idle' ? 'bg-yellow-400' :
+                'bg-red-400'
+              }`}
+            />
           </div>
           <div className="text-center">
             <h3 className="text-sm font-semibold text-white">{agent.name}</h3>

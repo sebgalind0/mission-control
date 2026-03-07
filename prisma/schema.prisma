@@ -64,3 +64,28 @@ enum Status {
   REVIEW
   DONE
 }
+
+model ActivityEvent {
+  id        String   @id @default(cuid())
+  agent     String   // Which agent performed the action
+  action    String   // What they did (e.g., "deployment", "task_completed", "status_change")
+  metadata  Json?    // Additional context about the action
+  timestamp DateTime @default(now())
+  
+  @@index([timestamp])
+  @@index([agent])
+}
+
+model ActiveWork {
+  id        String   @id @default(cuid())
+  agent     String
+  task      String
+  status    String   // "running", "blocked", "paused"
+  progress  Int      @default(0) // 0-100
+  metadata  Json?
+  startedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([agent])
+  @@index([status])
+}
