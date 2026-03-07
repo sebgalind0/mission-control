@@ -529,7 +529,7 @@ export default function Calendar() {
                 {allAgendaItems.length === 0 ? (
                   <div className="text-center py-12">
                     <CalendarDays size={48} className="text-zinc-700 mx-auto mb-3" />
-                    <p className="text-sm text-zinc-500">No events scheduled for today</p>
+                    <p className="text-sm text-zinc-500">Clear day ahead. Time to make plans.</p>
                   </div>
                 ) : (
                   <div className="space-y-6">
