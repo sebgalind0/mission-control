@@ -24,9 +24,13 @@ const envVars = [
   { key: 'TZ', value: 'America/New_York' },
 ];
 
+// Dynamic port based on environment
+const isDev = process.env.NODE_ENV === 'development';
+const missionControlPort = isDev ? '3000' : '3333';
+
 const services = [
   { name: 'OpenClaw Gateway', status: 'running', port: '3210', pid: '48291' },
-  { name: 'Mission Control', status: 'running', port: '3333', pid: '52104' },
+  { name: 'Mission Control', status: 'running', port: missionControlPort, pid: '52104' },
   { name: 'Heartbeat Worker', status: 'running', port: '—', pid: '48295' },
   { name: 'Cron Scheduler', status: 'running', port: '—', pid: '48299' },
 ];
