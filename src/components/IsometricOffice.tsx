@@ -164,6 +164,7 @@ function createFloorTile(color1: number, color2: number, tint: number): PIXI.Gra
 function createDesk(): PIXI.Sprite {
   const sprite = PIXI.Sprite.from('/sprites/desk.png');
   sprite.anchor.set(0.5, 0.7);
+  sprite.scale.set(3, 3);
   return sprite;
 }
 
@@ -171,6 +172,7 @@ function createDesk(): PIXI.Sprite {
 function createChair(): PIXI.Sprite {
   const sprite = PIXI.Sprite.from('/sprites/chair.png');
   sprite.anchor.set(0.5, 0.7);
+  sprite.scale.set(3, 3);
   return sprite;
 }
 
@@ -178,6 +180,7 @@ function createChair(): PIXI.Sprite {
 function createPlant(): PIXI.Sprite {
   const sprite = PIXI.Sprite.from('/sprites/plant.png');
   sprite.anchor.set(0.5, 0.8);
+  sprite.scale.set(3, 3);
   return sprite;
 }
 
@@ -185,6 +188,7 @@ function createPlant(): PIXI.Sprite {
 function createTable(): PIXI.Sprite {
   const sprite = PIXI.Sprite.from('/sprites/table.png');
   sprite.anchor.set(0.5, 0.7);
+  sprite.scale.set(3, 3);
   return sprite;
 }
 
@@ -196,6 +200,7 @@ function createWorkingSprite(color: string, name: string): PIXI.Container {
   // Load the REAL sprite PNG
   const charSprite = PIXI.Sprite.from('/sprites/char-working.png');
   charSprite.anchor.set(0.5, 0.85);
+  charSprite.scale.set(3, 3);
   charSprite.tint = colorValue; // Colorize the sprite
   container.addChild(charSprite);
 
@@ -230,6 +235,7 @@ function createIdleSprite(color: string, name: string): PIXI.Container {
   // Load the REAL sprite PNG
   const charSprite = PIXI.Sprite.from('/sprites/char-idle.png');
   charSprite.anchor.set(0.5, 0.85);
+  charSprite.scale.set(3, 3);
   charSprite.tint = colorValue;
   charSprite.alpha = 0.7; // Slightly transparent for idle state
   container.addChild(charSprite);
@@ -266,6 +272,7 @@ function createBlockedSprite(color: string, name: string): PIXI.Container {
   // Load the REAL sprite PNG
   const charSprite = PIXI.Sprite.from('/sprites/char-idle.png');
   charSprite.anchor.set(0.5, 0.85);
+  charSprite.scale.set(3, 3);
   charSprite.tint = colorValue;
   container.addChild(charSprite);
 
