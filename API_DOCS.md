@@ -526,3 +526,143 @@ curl -X PATCH http://localhost:3000/api/tasks/:id \
 **Built by:** Bolt ⚡  
 **Date:** 2026-03-06  
 **Status:** All endpoints live and tested ✅
+
+---
+
+## Analytics API Extensions
+
+### **GET** `/api/analytics/models`
+Model usage analytics across agents.
+
+**Response:**
+```json
+{
+  "modelUsage": [
+    {
+      "agent": "rick",
+      "model": "anthropic/claude-sonnet-4-5",
+      "tokensUsed": 25000,
+      "cost": 0.125
+    },
+    {
+      "agent": "bolt",
+      "model": "anthropic/claude-sonnet-4-5",
+      "tokensUsed": 18500,
+      "cost": 0.093
+    }
+  ],
+  "summary": {
+    "totalTokens": 43500,
+    "totalCost": 0.22,
+    "uniqueModels": 1,
+    "uniqueAgents": 2
+  }
+}
+```
+
+**Metrics:**
+- `tokensUsed`: Total tokens consumed by agent/model pair
+- `cost`: Estimated cost in USD
+- Sorted by cost (descending)
+
+---
+
+### **GET** `/api/analytics/embeddings`
+Embeddings usage tracking (Wispr Flow, OpenAI).
+
+**Response:**
+```json
+{
+  "embeddingsUsage": [
+    {
+      "service": "OpenAI",
+      "requests": 150,
+      "tokens": 230400,
+      "cost": 0.0230
+    },
+    {
+      "service": "Wispr Flow",
+      "requests": 30,
+      "tokens": 46080,
+      "cost": 0.0046
+    }
+  ],
+  "summary": {
+    "totalRequests": 180,
+    "totalTokens": 276480,
+    "totalCost": 0.0276,
+    "avgTokensPerRequest": 1536,
+    "requestsThisWeek": 45
+  },
+  "breakdown": {
+    "byService": [ /* same as embeddingsUsage */ ],
+    "period": {
+      "start": "2026-02-27T19:52:00.000Z",
+      "end": "2026-03-06T19:52:00.000Z"
+    }
+  }
+}
+```
+
+**Metrics:**
+- `requests`: Number of embedding calls
+- `tokens`: Total tokens embedded
+- `cost`: Estimated cost ($0.0001 per 1K tokens)
+
+---
+
+### **GET** `/api/analytics/agents/:id`
+Detailed agent performance metrics.
+
+**Example:** `/api/analytics/agents/bolt`
+
+**Response:**
+```json
+{
+  "agent": "bolt",
+  "performance": {
+    "completionRate": 85,
+    "avgTaskTimeHours": 3.5,
+    "tokensUsed": 18500,
+    "cost": 0.09
+  },
+  "tasks": {
+    "total": 40,
+    "completed": 34,
+    "active": 2,
+    "statusBreakdown": {
+      "backlog": 2,
+      "inProgress": 2,
+      "review": 2,
+      "done": 34
+    }
+  },
+  "recentPerformance": {
+    "tasksThisWeek": 8,
+    "completedThisWeek": 7,
+    "completionRateThisWeek": 88
+  },
+  "deadlines": {
+    "totalWithDeadlines": 15,
+    "onTime": 13,
+    "onTimeRate": 87
+  },
+  "activeWork": [
+    {
+      "task": "Build analytics backend",
+      "progress": 75,
+      "duration": 12
+    }
+  ]
+}
+```
+
+**Metrics:**
+- `completionRate`: % of tasks completed
+- `avgTaskTimeHours`: Average time from creation to completion
+- `tokensUsed`: Aggregate tokens from activity logs
+- `cost`: Estimated model usage cost
+- `onTimeRate`: % of deadlines met
+
+---
+

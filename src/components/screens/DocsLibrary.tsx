@@ -1,44 +1,113 @@
 'use client';
 
-import { useState } from 'react';
-import { FileText, Code, Image, File } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { FileText, Code, Image, File, Loader2, Search } from 'lucide-react';
 
-const fileTypes = [
-  { id: 'all', label: 'All', count: 12 },
-  { id: 'markdown', label: 'Markdown', count: 6 },
-  { id: 'code', label: 'Code', count: 3 },
-  { id: 'config', label: 'Config', count: 2 },
-  { id: 'media', label: 'Media', count: 1 },
-];
+interface DocFile {
+  name: string;
+  type: 'markdown' | 'code' | 'config' | 'media' | 'file';
+  size: number;
+  modified: string;
+}
 
-const documents = [
-  { id: 1, name: 'AGENTS.md', type: 'markdown', size: '8.2 KB', modified: '1d ago', description: 'Workspace configuration and agent behavior rules', icon: FileText },
-  { id: 2, name: 'SOUL.md', type: 'markdown', size: '1.1 KB', modified: '5d ago', description: 'Core identity and personality definitions', icon: FileText },
-  { id: 3, name: 'USER.md', type: 'markdown', size: '0.8 KB', modified: '7d ago', description: 'User profile and preferences for Sebastian', icon: FileText },
-  { id: 4, name: 'TOOLS.md', type: 'markdown', size: '5.6 KB', modified: '3d ago', description: 'Tool configuration, API keys, and integration notes', icon: FileText },
-  { id: 5, name: 'IDENTITY.md', type: 'markdown', size: '0.4 KB', modified: '10d ago', description: 'Agent identity card — name, emoji, vibe', icon: FileText },
-  { id: 6, name: 'MEMORY.md', type: 'markdown', size: '4.2 KB', modified: '2h ago', description: 'Long-term curated memory store', icon: FileText },
-  { id: 7, name: 'outlook-email.sh', type: 'code', size: '3.4 KB', modified: '2w ago', description: 'Microsoft Graph email access script', icon: Code },
-  { id: 8, name: 'tts-elevenlabs.sh', type: 'code', size: '1.2 KB', modified: '1w ago', description: 'ElevenLabs text-to-speech wrapper', icon: Code },
-  { id: 9, name: 'deploy.sh', type: 'code', size: '2.1 KB', modified: '3d ago', description: 'Deployment automation script', icon: Code },
-  { id: 10, name: 'package.json', type: 'config', size: '1.8 KB', modified: '1d ago', description: 'Mission Control project configuration', icon: File },
-  { id: 11, name: 'tsconfig.json', type: 'config', size: '0.6 KB', modified: '5d ago', description: 'TypeScript compiler configuration', icon: File },
-  { id: 12, name: 'architecture.png', type: 'media', size: '245 KB', modified: '1w ago', description: 'System architecture diagram', icon: Image },
-];
+const typeIcons: Record<string, typeof FileText> = {
+  markdown: FileText,
+  code: Code,
+  config: File,
+  media: Image,
+  file: FileText,
+};
 
 const typeColors: Record<string, string> = {
   markdown: '#3b82f6',
   code: '#22c55e',
   config: '#f59e0b',
   media: '#a855f7',
+  file: '#6b7280',
 };
 
-export default function DocsLibrary() {
-  const [activeFilter, setActiveFilter] = useState('all');
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
-  const filteredDocs = activeFilter === 'all'
-    ? documents
-    : documents.filter(d => d.type === activeFilter);
+function formatDate(isoDate: string): string {
+  const date = new Date(isoDate);
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+  
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days === 1) return '1d ago';
+  if (days < 7) return `${days}d ago`;
+  return date.toLocaleDateString();
+}
+
+export default function DocsLibrary() {
+  const [files, setFiles] = useState<DocFile[]>([]);
+  const [selectedFile, setSelectedFile] = useState<DocFile | null>(null);
+  const [fileContent, setFileContent] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [loading, setLoading] = useState(true);
+  const [contentLoading, setContentLoading] = useState(false);
+
+  // Load file list
+  useEffect(() => {
+    fetch('/api/docs')
+      .then(res => res.json())
+      .then(data => {
+        if (data.files) {
+          setFiles(data.files);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Load file content when selected
+  useEffect(() => {
+    if (!selectedFile) return;
+    
+    setContentLoading(true);
+    fetch(`/api/docs?file=${encodeURIComponent(selectedFile.name)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.content) {
+          setFileContent(data.content);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setContentLoading(false));
+  }, [selectedFile]);
+
+  // Filter and search
+  const filteredFiles = files.filter(f => {
+    if (activeFilter !== 'all' && f.type !== activeFilter) return false;
+    if (searchQuery && !f.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    return true;
+  });
+
+  // Count files by type
+  const typeCounts = {
+    all: files.length,
+    markdown: files.filter(f => f.type === 'markdown').length,
+    code: files.filter(f => f.type === 'code').length,
+    config: files.filter(f => f.type === 'config').length,
+    media: files.filter(f => f.type === 'media').length,
+  };
+
+  const fileTypes = [
+    { id: 'all', label: 'All', count: typeCounts.all },
+    { id: 'markdown', label: 'Markdown', count: typeCounts.markdown },
+    { id: 'code', label: 'Code', count: typeCounts.code },
+    { id: 'config', label: 'Config', count: typeCounts.config },
+    { id: 'media', label: 'Media', count: typeCounts.media },
+  ];
 
   return (
     <div className="space-y-8">
@@ -68,36 +137,106 @@ export default function DocsLibrary() {
         ))}
       </div>
 
-      {/* Document Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-        {filteredDocs.map((doc) => {
-          const Icon = doc.icon;
-          const color = typeColors[doc.type] || '#6b7280';
-          return (
-            <div
-              key={doc.id}
-              className="bg-[#18181b] border border-[#27272a] rounded-xl p-6 hover:border-[#3f3f46] transition-colors cursor-pointer"
-            >
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${color}15` }}>
-                  <Icon size={16} style={{ color }} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-sm font-medium text-white truncate">{doc.name}</h3>
-                  <span className="text-[11px] px-2 py-0.5 rounded-md font-medium mt-1 inline-block"
-                    style={{ backgroundColor: `${color}15`, color }}>
-                    {doc.type}
-                  </span>
-                </div>
-              </div>
-              <p className="text-xs text-zinc-500 mb-3 leading-relaxed">{doc.description}</p>
-              <div className="flex items-center justify-between text-[11px] text-zinc-600">
-                <span>{doc.size}</span>
-                <span>{doc.modified}</span>
-              </div>
+      {/* Split Layout */}
+      <div className="grid grid-cols-[380px_1fr] gap-0 rounded-xl overflow-hidden border border-[#27272a]" style={{ height: 'calc(100vh - 360px)' }}>
+        {/* Left Panel - File List */}
+        <div className="bg-[#18181b] border-r border-[#27272a] flex flex-col">
+          {/* Search */}
+          <div className="p-4 border-b border-[#27272a]">
+            <div className="flex items-center gap-2 px-3 py-2 bg-[#111113] border border-[#27272a] rounded-lg">
+              <Search size={14} className="text-zinc-500" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search files..."
+                className="flex-1 bg-transparent text-sm text-white placeholder:text-zinc-600 focus:outline-none"
+              />
             </div>
-          );
-        })}
+          </div>
+
+          {/* File List */}
+          <div className="flex-1 overflow-y-auto">
+            {loading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 size={20} className="text-zinc-500 animate-spin" />
+              </div>
+            ) : filteredFiles.length === 0 ? (
+              <div className="px-4 py-8 text-center text-sm text-zinc-500">
+                No files found
+              </div>
+            ) : (
+              filteredFiles.map((file) => {
+                const Icon = typeIcons[file.type];
+                const color = typeColors[file.type];
+                const isSelected = selectedFile?.name === file.name;
+                return (
+                  <button
+                    key={file.name}
+                    onClick={() => setSelectedFile(file)}
+                    className={`w-full text-left px-4 py-3 border-b border-[#27272a]/50 transition-colors ${
+                      isSelected ? 'bg-[#1f1f23]' : 'hover:bg-[#1f1f23]/50'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" 
+                           style={{ backgroundColor: `${color}15` }}>
+                        <Icon size={14} style={{ color }} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className={`text-sm font-medium truncate ${isSelected ? 'text-white' : 'text-zinc-300'}`}>
+                          {file.name}
+                        </div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-[11px] text-zinc-600">{formatFileSize(file.size)}</span>
+                          <span className="text-[11px] text-zinc-700">·</span>
+                          <span className="text-[11px] text-zinc-600">{formatDate(file.modified)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })
+            )}
+          </div>
+        </div>
+
+        {/* Right Panel - Content Preview */}
+        <div className="bg-[#18181b] flex flex-col">
+          {selectedFile ? (
+            <>
+              <div className="p-4 border-b border-[#27272a] flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {(() => {
+                    const Icon = typeIcons[selectedFile.type];
+                    return <Icon size={14} style={{ color: typeColors[selectedFile.type] }} />;
+                  })()}
+                  <span className="text-sm font-medium text-white">{selectedFile.name}</span>
+                </div>
+                <span className="text-[11px] text-zinc-500">
+                  {formatFileSize(selectedFile.size)} · Modified {formatDate(selectedFile.modified)}
+                </span>
+              </div>
+              <div className="flex-1 p-6 overflow-y-auto">
+                {contentLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 size={20} className="text-zinc-500 animate-spin" />
+                  </div>
+                ) : (
+                  <div className="prose prose-invert prose-sm max-w-none">
+                    <pre className="text-sm text-zinc-300 leading-relaxed whitespace-pre-wrap font-mono bg-transparent border-none p-0">
+                      {fileContent}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+              Select a file to view its content
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

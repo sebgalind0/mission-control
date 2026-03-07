@@ -1,20 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import { Search, FileText, Brain, Clock } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, FileText, Brain, Clock, Loader2 } from 'lucide-react';
 
-const memoryFiles = [
-  { id: 1, name: 'MEMORY.md', type: 'core', size: '4.2 KB', modified: '2h ago', preview: 'Long-term memory store. Contains curated insights, decisions, and lessons learned across sessions...' },
-  { id: 2, name: '2026-03-05.md', type: 'daily', size: '2.8 KB', modified: '30m ago', preview: 'Mission Control UI rewrite in progress. All 18 screens being rebuilt from scratch. Dubai trip decision deadline April 1...' },
-  { id: 3, name: '2026-03-04.md', type: 'daily', size: '3.1 KB', modified: '1d ago', preview: 'Completed Phase 4 of Mission Control. Jorge still MIA - day 4. LinkedIn post hit 10K impressions...' },
-  { id: 4, name: '2026-03-03.md', type: 'daily', size: '2.4 KB', modified: '2d ago', preview: 'War briefing Day 6 delivered. Tesla voice ID issue resolved. WHOOP recovery trending upward...' },
-  { id: 5, name: '2026-03-02.md', type: 'daily', size: '1.9 KB', modified: '3d ago', preview: 'Team check-ins delivered via voice. Fabricio needs motivation push. Carlos should be more proactive...' },
-  { id: 6, name: '2026-03-01.md', type: 'daily', size: '2.6 KB', modified: '4d ago', preview: 'March begins. Sprint planning completed. New robotics module started for Nico...' },
-  { id: 7, name: 'heartbeat-state.json', type: 'state', size: '0.3 KB', modified: '5m ago', preview: '{ "lastChecks": { "email": 1709654400, "calendar": 1709650800, "weather": null } }' },
-  { id: 8, name: 'SOUL.md', type: 'core', size: '1.1 KB', modified: '5d ago', preview: 'Core identity file. Defines personality, values, and behavioral guidelines...' },
-  { id: 9, name: 'USER.md', type: 'core', size: '0.8 KB', modified: '7d ago', preview: 'Sebastian Galindo. CEO. Concise, smart, no BS. Hates fluff. Get to the point...' },
-  { id: 10, name: 'TOOLS.md', type: 'core', size: '5.6 KB', modified: '3d ago', preview: 'Local tool notes. ElevenLabs TTS, Slack webhooks, WhatsApp contacts, email configuration...' },
-];
+interface MemoryFile {
+  name: string;
+  type: 'core' | 'daily' | 'state';
+  size: number;
+  modified: string;
+}
 
 const typeIcons: Record<string, typeof FileText> = {
   core: Brain,
@@ -28,13 +22,70 @@ const typeColors: Record<string, string> = {
   state: '#f59e0b',
 };
 
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function formatDate(isoDate: string): string {
+  const date = new Date(isoDate);
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+  
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days === 1) return '1d ago';
+  if (days < 7) return `${days}d ago`;
+  return date.toLocaleDateString();
+}
+
 export default function MemoryBrowser() {
-  const [selectedFile, setSelectedFile] = useState(memoryFiles[0]);
+  const [files, setFiles] = useState<MemoryFile[]>([]);
+  const [selectedFile, setSelectedFile] = useState<MemoryFile | null>(null);
+  const [fileContent, setFileContent] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [contentLoading, setContentLoading] = useState(false);
+
+  // Load file list
+  useEffect(() => {
+    fetch('/api/memory')
+      .then(res => res.json())
+      .then(data => {
+        if (data.files) {
+          setFiles(data.files);
+          if (data.files.length > 0) {
+            setSelectedFile(data.files[0]);
+          }
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
+
+  // Load file content when selected
+  useEffect(() => {
+    if (!selectedFile) return;
+    
+    setContentLoading(true);
+    fetch(`/api/memory?file=${encodeURIComponent(selectedFile.name)}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.content) {
+          setFileContent(data.content);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setContentLoading(false));
+  }, [selectedFile]);
 
   const filteredFiles = searchQuery
-    ? memoryFiles.filter(f => f.name.toLowerCase().includes(searchQuery.toLowerCase()))
-    : memoryFiles;
+    ? files.filter(f => f.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    : files;
 
   return (
     <div className="space-y-8">
@@ -67,49 +118,73 @@ export default function MemoryBrowser() {
 
           {/* File List */}
           <div className="flex-1 overflow-y-auto">
-            {filteredFiles.map((file) => {
-              const Icon = typeIcons[file.type] || FileText;
-              const isSelected = selectedFile.id === file.id;
-              return (
-                <button
-                  key={file.id}
-                  onClick={() => setSelectedFile(file)}
-                  className={`w-full text-left px-4 py-3 border-b border-[#27272a]/50 transition-colors ${
-                    isSelected ? 'bg-[#1f1f23]' : 'hover:bg-[#1f1f23]/50'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Icon size={14} style={{ color: typeColors[file.type] || '#6b7280' }} />
-                    <span className={`text-sm font-medium ${isSelected ? 'text-white' : 'text-zinc-300'}`}>{file.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2 mt-1 ml-[22px]">
-                    <span className="text-[11px] text-zinc-600">{file.size}</span>
-                    <span className="text-[11px] text-zinc-700">·</span>
-                    <span className="text-[11px] text-zinc-600">{file.modified}</span>
-                  </div>
-                </button>
-              );
-            })}
+            {loading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 size={20} className="text-zinc-500 animate-spin" />
+              </div>
+            ) : filteredFiles.length === 0 ? (
+              <div className="px-4 py-8 text-center text-sm text-zinc-500">
+                No files found
+              </div>
+            ) : (
+              filteredFiles.map((file) => {
+                const Icon = typeIcons[file.type] || FileText;
+                const isSelected = selectedFile?.name === file.name;
+                return (
+                  <button
+                    key={file.name}
+                    onClick={() => setSelectedFile(file)}
+                    className={`w-full text-left px-4 py-3 border-b border-[#27272a]/50 transition-colors ${
+                      isSelected ? 'bg-[#1f1f23]' : 'hover:bg-[#1f1f23]/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon size={14} style={{ color: typeColors[file.type] || '#6b7280' }} />
+                      <span className={`text-sm font-medium ${isSelected ? 'text-white' : 'text-zinc-300'}`}>{file.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2 mt-1 ml-[22px]">
+                      <span className="text-[11px] text-zinc-600">{formatFileSize(file.size)}</span>
+                      <span className="text-[11px] text-zinc-700">·</span>
+                      <span className="text-[11px] text-zinc-600">{formatDate(file.modified)}</span>
+                    </div>
+                  </button>
+                );
+              })
+            )}
           </div>
         </div>
 
         {/* Right Panel - Content Preview */}
         <div className="bg-[#18181b] flex flex-col">
-          <div className="p-4 border-b border-[#27272a] flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              {(() => {
-                const Icon = typeIcons[selectedFile.type] || FileText;
-                return <Icon size={14} style={{ color: typeColors[selectedFile.type] || '#6b7280' }} />;
-              })()}
-              <span className="text-sm font-medium text-white">{selectedFile.name}</span>
-            </div>
-            <span className="text-[11px] text-zinc-500">{selectedFile.size} · Modified {selectedFile.modified}</span>
-          </div>
-          <div className="flex-1 p-6 overflow-y-auto">
-            <pre className="text-sm text-zinc-400 leading-relaxed whitespace-pre-wrap font-mono">
-              {selectedFile.preview}
-            </pre>
-          </div>
+          {selectedFile && (
+            <>
+              <div className="p-4 border-b border-[#27272a] flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {(() => {
+                    const Icon = typeIcons[selectedFile.type] || FileText;
+                    return <Icon size={14} style={{ color: typeColors[selectedFile.type] || '#6b7280' }} />;
+                  })()}
+                  <span className="text-sm font-medium text-white">{selectedFile.name}</span>
+                </div>
+                <span className="text-[11px] text-zinc-500">
+                  {formatFileSize(selectedFile.size)} · Modified {formatDate(selectedFile.modified)}
+                </span>
+              </div>
+              <div className="flex-1 p-6 overflow-y-auto">
+                {contentLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 size={20} className="text-zinc-500 animate-spin" />
+                  </div>
+                ) : (
+                  <div className="prose prose-invert prose-sm max-w-none">
+                    <pre className="text-sm text-zinc-300 leading-relaxed whitespace-pre-wrap font-mono bg-transparent border-none p-0">
+                      {fileContent}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

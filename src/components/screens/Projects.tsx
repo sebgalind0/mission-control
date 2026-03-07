@@ -1,11 +1,12 @@
 'use client';
 
 const agents = [
-  { id: 'main', name: 'Rick Sanchez', color: '#3b82f6', initial: 'R' },
-  { id: 'popeye', name: 'Cleopatra', color: '#22c55e', initial: 'C' },
-  { id: 'nico', name: 'El Father', color: '#f59e0b', initial: 'E' },
-  { id: 'together', name: 'Dr. Ashley', color: '#a855f7', initial: 'A' },
-  { id: 'tesla', name: 'Tesla', color: '#06b6d4', initial: 'T' },
+  { id: 'neo', name: 'Neo', color: '#22c55e', initial: 'N' },
+  { id: 'bolt', name: 'Bolt', color: '#eab308', initial: 'B' },
+  { id: 'george', name: 'George', color: '#a855f7', initial: 'G' },
+  { id: 'jobs', name: 'Jobs', color: '#3b82f6', initial: 'J' },
+  { id: 'morpheus', name: 'Morpheus', color: '#06b6d4', initial: 'M' },
+  { id: 'larry', name: 'Larry', color: '#f59e0b', initial: 'L' },
 ];
 
 const projects = [
@@ -15,59 +16,9 @@ const projects = [
     status: 'active',
     description: 'Fleet management UI for monitoring and controlling all AI agents from a single interface.',
     progress: 85,
-    team: ['main', 'tesla'],
+    team: ['neo', 'bolt', 'george', 'jobs', 'morpheus', 'larry'],
     startDate: 'Feb 28, 2026',
     dueDate: 'Mar 10, 2026',
-  },
-  {
-    id: 'p2',
-    title: 'Fethr Health Platform',
-    status: 'active',
-    description: 'Health and wellness platform with WHOOP integration, coaching, and analytics.',
-    progress: 62,
-    team: ['main', 'popeye'],
-    startDate: 'Jan 15, 2026',
-    dueDate: 'Apr 1, 2026',
-  },
-  {
-    id: 'p3',
-    title: 'Robotics Curriculum',
-    status: 'active',
-    description: 'Structured learning path for Nico covering servos, kinematics, and autonomous navigation.',
-    progress: 68,
-    team: ['tesla', 'nico'],
-    startDate: 'Feb 1, 2026',
-    dueDate: 'May 15, 2026',
-  },
-  {
-    id: 'p4',
-    title: 'Dubai Trip Planning',
-    status: 'planning',
-    description: 'Research and logistics for potential April Dubai trip. Hotels, flights, activities.',
-    progress: 25,
-    team: ['main'],
-    startDate: 'Mar 1, 2026',
-    dueDate: 'Apr 1, 2026',
-  },
-  {
-    id: 'p5',
-    title: 'Couples Therapy Framework',
-    status: 'active',
-    description: 'Structured conversation frameworks and exercises for relationship growth.',
-    progress: 45,
-    team: ['together'],
-    startDate: 'Feb 10, 2026',
-    dueDate: 'Ongoing',
-  },
-  {
-    id: 'p6',
-    title: 'LinkedIn Growth Strategy',
-    status: 'paused',
-    description: 'Content calendar, engagement tracking, and audience growth for Seb\'s LinkedIn.',
-    progress: 40,
-    team: ['main'],
-    startDate: 'Jan 1, 2026',
-    dueDate: 'Ongoing',
   },
 ];
 
@@ -144,6 +95,11 @@ export default function Projects() {
             </div>
           );
         })}
+        
+        {/* Empty State */}
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6 flex items-center justify-center">
+          <p className="text-sm text-zinc-500">No other active projects</p>
+        </div>
       </div>
     </div>
   );
