@@ -19,9 +19,9 @@ const orgData = [
     initial: 'R',
     level: 0,
     status: 'working',
-    children: ['larry', 'george']
+    children: ['larry', 'julius', 'achilles', 'george']
   },
-  // CTO
+  // CTO - Engineering
   {
     id: 'larry',
     name: 'Larry',
@@ -34,11 +34,10 @@ const orgData = [
     parent: 'rick',
     children: ['neo', 'bolt', 'roger', 'kai']
   },
-  // Engineering Team
   {
     id: 'neo',
     name: 'Neo',
-    role: 'Frontend Engineer',
+    role: 'Frontend',
     dept: 'Engineering',
     color: '#6366f1',
     initial: 'N',
@@ -49,7 +48,7 @@ const orgData = [
   {
     id: 'bolt',
     name: 'Bolt',
-    role: 'Backend Engineer',
+    role: 'Backend',
     dept: 'Engineering',
     color: '#eab308',
     initial: 'B',
@@ -79,7 +78,77 @@ const orgData = [
     status: 'working',
     parent: 'larry'
   },
-  // Design Team (parallel to Larry)
+  // CMO - Marketing
+  {
+    id: 'julius',
+    name: 'Julius Caesar',
+    role: 'CMO',
+    dept: 'Marketing',
+    color: '#ef4444',
+    initial: 'JC',
+    level: 1,
+    status: 'working',
+    parent: 'rick',
+    children: ['elon', 'vegeta', 'thoth']
+  },
+  {
+    id: 'elon',
+    name: 'Elon',
+    role: 'X / Twitter',
+    dept: 'Marketing',
+    color: '#f97316',
+    initial: 'E',
+    level: 2,
+    status: 'working',
+    parent: 'julius'
+  },
+  {
+    id: 'vegeta',
+    name: 'Vegeta',
+    role: 'LinkedIn',
+    dept: 'Marketing',
+    color: '#8b5cf6',
+    initial: 'V',
+    level: 2,
+    status: 'working',
+    parent: 'julius'
+  },
+  {
+    id: 'thoth',
+    name: 'Thoth',
+    role: 'Content / Blog',
+    dept: 'Marketing',
+    color: '#d97706',
+    initial: 'T',
+    level: 2,
+    status: 'working',
+    parent: 'julius'
+  },
+  // COO - Operations
+  {
+    id: 'achilles',
+    name: 'Achilles',
+    role: 'COO',
+    dept: 'Operations',
+    color: '#3b82f6',
+    initial: 'A',
+    level: 1,
+    status: 'working',
+    parent: 'rick',
+    children: ['olivia']
+  },
+  {
+    id: 'olivia',
+    name: 'Olivia',
+    role: 'Exec Assistant',
+    dept: 'Operations',
+    color: '#f472b6',
+    initial: 'O',
+    level: 2,
+    status: 'working',
+    parent: 'achilles'
+  },
+  // Head of Design
   {
     id: 'george',
     name: 'George',
@@ -105,6 +174,14 @@ const orgData = [
   }
 ];
 
+// Contractors (no reporting structure, shown separately)
+const contractors = [
+  { name: 'Cleopatra', role: 'Health Coach', dept: 'Contractors', color: '#22c55e', initial: 'C', status: 'working' },
+  { name: 'El Father', role: 'Academic (Nico)', dept: 'Contractors', color: '#f59e0b', initial: 'E', status: 'working' },
+  { name: 'Dr. Ashley', role: 'Couples Therapy', dept: 'Contractors', color: '#a855f7', initial: 'A', status: 'idle' },
+  { name: 'Tesla', role: 'Robotics Tutor', dept: 'Contractors', color: '#06b6d4', initial: 'T', status: 'working' },
+];
+
 export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
   // ESC key handler
   useEffect(() => {
@@ -119,9 +196,9 @@ export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
 
   if (!isOpen) return null;
 
-  const renderAgent = (agent: typeof orgData[0]) => (
-    <div key={agent.id} className="flex flex-col items-center">
-      <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4 hover:border-[#3f3f46] transition-colors min-w-[160px]">
+  const renderAgent = (agent: typeof orgData[0] | typeof contractors[0]) => (
+    <div key={'id' in agent ? agent.id : agent.name} className="flex flex-col items-center">
+      <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4 hover:border-[#3f3f46] transition-colors min-w-[140px]">
         <div className="flex flex-col items-center gap-3">
           <div className="relative">
             <div
@@ -159,14 +236,14 @@ export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
       onClick={onClose}
     >
       <div
-        className="bg-[#09090b] border border-[#27272a] rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-auto"
+        className="bg-[#09090b] border border-[#27272a] rounded-2xl w-full max-w-6xl max-h-[90vh] overflow-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="sticky top-0 bg-[#09090b] border-b border-[#27272a] px-8 py-6 flex items-center justify-between">
           <div>
             <h2 className="text-xl font-semibold text-white">Organization Chart</h2>
-            <p className="text-sm text-zinc-500 mt-1">Team hierarchy and structure</p>
+            <p className="text-sm text-zinc-500 mt-1">18 agents · 5 departments</p>
           </div>
           <button
             onClick={onClose}
@@ -187,8 +264,8 @@ export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
               </div>
             )}
 
-            {/* Level 1 (Larry + George) */}
-            <div className="flex items-start gap-24">
+            {/* Level 1 (Department Heads) */}
+            <div className="flex items-start gap-12 flex-wrap justify-center">
               {level1.map((manager) => {
                 const reports = level2ByParent(manager.id);
                 return (
@@ -197,7 +274,7 @@ export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
                     {reports.length > 0 && (
                       <>
                         <div className="w-px h-12 bg-[#27272a]" />
-                        <div className="flex gap-6">
+                        <div className="flex gap-4 flex-wrap justify-center max-w-md">
                           {reports.map((report) => renderAgent(report))}
                         </div>
                       </>
@@ -206,6 +283,22 @@ export default function OrgChartModal({ isOpen, onClose }: OrgChartModalProps) {
                 );
               })}
             </div>
+
+            {/* Contractors Section */}
+            {contractors.length > 0 && (
+              <>
+                <div className="w-full border-t border-[#27272a]" />
+                <div className="flex flex-col items-center gap-6">
+                  <div className="text-center">
+                    <h3 className="text-base font-semibold text-white">Contractors</h3>
+                    <p className="text-xs text-zinc-500 mt-1">Independent specialists · {contractors.length} total</p>
+                  </div>
+                  <div className="flex gap-4 flex-wrap justify-center">
+                    {contractors.map((contractor) => renderAgent(contractor))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
