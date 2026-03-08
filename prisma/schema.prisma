@@ -112,3 +112,16 @@ enum CalendarEventType {
   MEETING
   RECURRING
 }
+
+model Event {
+  id         String   @id @default(cuid())
+  type       String   // "session_created", "session_activity", "tool_call", etc.
+  sessionKey String?  // OpenClaw session key
+  timestamp  DateTime
+  data       Json     // Event-specific data
+  createdAt  DateTime @default(now())
+  
+  @@index([type])
+  @@index([timestamp])
+  @@index([sessionKey])
+}
