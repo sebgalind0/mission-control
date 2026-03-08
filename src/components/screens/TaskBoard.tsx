@@ -303,16 +303,35 @@ export default function TaskBoard() {
 
             {/* Task Cards */}
             <div className="space-y-2 md:space-y-3">
-              {tasksByStatus[col.id as keyof typeof tasksByStatus].map((task) => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  agents={agents}
-                  onApprove={col.id === 'review' ? handleApprove : undefined}
-                  onReject={col.id === 'review' ? handleRejectClick : undefined}
-                  onClick={() => setSelectedTask(task)}
-                />
-              ))}
+              {tasksByStatus[col.id as keyof typeof tasksByStatus].length === 0 ? (
+                <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6 text-center">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-12 h-12 rounded-full bg-[#27272a] flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-zinc-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-zinc-500">No tasks in {col.label.toLowerCase()}</p>
+                      <p className="text-xs text-zinc-600 mt-1">
+                        {col.id === 'backlog' && 'Ready for new work'}
+                        {col.id === 'in-progress' && 'All quiet'}
+                        {col.id === 'review' && 'Nothing to review'}
+                        {col.id === 'done' && 'No completed tasks yet'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                tasksByStatus[col.id as keyof typeof tasksByStatus].map((task) => (
+                  <TaskCard
+                    key={task.id}
+                    task={task}
+                    agents={agents}
+                    onApprove={col.id === 'review' ? handleApprove : undefined}
+                    onReject={col.id === 'review' ? handleRejectClick : undefined}
+                    onClick={() => setSelectedTask(task)}
+                  />
+                ))
+              )}
             </div>
           </div>
         ))}
