@@ -40,8 +40,27 @@ export default function Analytics() {
   const [expandedAgent, setExpandedAgent] = useState<string | null>(null);
   const [agentDetails, setAgentDetails] = useState<Record<string, AgentDetail>>({});
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({
+    totalMessages: 0,
+    tasksCompleted: 0,
+    avgResponseTime: '0.0',
+    fleetUptime: '0.0',
+  });
 
   useEffect(() => {
+    // Fetch main stats
+    fetch('/api/analytics')
+      .then(res => res.json())
+      .then(data => {
+        setStats({
+          totalMessages: data.totalMessages || 0,
+          tasksCompleted: data.tasksCompleted || 0,
+          avgResponseTime: data.avgResponseTime || '0.0',
+          fleetUptime: data.fleetUptime || '0.0',
+        });
+      })
+      .catch(err => console.error('Failed to fetch analytics:', err));
+
     // Fetch model usage
     fetch('/api/analytics/models')
       .then(res => res.json())
@@ -98,22 +117,22 @@ export default function Analytics() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6">
           <p className="text-xs text-zinc-500 font-medium mb-2">Total Messages</p>
-          <p className="text-3xl font-bold text-white tracking-tight">{totalMessages.toLocaleString()}</p>
+          <p className="text-3xl font-bold text-white tracking-tight">{stats.totalMessages.toLocaleString()}</p>
           <p className="text-xs text-emerald-500 mt-1">↑ 12% from last week</p>
         </div>
         <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6">
           <p className="text-xs text-zinc-500 font-medium mb-2">Tasks Completed</p>
-          <p className="text-3xl font-bold text-white tracking-tight">{totalTasks}</p>
+          <p className="text-3xl font-bold text-white tracking-tight">{stats.tasksCompleted}</p>
           <p className="text-xs text-emerald-500 mt-1">↑ 8% from last week</p>
         </div>
         <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6">
           <p className="text-xs text-zinc-500 font-medium mb-2">Avg Response Time</p>
-          <p className="text-3xl font-bold text-white tracking-tight">1.6s</p>
+          <p className="text-3xl font-bold text-white tracking-tight">{stats.avgResponseTime}s</p>
           <p className="text-xs text-zinc-600 mt-1">Across all agents</p>
         </div>
         <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6">
           <p className="text-xs text-zinc-500 font-medium mb-2">Fleet Uptime</p>
-          <p className="text-3xl font-bold text-white tracking-tight">99.4%</p>
+          <p className="text-3xl font-bold text-white tracking-tight">{stats.fleetUptime}%</p>
           <p className="text-xs text-emerald-500 mt-1">Last 30 days</p>
         </div>
       </div>
