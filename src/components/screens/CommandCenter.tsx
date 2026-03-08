@@ -378,12 +378,6 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
                         <span className="text-xs text-zinc-500">{formatRelativeTime(activity.timestamp)}</span>
                       </div>
                       <p className="text-sm text-zinc-400 mt-0.5">{activity.action}</p>
-                      {activity.metadata && Object.keys(activity.metadata).length > 0 && (
-                        <div className="mt-2 text-xs text-zinc-600 font-mono bg-black/30 rounded px-2 py-1">
-                          {JSON.stringify(activity.metadata, null, 2).slice(0, 200)}
-                          {JSON.stringify(activity.metadata).length > 200 && '...'}
-                        </div>
-                      )}
                     </div>
                   </div>
                 ))}
@@ -512,7 +506,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
               type="text"
               value={commandInput}
               onChange={(e) => setCommandInput(e.target.value)}
-              placeholder="Try: 'Neo, add hover effects' or 'Deploy to staging'"
+              placeholder="Send a command to your agents..."
               disabled={isSubmitting}
               className="flex-1 bg-[#111113] border border-[#27272a] rounded-lg px-4 py-3 md:py-2.5 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 transition-colors disabled:opacity-50"
             />

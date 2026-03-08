@@ -52,7 +52,7 @@ export default function FleetOverview({ onAgentClick }: FleetOverviewProps) {
             Mission Control › Fleet Overview
           </p>
           <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-white">Fleet Overview</h1>
-          <p className="text-sm text-zinc-500 mt-1">18 agents across 5 departments</p>
+          <p className="text-sm text-zinc-500 mt-1">{agents.length} agents across {depts.length} departments</p>
         </div>
         <button
           onClick={() => setIsOrgChartOpen(true)}
