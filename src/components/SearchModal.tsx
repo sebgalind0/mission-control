@@ -100,10 +100,10 @@ export default function SearchModal({ isOpen, onClose, onNavigate }: SearchModal
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-12 md:pt-24 px-4 md:px-0 bg-black/60 backdrop-blur-sm">
       <div className="w-full max-w-2xl bg-[#18181b] border border-[#27272a] rounded-lg shadow-2xl overflow-hidden">
         {/* Search Input */}
-        <div className="p-4 border-b border-[#27272a]">
+        <div className="p-3 md:p-4 border-b border-[#27272a]">
           <div className="flex items-center gap-3">
             <Search size={20} className="text-zinc-500" />
             <input

@@ -261,15 +261,15 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Breadcrumb */}
       <div>
         <p className="text-[11px] font-medium uppercase tracking-widest text-zinc-500 mb-2">
           Mission Control › Command Center
         </p>
-        <div className="flex items-baseline justify-between">
+        <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-white">Command Center</h1>
+            <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-white">Command Center</h1>
             <p className="text-sm text-zinc-500 mt-1">Live mission control nerve center</p>
           </div>
           <div className="flex items-center gap-2">
@@ -282,28 +282,30 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
       </div>
 
       {/* Stats Cards - TODAY's data */}
-      <div className="grid grid-cols-4 gap-4">
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
-              <Activity size={20} className="text-blue-400" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4 md:p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-blue-600/10 border border-blue-500/20 flex items-center justify-center">
+              <Activity size={16} className="text-blue-400 md:hidden" />
+              <Activity size={20} className="text-blue-400 hidden md:block" />
             </div>
             <div>
-              <p className="text-xs text-zinc-500 uppercase tracking-wider">Events Today</p>
-              <p className="text-2xl font-semibold text-white">{stats.totalEvents}</p>
+              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Events Today</p>
+              <p className="text-xl md:text-2xl font-semibold text-white">{stats.totalEvents}</p>
             </div>
           </div>
-          <p className="text-xs text-zinc-600">Since midnight</p>
+          <p className="text-xs text-zinc-600 hidden md:block">Since midnight</p>
         </div>
 
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-green-600/10 border border-green-500/20 flex items-center justify-center">
-              <GitCommit size={20} className="text-green-400" />
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4 md:p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-green-500/10 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-green-600/10 border border-green-500/20 flex items-center justify-center">
+              <GitCommit size={16} className="text-green-400 md:hidden" />
+              <GitCommit size={20} className="text-green-400 hidden md:block" />
             </div>
             <div>
-              <p className="text-xs text-zinc-500 uppercase tracking-wider">Commits (1h)</p>
-              <p className="text-2xl font-semibold text-white">
+              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Commits (1h)</p>
+              <p className="text-xl md:text-2xl font-semibold text-white">
                 {activities.filter(a => 
                   (a.action.includes('commit') || a.action.includes('git')) &&
                   new Date(a.timestamp).getTime() > Date.now() - 60 * 60 * 1000
@@ -311,47 +313,49 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
               </p>
             </div>
           </div>
-          <p className="text-xs text-zinc-600">Last hour</p>
+          <p className="text-xs text-zinc-600 hidden md:block">Last hour</p>
         </div>
 
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-purple-600/10 border border-purple-500/20 flex items-center justify-center">
-              <Users size={20} className="text-purple-400" />
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4 md:p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-purple-600/10 border border-purple-500/20 flex items-center justify-center">
+              <Users size={16} className="text-purple-400 md:hidden" />
+              <Users size={20} className="text-purple-400 hidden md:block" />
             </div>
             <div>
-              <p className="text-xs text-zinc-500 uppercase tracking-wider">Active Agents</p>
-              <p className="text-2xl font-semibold text-white">{activeAgents.length}</p>
+              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Active Agents</p>
+              <p className="text-xl md:text-2xl font-semibold text-white">{activeAgents.length}</p>
             </div>
           </div>
-          <p className="text-xs text-zinc-600">Right now</p>
+          <p className="text-xs text-zinc-600 hidden md:block">Right now</p>
         </div>
 
-        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-orange-600/10 border border-orange-500/20 flex items-center justify-center">
-              <Zap size={20} className="text-orange-400" />
+        <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4 md:p-5 hover:border-[#3f3f46] hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300 cursor-pointer">
+          <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-orange-600/10 border border-orange-500/20 flex items-center justify-center">
+              <Zap size={16} className="text-orange-400 md:hidden" />
+              <Zap size={20} className="text-orange-400 hidden md:block" />
             </div>
             <div>
-              <p className="text-xs text-zinc-500 uppercase tracking-wider">In Progress</p>
-              <p className="text-2xl font-semibold text-white">{activeWork.length}</p>
+              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">In Progress</p>
+              <p className="text-xl md:text-2xl font-semibold text-white">{activeWork.length}</p>
             </div>
           </div>
-          <p className="text-xs text-zinc-600">Tasks running</p>
+          <p className="text-xs text-zinc-600 hidden md:block">Tasks running</p>
         </div>
       </div>
 
       {/* Main Grid: Activity Feed + Active Agents + Active Work */}
-      <div className="grid grid-cols-12 gap-4" style={{ height: 'calc(100vh - 500px)' }}>
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4" style={{ height: 'auto', minHeight: '400px' }}>
         
         {/* LEFT: Activity Feed (60%) */}
-        <div className="col-span-7 bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col">
-          <div className="px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
+        <div className="md:col-span-7 bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: '400px', maxHeight: '400px' }}>
+          <div className="px-4 md:px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
             <Activity size={16} className="text-zinc-400" />
             <h2 className="text-sm font-semibold text-white">Activity Feed</h2>
             <span className="ml-auto text-xs text-zinc-500">{activities.length} events today</span>
           </div>
-          <div className="flex-1 overflow-y-auto p-4 space-y-2">
+          <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2">
             {activities.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full gap-3">
                 <Activity size={32} className="text-zinc-700" />
@@ -390,16 +394,16 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
         </div>
 
         {/* RIGHT COLUMN: Active Agents + Active Work */}
-        <div className="col-span-5 flex flex-col gap-4">
+        <div className="md:col-span-5 flex flex-col gap-4">
           
           {/* Active Agents Panel */}
-          <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: '45%' }}>
-            <div className="px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
+          <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: '300px', maxHeight: '300px' }}>
+            <div className="px-4 md:px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
               <Bot size={16} className="text-zinc-400" />
               <h2 className="text-sm font-semibold text-white">Active Agents</h2>
               <span className="ml-auto text-xs text-zinc-500">{activeAgents.length} online</span>
             </div>
-            <div className="flex-1 overflow-y-auto p-4 space-y-2">
+            <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2">
               {activeAgents.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full gap-3">
                   <Bot size={32} className="text-zinc-700" />
@@ -444,13 +448,13 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
           </div>
 
           {/* Active Work Panel */}
-          <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: '55%' }}>
-            <div className="px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
+          <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: '350px', maxHeight: '350px' }}>
+            <div className="px-4 md:px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
               <Clock size={16} className="text-zinc-400" />
               <h2 className="text-sm font-semibold text-white">Active Work</h2>
               <span className="ml-auto text-xs text-zinc-500">{activeWork.length} in progress</span>
             </div>
-            <div className="flex-1 overflow-y-auto p-4 space-y-2">
+            <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2">
               {activeWork.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full gap-3">
                   <Clock size={32} className="text-zinc-700" />
@@ -501,31 +505,31 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
       </div>
 
       {/* Command Bar */}
-      <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-4">
+      <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-3 md:p-4">
         <form onSubmit={handleCommandSubmit} className="space-y-3">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:gap-3">
             <input
               type="text"
               value={commandInput}
               onChange={(e) => setCommandInput(e.target.value)}
               placeholder="Try: 'Neo, add hover effects' or 'Deploy to staging'"
               disabled={isSubmitting}
-              className="flex-1 bg-[#111113] border border-[#27272a] rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 transition-colors disabled:opacity-50"
+              className="flex-1 bg-[#111113] border border-[#27272a] rounded-lg px-4 py-3 md:py-2.5 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 transition-colors disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={isSubmitting || !commandInput.trim()}
-              className="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-500 active:scale-95 transition-all flex items-center gap-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="px-4 py-3 md:py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-500 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {isSubmitting ? (
                 <>
                   <Loader2 size={14} className="animate-spin" />
-                  Processing...
+                  <span className="md:inline">Processing...</span>
                 </>
               ) : (
                 <>
                   <Send size={14} />
-                  Execute
+                  <span className="md:inline">Execute</span>
                 </>
               )}
             </button>

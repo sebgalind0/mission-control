@@ -147,7 +147,7 @@ export default function TeamOrgChart({ onAgentClick }: TeamOrgChartProps) {
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
         {[
           { label: 'Total', value: '18' },
           { label: 'Engineering', value: '5' },

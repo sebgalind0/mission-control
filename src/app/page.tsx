@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MessageSquare, Mic, Loader2, Bell } from 'lucide-react';
+import { MessageSquare, Mic, Loader2, Bell, Menu } from 'lucide-react';
 import Sidebar from '@/components/Sidebar';
 import FleetOverview from '@/components/screens/FleetOverview';
 import CommandCenter from '@/components/screens/CommandCenter';
@@ -31,6 +31,7 @@ export default function Home() {
   const [isCoPilotOpen, setIsCoPilotOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [voiceMode, setVoiceMode] = useState<'idle' | 'listening' | 'processing'>('idle');
   const [transcript, setTranscript] = useState('');
   const [chatLogModal, setChatLogModal] = useState<{ isOpen: boolean; agentName: string; agentEmoji: string }>({
@@ -115,11 +116,25 @@ export default function Home() {
 
   return (
     <div className="flex h-screen bg-[#09090b]">
-      <Sidebar onNavigate={setActiveScreen} activeScreen={activeScreen} />
+      <Sidebar 
+        onNavigate={setActiveScreen} 
+        activeScreen={activeScreen}
+        isMobileMenuOpen={isMobileMenuOpen}
+        onMobileMenuClose={() => setIsMobileMenuOpen(false)}
+      />
       <main className="flex-1 overflow-y-auto relative ml-0">
         {/* Top Bar */}
-        <div className="sticky top-0 z-10 h-[56px] flex items-center justify-end px-12 bg-[#09090b]/80 backdrop-blur-sm border-b border-[#27272a]">
-          <div className="flex items-center gap-2">
+        <div className="sticky top-0 z-10 h-[56px] flex items-center justify-between px-4 md:px-12 bg-[#09090b]/80 backdrop-blur-sm border-b border-[#27272a]">
+          {/* Hamburger Menu Button (Mobile Only) */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 -ml-2 text-zinc-400 hover:text-white transition-colors"
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          >
+            <Menu size={20} />
+          </button>
+
+          <div className="flex items-center gap-2 md:ml-auto">
           {/* Notifications Button */}
           <button
             onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
@@ -144,7 +159,7 @@ export default function Home() {
         </div>
 
         {/* Content area */}
-        <div className="w-full px-12 py-8">
+        <div className="w-full px-4 py-6 md:px-12 md:py-8">
           {renderScreen()}
         </div>
       </main>
@@ -181,7 +196,7 @@ export default function Home() {
       />
 
       {/* Voice Mode Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50">
         {/* Voice Popup */}
         {voiceMode !== 'idle' && (
           <div className="absolute bottom-16 right-0 w-80 bg-[#18181b] border border-[#27272a] rounded-xl p-4 shadow-xl mb-2">

@@ -51,7 +51,7 @@ export default function CoPilotSidebar({ isOpen, onClose, currentScreen }: CoPil
   }
 
   return (
-    <div className="w-80 h-screen bg-[#0f0f12] border-l border-[#27272a] flex flex-col">
+    <div className="fixed md:static inset-y-0 right-0 w-full md:w-80 h-screen bg-[#0f0f12] border-l border-[#27272a] flex flex-col z-40">
       {/* Header */}
       <div className="p-4 border-b border-[#27272a] flex items-center justify-between">
         <div className="flex items-center gap-2">

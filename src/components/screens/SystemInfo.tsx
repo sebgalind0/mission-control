@@ -48,7 +48,7 @@ export default function SystemInfo() {
       </div>
 
       {/* System Cards */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         {systemCards.map((card) => (
           <div key={card.label} className="bg-[#18181b] border border-[#27272a] rounded-xl p-6">
             <p className="text-xs text-zinc-500 font-medium mb-2">{card.label}</p>

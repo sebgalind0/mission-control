@@ -37,7 +37,7 @@ export default function NotificationsPanel({ isOpen, onClose }: NotificationsPan
       />
 
       {/* Panel */}
-      <div className="fixed top-16 right-4 z-50 w-96 bg-[#18181b] border border-[#27272a] rounded-lg shadow-2xl">
+      <div className="fixed top-16 right-4 left-4 md:left-auto z-50 w-auto md:w-96 bg-[#18181b] border border-[#27272a] rounded-lg shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-[#27272a]">
           <div className="flex items-center gap-2">

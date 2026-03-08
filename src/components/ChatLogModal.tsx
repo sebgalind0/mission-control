@@ -31,10 +31,10 @@ export default function ChatLogModal({ isOpen, onClose, agentName, agentEmoji }:
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
       <div className="w-full max-w-3xl max-h-[80vh] bg-[#18181b] border border-[#27272a] rounded-lg shadow-2xl overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="p-6 border-b border-[#27272a] flex items-center justify-between">
+        <div className="p-4 md:p-6 border-b border-[#27272a] flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-2xl">{agentEmoji}</span>
             <div>

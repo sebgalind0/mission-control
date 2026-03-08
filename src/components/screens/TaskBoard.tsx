@@ -168,19 +168,19 @@ export default function TaskBoard() {
   const tasksByStatus = groupTasksByStatus();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* Breadcrumb */}
       <div>
         <p className="text-[11px] font-medium uppercase tracking-widest text-zinc-500 mb-2">
           Mission Control › Task Board
         </p>
-        <h1 className="text-2xl font-semibold tracking-tight text-white">Task Board</h1>
+        <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-white">Task Board</h1>
         <p className="text-sm text-zinc-500 mt-1">Track and manage tasks across your fleet</p>
       </div>
 
       {/* Analytics Header */}
       {analytics && (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           <MetricCard
             icon={<Clock className="w-5 h-5 text-blue-400" />}
             label="Tasks Today"
@@ -210,7 +210,7 @@ export default function TaskBoard() {
 
       {/* Blocked Tasks Alert */}
       {analytics && analytics.blockedTasks > 0 && (
-        <div className="flex items-center gap-3 bg-red-500/10 border border-red-500/20 rounded-lg p-4">
+        <div className="flex items-center gap-2 md:gap-3 bg-red-500/10 border border-red-500/20 rounded-lg p-3 md:p-4">
           <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0" />
           <div>
             <p className="text-sm font-medium text-red-400">
@@ -221,7 +221,7 @@ export default function TaskBoard() {
       )}
 
       {/* Filters */}
-      <div className="flex items-center gap-4 flex-wrap">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 md:gap-4">
         <div className="flex items-center gap-2">
           <Filter className="w-4 h-4 text-zinc-500" />
           <span className="text-sm font-medium text-zinc-400">Filters:</span>
@@ -288,21 +288,21 @@ export default function TaskBoard() {
       </div>
 
       {/* Kanban Board */}
-      <div className="grid grid-cols-4 gap-6">
+      <div className="md:grid md:grid-cols-4 md:gap-6 flex md:flex-none overflow-x-auto gap-4 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0" style={{ scrollSnapType: 'x mandatory' }}>
         {columns.map((col) => (
-          <div key={col.id} className="space-y-3">
+          <div key={col.id} className="space-y-3 flex-shrink-0 w-[280px] md:w-auto" style={{ scrollSnapAlign: 'start' }}>
             {/* Column Header */}
-            <div className="flex items-center justify-between px-1 mb-4">
+            <div className="flex items-center justify-between px-1 mb-3 md:mb-4">
               <div className="flex items-center gap-2.5">
-                <h3 className="text-[13px] font-semibold text-zinc-300">{col.label}</h3>
-                <span className="text-[11px] w-5 h-5 rounded-md bg-[#27272a] text-zinc-400 font-medium flex items-center justify-center">
+                <h3 className="text-xs md:text-[13px] font-semibold text-zinc-300">{col.label}</h3>
+                <span className="text-[10px] md:text-[11px] w-5 h-5 rounded-md bg-[#27272a] text-zinc-400 font-medium flex items-center justify-center">
                   {tasksByStatus[col.id as keyof typeof tasksByStatus].length}
                 </span>
               </div>
             </div>
 
             {/* Task Cards */}
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {tasksByStatus[col.id as keyof typeof tasksByStatus].map((task) => (
                 <TaskCard
                   key={task.id}

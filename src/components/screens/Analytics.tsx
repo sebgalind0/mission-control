@@ -95,7 +95,7 @@ export default function Analytics() {
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         <div className="bg-[#18181b] border border-[#27272a] rounded-xl p-6">
           <p className="text-xs text-zinc-500 font-medium mb-2">Total Messages</p>
           <p className="text-3xl font-bold text-white tracking-tight">{totalMessages.toLocaleString()}</p>
@@ -229,7 +229,7 @@ export default function Analytics() {
                 {expandedAgent === agent.id && (
                   <div className="px-6 pb-6 pt-2 bg-[#0d0d0f] border-t border-[#27272a]/50">
                     {agentDetails[agent.id] ? (
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                         <div className="bg-[#18181b] border border-[#27272a] rounded-lg p-4">
                           <p className="text-xs text-zinc-500 font-medium mb-2">Completion Rate</p>
                           <p className="text-2xl font-bold text-white">{agentDetails[agent.id].completionRate}%</p>

@@ -384,8 +384,9 @@ export default function Calendar() {
         {/* Day Headers */}
         <div className="grid grid-cols-7 border-b border-[#27272a]">
           {daysOfWeek.map((day) => (
-            <div key={day} className="text-center text-[11px] font-medium uppercase tracking-wider text-zinc-500 py-3">
-              {day}
+            <div key={day} className="text-center text-[10px] md:text-[11px] font-medium uppercase tracking-wider text-zinc-500 py-2 md:py-3">
+              <span className="hidden md:inline">{day}</span>
+              <span className="md:hidden">{day.charAt(0)}</span>
             </div>
           ))}
         </div>
@@ -398,7 +399,7 @@ export default function Calendar() {
             return (
               <div
                 key={idx}
-                className={`min-h-[120px] p-3 border-r border-b border-[#27272a]/50 ${
+                className={`min-h-[80px] md:min-h-[120px] p-1 md:p-3 border-r border-b border-[#27272a]/50 ${
                   day ? 'hover:bg-[#1f1f23] transition-colors cursor-pointer' : ''
                 } ${idx % 7 === 6 ? 'border-r-0' : ''}`}
               >
