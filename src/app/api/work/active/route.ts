@@ -28,8 +28,8 @@ export async function GET(request: NextRequest) {
       orderBy: { startedAt: 'desc' },
     });
     
-    // If no work found, use sample data
-    const workItems = activeWork.length > 0 ? activeWork : getSampleData();
+    // Return real work only (no sample data)
+    const workItems = activeWork;
     
     // Separate running vs blocked tasks
     const running = workItems.filter((w: any) => w.status === 'running');
@@ -49,15 +49,14 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Active work fetch error:', error);
-    // Return sample data on error
-    const sampleData = getSampleData();
+    // Return empty arrays on error (no sample data)
     return NextResponse.json({
-      tasks: sampleData,
+      tasks: [],
       blocked: [],
       paused: [],
       summary: {
-        total: sampleData.length,
-        running: sampleData.length,
+        total: 0,
+        running: 0,
         blocked: 0,
         paused: 0,
       },
