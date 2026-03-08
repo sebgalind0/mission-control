@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Send, Loader2, Activity, Clock, AlertCircle, TrendingUp, Users, Zap, GitCommit, Bot, CheckCircle, XCircle, Play, Pause } from 'lucide-react';
 import { useActivityStream } from '@/hooks/useActivityStream';
+import AgentTerminal from '@/components/AgentTerminal';
 
 interface CommandCenterProps {
   onAgentClick?: (name: string, emoji: string) => void;
@@ -548,6 +549,9 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
           )}
         </form>
       </div>
+
+      {/* Agent Terminal - Phase 1: Read-only Status Panel */}
+      <AgentTerminal />
     </div>
   );
 }
