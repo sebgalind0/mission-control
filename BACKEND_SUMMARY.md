@@ -53,11 +53,11 @@ Process: crisp-dune (running 9m32s)
 Connection: postgresql://postgres:postgres@localhost:51214/template1
 ```
 
-### 2. **Next.js Dev Server** (Port 3000)
+### 2. **Next.js Dev Server** (Port 3333)
 ```
 Process: fresh-meadow (running 2m38s)
-URL: http://localhost:3000
-API Base: http://localhost:3000/api
+URL: http://localhost:3333
+API Base: http://localhost:3333/api
 ```
 
 ---
@@ -136,10 +136,10 @@ PATH="/opt/homebrew/Cellar/node@22/22.22.0_1/bin:$PATH" npx tsx src/lib/seedTask
 ### Test Endpoints
 ```bash
 # Get all tasks
-curl http://localhost:3000/api/tasks
+curl http://localhost:3333/api/tasks
 
 # Create task with auto-routing
-curl -X POST http://localhost:3000/api/tasks \
+curl -X POST http://localhost:3333/api/tasks \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Email client update",
@@ -149,7 +149,7 @@ curl -X POST http://localhost:3000/api/tasks \
   }'
 
 # Get analytics
-curl http://localhost:3000/api/tasks/analytics
+curl http://localhost:3333/api/tasks/analytics
 ```
 
 ---
@@ -159,7 +159,7 @@ curl http://localhost:3000/api/tasks/analytics
 **Test case:** Create task with "publish" keyword
 
 ```bash
-curl -X POST http://localhost:3000/api/tasks \
+curl -X POST http://localhost:3333/api/tasks \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Publish blog post",
@@ -244,7 +244,7 @@ DATABASE_URL="postgresql://user:pass@db.supabase.co:5432/postgres?schema=public"
 
 ```bash
 # Check database connection
-curl http://localhost:3000/api/tasks/analytics
+curl http://localhost:3333/api/tasks/analytics
 
 # Expected: JSON response with task metrics
 # If error: Check Prisma dev server is running (npx prisma dev)
@@ -266,6 +266,6 @@ None. All systems operational. ✅
 
 ---
 
-**Endpoints Live:** http://localhost:3000/api  
+**Endpoints Live:** http://localhost:3333/api  
 **Database:** Running on port 51214  
 **Status:** Ready for frontend integration 🚀

@@ -189,20 +189,20 @@ model ActiveWork {
 3. **Test Endpoints:**
    ```bash
    # Create activity event
-   curl -X POST http://localhost:3000/api/activity/stream \
+   curl -X POST http://localhost:3333/api/activity/stream \
      -H "Content-Type: application/json" \
      -d '{"agent":"Bolt","action":"api_created","metadata":{"endpoint":"/api/activity/stream"}}'
    
    # Fetch activity stream
-   curl http://localhost:3000/api/activity/stream
+   curl http://localhost:3333/api/activity/stream
    
    # Execute command
-   curl -X POST http://localhost:3000/api/command/execute \
+   curl -X POST http://localhost:3333/api/command/execute \
      -H "Content-Type: application/json" \
      -d '{"command":"Deploy the backend API"}'
    
    # Get active work
-   curl http://localhost:3000/api/work/active
+   curl http://localhost:3333/api/work/active
    ```
 
 ---

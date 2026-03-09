@@ -18,7 +18,7 @@ const SESSIONS_DIR = path.join(
   '.openclaw/agents/larry/sessions'
 );
 
-const MISSION_CONTROL_API = 'http://localhost:3000/api/events';
+const MISSION_CONTROL_API = 'http://localhost:3333/api/events';
 
 let lastState = null;
 let processedEvents = new Set(); // Track processed event IDs to avoid duplicates

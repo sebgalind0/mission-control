@@ -171,15 +171,25 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
     return () => clearInterval(interval);
   }, [activities]);
 
-  // Fetch active work - only IN_PROGRESS
+  // Fetch active work - sync with Agent Terminal data
   useEffect(() => {
     const fetchActiveWork = async () => {
       try {
-        const res = await fetch('/api/work/active');
+        const res = await fetch('/api/agents/status');
         if (res.ok) {
           const data = await res.json();
-          // Only show running tasks (IN_PROGRESS)
-          setActiveWork((data.tasks || []).filter((t: ActiveWorkItem) => t.status === 'running'));
+          // Convert agents with tasks to work items (regardless of active/idle status)
+          const workItems = (data.agents || [])
+            .filter((agent: any) => agent.currentTask)
+            .map((agent: any) => ({
+              id: agent.sessionKey || agent.id,
+              agent: agent.name,
+              task: agent.currentTask,
+              status: agent.status === 'active' ? ('running' as const) : ('paused' as const),
+              startedAt: agent.lastActivity,
+              metadata: {},
+            }));
+          setActiveWork(workItems);
         }
       } catch (error) {
         console.error('Failed to fetch active work:', error);

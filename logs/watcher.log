@@ -1,41 +1,124 @@
-node:internal/modules/cjs/loader:1478
-  throw err;
-  ^
-
-Error: Cannot find module '/Users/sebastiangalindo/mission-control/scripts/watch-openclaw.js'
-    at Module._resolveFilename (node:internal/modules/cjs/loader:1475:15)
-    at wrapResolveFilename (node:internal/modules/cjs/loader:1048:27)
-    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1072:10)
-    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1093:12)
-    at Module._load (node:internal/modules/cjs/loader:1261:25)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
-    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
-    at node:internal/main/run_main_module:33:47 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v25.8.0
-node:internal/modules/cjs/loader:1478
-  throw err;
-  ^
-
-Error: Cannot find module '/Users/sebastiangalindo/mission-control/scripts/watch-openclaw.js'
-    at Module._resolveFilename (node:internal/modules/cjs/loader:1475:15)
-    at wrapResolveFilename (node:internal/modules/cjs/loader:1048:27)
-    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1072:10)
-    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1093:12)
-    at Module._load (node:internal/modules/cjs/loader:1261:25)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
-    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
-    at node:internal/main/run_main_module:33:47 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v25.8.0
-[2026-03-09T10:03:33.750Z] OpenClaw Watcher started
+[2026-03-09T10:14:39.493Z] OpenClaw Watcher started
 Watching: /Users/sebastiangalindo/.openclaw/agents/larry/sessions/sessions.json
 Target: http://localhost:3000/api/events
-[2026-03-09T10:04:18.850Z] Sent: session_activity - agent:larry:main
-[2026-03-09T10:06:03.826Z] Sent: session_activity - agent:larry:main
+[2026-03-09T10:14:39.560Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.569Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.573Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.573Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.580Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.580Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.580Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.584Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.584Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.585Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.585Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.587Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.588Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.588Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.592Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.595Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.597Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.597Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.598Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.602Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.604Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.607Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.609Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.612Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.624Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.624Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.631Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.632Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.633Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.634Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.637Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.639Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.639Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.641Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.643Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.646Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.648Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.648Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.650Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.652Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.654Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.656Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.657Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.659Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.661Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.663Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.665Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.668Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.669Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.670Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.671Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.673Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.675Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.678Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.680Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.680Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.682Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.684Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.685Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.687Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.689Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.691Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.693Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.694Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.695Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.696Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.698Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.700Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.701Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.703Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.705Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.707Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.708Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.710Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.712Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.716Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.718Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.718Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.723Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.725Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.726Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.727Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.729Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.731Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.733Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.734Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.737Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.739Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.740Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.742Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.742Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:14:39.743Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:15:19.578Z] Sent: session_activity - agent:larry:main
+[2026-03-09T10:15:29.580Z] Sent: tool_call - agent:larry:main
+[2026-03-09T10:15:39.586Z] Sent: session_activity - agent:larry:main
+[2026-03-09T10:15:54.586Z] Sent: session_activity - agent:larry:main
+[2026-03-09T10:16:14.596Z] Sent: session_activity - agent:larry:main
+[2026-03-09T11:15:20.968Z] Sent: session_activity - agent:larry:main
+[2026-03-09T11:15:50.983Z] Sent: tool_call - agent:larry:main
+[2026-03-09T11:15:50.992Z] Sent: tool_call - agent:larry:main
+[2026-03-09T11:15:55.979Z] Sent: session_activity - agent:larry:main
+[2026-03-09T12:15:22.393Z] Sent: session_activity - agent:larry:main
+[2026-03-09T12:15:32.397Z] Sent: tool_call - agent:larry:main
+[2026-03-09T12:15:47.402Z] Sent: tool_call - agent:larry:main
+[2026-03-09T12:15:52.403Z] Sent: session_activity - agent:larry:main
+[2026-03-09T13:01:08.512Z] Sent: session_activity - agent:larry:main
+[2026-03-09T13:01:58.532Z] Sent: session_activity - agent:larry:main
+[2026-03-09T13:02:58.556Z] Sent: session_activity - agent:larry:main
+[2026-03-09T13:03:53.573Z] Sent: session_activity - agent:larry:main
+[2026-03-09T13:04:13.582Z] Sent: session_activity - agent:larry:main
+[2026-03-09T13:09:13.644Z] Sent: tool_call - agent:larry:main
+[2026-03-09T13:09:13.650Z] Sent: tool_call - agent:larry:main
+[2026-03-09T13:09:13.652Z] Sent: tool_call - agent:larry:main
+[2026-03-09T13:09:28.643Z] Sent: tool_call - agent:larry:main
+[2026-03-09T13:09:33.641Z] Sent: session_activity - agent:larry:main
+[2026-03-09T13:12:23.670Z] Failed to send event: fetch failed
+[2026-03-09T13:12:33.667Z] Failed to send event: fetch failed
+[2026-03-09T13:12:58.675Z] Failed to send event: fetch failed
+[2026-03-09T13:13:03.675Z] Failed to send event: fetch failed
+[2026-03-09T13:15:53.701Z] Failed to send event: fetch failed
+[2026-03-09T13:16:08.706Z] Failed to send event: fetch failed
