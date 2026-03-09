@@ -190,6 +190,46 @@ function parseTranscript(sessionFile) {
 }
 
 /**
+ * Detect task completions from session data
+ * A task is "complete" when a subagent session ends or when specific completion markers appear
+ */
+function detectTaskCompletions(sessions) {
+  const events = [];
+  const currentState = JSON.stringify(sessions);
+  
+  // Check if any sessions have ended (existed in lastState but not in current)
+  if (lastState) {
+    const previousSessions = typeof lastState === 'string' ? JSON.parse(lastState) : lastState;
+    const currentSessions = typeof sessions === 'string' ? JSON.parse(currentSessions) : sessions;
+    
+    for (const [sessionKey, sessionData] of Object.entries(previousSessions)) {
+      // If session no longer exists and it's a subagent/run session, it completed
+      if (!currentSessions[sessionKey] && (sessionKey.includes(':run:') || sessionKey.includes(':subagent:'))) {
+        const eventId = `task_completion-${sessionKey}-${Date.now()}`;
+        
+        if (!processedEvents.has(eventId)) {
+          events.push({
+            type: 'task_completion',
+            sessionKey: sessionKey,
+            timestamp: new Date().toISOString(),
+            data: {
+              taskName: sessionKey.split(':').slice(2).join(':'),
+              sessionKey: sessionKey,
+              status: 'completed',
+            },
+            _eventId: eventId,
+          });
+          
+          processedEvents.add(eventId);
+        }
+      }
+    }
+  }
+  
+  return events;
+}
+
+/**
  * Scan all active sessions for new tool call events
  */
 function detectToolCallEvents(sessions) {
@@ -218,8 +258,9 @@ function poll() {
 
   const events = detectChanges(sessions);
   const toolCallEvents = detectToolCallEvents(sessions);
+  const taskCompletionEvents = detectTaskCompletions(sessions);
   
-  for (const event of [...events, ...toolCallEvents]) {
+  for (const event of [...events, ...toolCallEvents, ...taskCompletionEvents]) {
     sendToMissionControl(event);
   }
 }
