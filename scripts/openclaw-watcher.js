@@ -113,6 +113,7 @@ function parseTranscript(sessionFile) {
     
     const lines = fs.readFileSync(sessionFile, 'utf8').split('\n').filter(Boolean);
     const events = [];
+    let commitCount = 0;
     
     for (const line of lines) {
       try {
@@ -123,7 +124,7 @@ function parseTranscript(sessionFile) {
           const toolCalls = entry.message.content?.filter(c => c.type === 'toolCall') || [];
           
           for (const toolCall of toolCalls) {
-            const eventId = `${entry.id}-${toolCall.id}`;
+            const eventId = `tool_call-${entry.id}-${toolCall.id}`;
             
             // Skip if already processed
             if (processedEvents.has(eventId)) continue;
@@ -140,12 +141,45 @@ function parseTranscript(sessionFile) {
               },
               _eventId: eventId,
             });
+            
+            // Detect commits (exec tool with "git commit" command)
+            if (toolCall.name === 'exec' && toolCall.arguments?.command) {
+              const cmd = toolCall.arguments.command;
+              if (cmd.includes('git commit')) {
+                commitCount++;
+                const commitEventId = `commit-${entry.id}-${toolCall.id}`;
+                console.log(`[${new Date().toISOString()}] Found git commit, processed=${processedEvents.has(commitEventId)}`);
+                
+                // Extract commit message
+                const messageMatch = cmd.match(/-m\s+["']([^"']+)["']/);
+                const commitMessage = messageMatch ? messageMatch[1] : 'Committed changes';
+                
+                if (!processedEvents.has(commitEventId)) {
+                  console.log(`[${new Date().toISOString()}] Detected NEW commit:`, commitMessage);
+                  events.push({
+                    type: 'commit',
+                    sessionKey: null,
+                    timestamp: entry.timestamp || new Date(entry.message.timestamp).toISOString(),
+                    data: {
+                      message: commitMessage,
+                      command: cmd,
+                      toolCallId: toolCall.id,
+                    },
+                    _eventId: commitEventId,
+                  });
+                }
+              }
+            }
           }
         }
       } catch (parseErr) {
         // Skip malformed lines
         continue;
       }
+    }
+    
+    if (commitCount > 0) {
+      console.log(`[${new Date().toISOString()}] Found ${commitCount} total commits in ${sessionFile}, ${events.filter(e => e.type === 'commit').length} new`);
     }
     
     return events;
