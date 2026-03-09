@@ -1,46 +1,127 @@
 'use client';
 
-const agents = [
-  { id: 'main', name: 'Rick Sanchez', color: '#3b82f6', initial: 'R' },
-  { id: 'popeye', name: 'Cleopatra', color: '#22c55e', initial: 'C' },
-  { id: 'nico', name: 'El Father', color: '#f59e0b', initial: 'E' },
-  { id: 'together', name: 'Dr. Ashley', color: '#a855f7', initial: 'A' },
-  { id: 'tesla', name: 'Tesla', color: '#06b6d4', initial: 'T' },
-];
+import { useEffect, useState } from 'react';
 
-const activities = [
-  { id: 1, agent: 'main', action: 'Completed email inbox check — 3 new, 1 urgent', type: 'task', time: '5 min ago' },
-  { id: 2, agent: 'popeye', action: 'Synced WHOOP data — Recovery: 82%, HRV: 68ms', type: 'sync', time: '12 min ago' },
-  { id: 3, agent: 'tesla', action: 'Nico completed inverse kinematics exercise 4/7', type: 'education', time: '25 min ago' },
-  { id: 4, agent: 'main', action: 'Sent morning voice check-ins to Rodrigo, Jorge, Fabricio, Carlos, Nelson', type: 'message', time: '1h ago' },
-  { id: 5, agent: 'main', action: 'LinkedIn post drafted — "Your AI agent is not an agent"', type: 'content', time: '1.5h ago' },
-  { id: 6, agent: 'nico', action: 'Research digest compiled — 3 papers on multi-agent systems', type: 'research', time: '2h ago' },
-  { id: 7, agent: 'main', action: 'Calendar sync completed — 4 events this week', type: 'sync', time: '2h ago' },
-  { id: 8, agent: 'tesla', action: 'Hardware diagnostics passed — all servos operational', type: 'system', time: '3h ago' },
-  { id: 9, agent: 'popeye', action: 'Weekly health report generated and filed', type: 'report', time: '3h ago' },
-  { id: 10, agent: 'main', action: 'Email draft for Yitzhak sent to approval queue', type: 'approval', time: '4h ago' },
-  { id: 11, agent: 'together', action: 'Session reminder scheduled for Saturday 3pm', type: 'task', time: '5h ago' },
-  { id: 12, agent: 'main', action: 'Memory backup completed — MEMORY.md updated', type: 'system', time: '6h ago' },
-  { id: 13, agent: 'tesla', action: 'Servo calibration module marked as complete', type: 'task', time: '8h ago' },
-  { id: 14, agent: 'popeye', action: 'Sleep analysis: 91% performance, 7h 22m total', type: 'health', time: '10h ago' },
-  { id: 15, agent: 'main', action: 'Weather update: 62°F, partly cloudy, no rain expected', type: 'info', time: '12h ago' },
-];
+interface Event {
+  id: string;
+  type: string;
+  sessionKey: string | null;
+  timestamp: string;
+  data: any;
+}
+
+interface Activity {
+  id: string;
+  agent: string;
+  agentName: string;
+  action: string;
+  type: string;
+  time: string;
+  color: string;
+  initial: string;
+}
 
 const typeConfig: Record<string, { bg: string; text: string }> = {
-  task: { bg: 'bg-blue-500/10', text: 'text-blue-400' },
-  sync: { bg: 'bg-cyan-500/10', text: 'text-cyan-400' },
-  education: { bg: 'bg-amber-500/10', text: 'text-amber-400' },
-  message: { bg: 'bg-emerald-500/10', text: 'text-emerald-400' },
-  content: { bg: 'bg-purple-500/10', text: 'text-purple-400' },
-  research: { bg: 'bg-orange-500/10', text: 'text-orange-400' },
-  system: { bg: 'bg-zinc-500/10', text: 'text-zinc-400' },
-  report: { bg: 'bg-indigo-500/10', text: 'text-indigo-400' },
-  approval: { bg: 'bg-yellow-500/10', text: 'text-yellow-400' },
-  health: { bg: 'bg-emerald-500/10', text: 'text-emerald-400' },
-  info: { bg: 'bg-zinc-500/10', text: 'text-zinc-400' },
+  session_created: { bg: 'bg-blue-500/10', text: 'text-blue-400' },
+  session_activity: { bg: 'bg-cyan-500/10', text: 'text-cyan-400' },
+  tool_call: { bg: 'bg-purple-500/10', text: 'text-purple-400' },
+  commit: { bg: 'bg-emerald-500/10', text: 'text-emerald-400' },
+  task_completion: { bg: 'bg-amber-500/10', text: 'text-amber-400' },
 };
 
+const agentColors: Record<string, { color: string; initial: string; name: string }> = {
+  'agent:larry:main': { color: '#3b82f6', initial: 'L', name: 'Larry' },
+  'agent:neo:main': { color: '#22c55e', initial: 'N', name: 'Neo' },
+  'agent:bolt:main': { color: '#f59e0b', initial: 'B', name: 'Bolt' },
+  'agent:main:main': { color: '#ef4444', initial: 'R', name: 'Rick' },
+};
+
+function formatTimeAgo(timestamp: string): string {
+  const now = new Date();
+  const then = new Date(timestamp);
+  const seconds = Math.floor((now.getTime() - then.getTime()) / 1000);
+  
+  if (seconds < 60) return `${seconds}s ago`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+  return `${Math.floor(seconds / 86400)}d ago`;
+}
+
+function formatEventAction(event: Event): string {
+  switch (event.type) {
+    case 'session_created':
+      return `Started new session (${event.data.model || 'unknown model'})`;
+    case 'session_activity':
+      return `Active session (${event.data.totalTokens || 0} tokens)`;
+    case 'tool_call':
+      return `Called tool: ${event.data.toolName}`;
+    case 'commit':
+      return `Committed: ${event.data.message}`;
+    case 'task_completion':
+      return `Completed: ${event.data.taskName}`;
+    default:
+      return 'Unknown activity';
+  }
+}
+
 export default function ActivityFeed() {
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const res = await fetch('/api/events');
+        const data = await res.json();
+        
+        const formatted = (data.events || []).map((event: Event) => {
+          const agentInfo = agentColors[event.sessionKey || ''] || {
+            color: '#6b7280',
+            initial: '?',
+            name: 'Unknown',
+          };
+          
+          return {
+            id: event.id,
+            agent: event.sessionKey || 'unknown',
+            agentName: agentInfo.name,
+            action: formatEventAction(event),
+            type: event.type,
+            time: formatTimeAgo(event.timestamp),
+            color: agentInfo.color,
+            initial: agentInfo.initial,
+          };
+        });
+        
+        setActivities(formatted);
+      } catch (err) {
+        console.error('Failed to fetch events:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchEvents();
+    const interval = setInterval(fetchEvents, 10000); // Refresh every 10s
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  if (loading) {
+    return (
+      <div className="space-y-8">
+        <div>
+          <p className="text-[11px] font-medium uppercase tracking-widest text-zinc-500 mb-2">
+            Mission Control › Activity Feed
+          </p>
+          <h1 className="text-2xl font-semibold tracking-tight text-white">Activity Feed</h1>
+          <p className="text-sm text-zinc-500 mt-1">Real-time timeline of fleet actions</p>
+        </div>
+        <div className="text-center text-zinc-500 py-12">Loading events...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8">
       {/* Breadcrumb */}
@@ -54,44 +135,47 @@ export default function ActivityFeed() {
 
       {/* Timeline */}
       <div className="space-y-1">
-        {activities.map((activity) => {
-          const agent = agents.find(a => a.id === activity.agent);
-          const typeStyle = typeConfig[activity.type] || typeConfig.info;
-          return (
-            <div
-              key={activity.id}
-              className="flex items-start gap-4 py-4 px-5 rounded-xl hover:bg-[#18181b] transition-colors group"
-            >
-              {/* Timeline line + avatar */}
-              <div className="flex flex-col items-center flex-shrink-0">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: agent?.color || '#6b7280' }}
-                >
-                  <span className="text-white text-xs font-semibold">{agent?.initial}</span>
+        {activities.length === 0 ? (
+          <div className="text-center text-zinc-500 py-12">No events yet</div>
+        ) : (
+          activities.map((activity) => {
+            const typeStyle = typeConfig[activity.type] || { bg: 'bg-zinc-500/10', text: 'text-zinc-400' };
+            return (
+              <div
+                key={activity.id}
+                className="flex items-start gap-4 py-4 px-5 rounded-xl hover:bg-[#18181b] transition-colors group"
+              >
+                {/* Avatar */}
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: activity.color }}
+                  >
+                    <span className="text-white text-xs font-semibold">{activity.initial}</span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Content */}
-              <div className="flex-1 min-w-0 pt-1">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-sm text-zinc-300 leading-relaxed">
-                      <span className="font-medium text-white">{agent?.name}</span>{' '}
-                      {activity.action}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3 flex-shrink-0">
-                    <span className={`text-[11px] px-2 py-0.5 rounded-md font-medium ${typeStyle.bg} ${typeStyle.text}`}>
-                      {activity.type}
-                    </span>
-                    <span className="text-[11px] text-zinc-600 whitespace-nowrap">{activity.time}</span>
+                {/* Content */}
+                <div className="flex-1 min-w-0 pt-1">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm text-zinc-300 leading-relaxed">
+                        <span className="font-medium text-white">{activity.agentName}</span>{' '}
+                        {activity.action}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3 flex-shrink-0">
+                      <span className={`text-[11px] px-2 py-0.5 rounded-md font-medium ${typeStyle.bg} ${typeStyle.text}`}>
+                        {activity.type}
+                      </span>
+                      <span className="text-[11px] text-zinc-600 whitespace-nowrap">{activity.time}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );

@@ -13,9 +13,15 @@ const OPENCLAW_SESSIONS = path.join(
   '.openclaw/agents/larry/sessions/sessions.json'
 );
 
+const SESSIONS_DIR = path.join(
+  process.env.HOME,
+  '.openclaw/agents/larry/sessions'
+);
+
 const MISSION_CONTROL_API = 'http://localhost:3000/api/events';
 
 let lastState = null;
+let processedEvents = new Set(); // Track processed event IDs to avoid duplicates
 
 function loadSessions() {
   try {
@@ -98,13 +104,88 @@ async function sendToMissionControl(event) {
   }
 }
 
+/**
+ * Parse .jsonl transcript file and extract tool call events
+ */
+function parseTranscript(sessionFile) {
+  try {
+    if (!fs.existsSync(sessionFile)) return [];
+    
+    const lines = fs.readFileSync(sessionFile, 'utf8').split('\n').filter(Boolean);
+    const events = [];
+    
+    for (const line of lines) {
+      try {
+        const entry = JSON.parse(line);
+        
+        // Detect tool_call events
+        if (entry.type === 'message' && entry.message?.role === 'assistant') {
+          const toolCalls = entry.message.content?.filter(c => c.type === 'toolCall') || [];
+          
+          for (const toolCall of toolCalls) {
+            const eventId = `${entry.id}-${toolCall.id}`;
+            
+            // Skip if already processed
+            if (processedEvents.has(eventId)) continue;
+            
+            events.push({
+              type: 'tool_call',
+              sessionKey: null, // Will be set by caller
+              timestamp: entry.timestamp || new Date(entry.message.timestamp).toISOString(),
+              data: {
+                toolName: toolCall.name,
+                arguments: toolCall.arguments,
+                id: toolCall.id,
+                messageId: entry.id,
+              },
+              _eventId: eventId,
+            });
+          }
+        }
+      } catch (parseErr) {
+        // Skip malformed lines
+        continue;
+      }
+    }
+    
+    return events;
+  } catch (err) {
+    console.error(`Failed to parse transcript ${sessionFile}:`, err.message);
+    return [];
+  }
+}
+
+/**
+ * Scan all active sessions for new tool call events
+ */
+function detectToolCallEvents(sessions) {
+  const events = [];
+  
+  for (const [sessionKey, sessionData] of Object.entries(sessions)) {
+    const sessionFile = sessionData.sessionFile;
+    if (!sessionFile) continue;
+    
+    const toolCallEvents = parseTranscript(sessionFile);
+    
+    for (const event of toolCallEvents) {
+      event.sessionKey = sessionKey;
+      events.push(event);
+      processedEvents.add(event._eventId);
+      delete event._eventId; // Clean up internal tracking field
+    }
+  }
+  
+  return events;
+}
+
 function poll() {
   const sessions = loadSessions();
   if (!sessions) return;
 
   const events = detectChanges(sessions);
+  const toolCallEvents = detectToolCallEvents(sessions);
   
-  for (const event of events) {
+  for (const event of [...events, ...toolCallEvents]) {
     sendToMissionControl(event);
   }
 }
