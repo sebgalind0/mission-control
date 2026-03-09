@@ -25,6 +25,7 @@ import CoPilotSidebar from '@/components/CoPilotSidebar';
 import SearchModal from '@/components/SearchModal';
 import ChatLogModal from '@/components/ChatLogModal';
 import NotificationsPanel from '@/components/NotificationsPanel';
+import LiveCostTracker from '@/components/LiveCostTracker';
 
 export default function Home() {
   const [activeScreen, setActiveScreen] = useState('fleet');
@@ -256,6 +257,9 @@ export default function Home() {
           )}
         </button>
       </div>
+
+      {/* Live Cost Tracker */}
+      <LiveCostTracker />
     </div>
   );
 }
