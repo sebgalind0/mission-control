@@ -1,4 +1,5 @@
 import { Status } from '@prisma/client';
+import { createQueueMiddleware } from '@/lib/middleware/queueMiddleware';
 
 /**
  * Auto-routing logic: scan description for keywords that require approval
@@ -28,19 +29,42 @@ type NotificationEvent = {
   taskId: string;
   recipientId: string;
   message: string;
-  data?: any;
+  data?: unknown;
 };
 
 const notifications: NotificationEvent[] = [];
 
+const notificationQueue = createQueueMiddleware<NotificationEvent>({
+  name: 'notifications',
+  concurrency: 4,
+  maxRetries: 3,
+  retryBaseDelayMs: 100,
+  maxQueueSize: 5000,
+  processor: async (event) => {
+    notifications.push(event);
+
+    // Keep memory bounded while preserving latest events.
+    if (notifications.length > 1000) {
+      notifications.splice(0, notifications.length - 1000);
+    }
+
+    console.log('[NOTIFICATION]', {
+      type: event.type,
+      taskId: event.taskId,
+      recipientId: event.recipientId,
+      timestamp: new Date().toISOString(),
+    });
+  },
+});
+
 export function emitNotification(event: NotificationEvent) {
-  notifications.push(event);
-  console.log('[NOTIFICATION]', event);
-  
-  // TODO: Integrate with real-time system (WebSockets, Pusher, Ably, etc.)
-  // For now, notifications are logged and stored in memory
+  notificationQueue.enqueue(event);
 }
 
 export function getRecentNotifications(limit = 50): NotificationEvent[] {
-  return notifications.slice(-limit);
+  return notifications.slice(-Math.max(1, limit));
+}
+
+export function getNotificationQueueStats() {
+  return notificationQueue.getStats();
 }
