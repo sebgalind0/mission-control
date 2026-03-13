@@ -16,6 +16,7 @@ export default function SearchModal({ isOpen, onClose, onNavigate }: SearchModal
   const screens = [
     { id: 'fleet', label: 'Fleet Overview', icon: Hash },
     { id: 'command', label: 'Command Center', icon: Hash },
+    { id: 'standups', label: 'Standups', icon: Hash },
     { id: 'tasks', label: 'Task Board', icon: Hash },
     { id: 'projects', label: 'Projects', icon: Hash },
     { id: 'calendar', label: 'Calendar', icon: Hash },
@@ -31,6 +32,7 @@ export default function SearchModal({ isOpen, onClose, onNavigate }: SearchModal
 
   const recentScreens = [
     { id: 'fleet', label: 'Fleet Overview', icon: Hash },
+    { id: 'standups', label: 'Standups', icon: Hash },
     { id: 'tasks', label: 'Task Board', icon: Hash },
     { id: 'command', label: 'Command Center', icon: Hash },
   ];

@@ -2,7 +2,7 @@
 
 import {
   LayoutDashboard, MessageSquare, Kanban, FolderKanban, Calendar,
-  Brain, FileText, BarChart3,
+  Brain, FileText, BarChart3, UsersRound,
   Monitor, Plug, Settings, ChevronDown, Search, X
 } from 'lucide-react';
 import { useEffect } from 'react';
@@ -17,6 +17,7 @@ interface SidebarProps {
 const mainNav = [
   { id: 'fleet', label: 'Fleet Overview', icon: LayoutDashboard },
   { id: 'command', label: 'Command Center', icon: MessageSquare },
+  { id: 'standups', label: 'Standups', icon: UsersRound },
   { id: 'tasks', label: 'Task Board', icon: Kanban },
   { id: 'projects', label: 'Projects', icon: FolderKanban },
   { id: 'calendar', label: 'Calendar', icon: Calendar },

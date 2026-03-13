@@ -5,6 +5,7 @@ import { MessageSquare, Mic, Loader2, Bell, Menu } from 'lucide-react';
 import Sidebar from '@/components/Sidebar';
 import FleetOverview from '@/components/screens/FleetOverview';
 import CommandCenter from '@/components/screens/CommandCenter';
+import Standups from '@/components/screens/Standups';
 import TaskBoard from '@/components/screens/TaskBoard';
 import Projects from '@/components/screens/Projects';
 import Calendar from '@/components/screens/Calendar';
@@ -77,6 +78,8 @@ export default function Home() {
         return <FleetOverview onAgentClick={(name, emoji) => setChatLogModal({ isOpen: true, agentName: name, agentEmoji: emoji })} />;
       case 'command':
         return <CommandCenter onAgentClick={(name, emoji) => setChatLogModal({ isOpen: true, agentName: name, agentEmoji: emoji })} />;
+      case 'standups':
+        return <Standups />;
       case 'tasks':
         return <TaskBoard />;
       case 'projects':
