@@ -5,6 +5,19 @@ export const runtime = 'nodejs';
 import { prisma } from '@/lib/prisma';
 import { Priority, Status } from '@prisma/client';
 import { determineInitialStatus, emitNotification } from '@/lib/taskUtils';
+import { publishDomainEvent } from '@/lib/events/publisher';
+
+const AGENT_DEPARTMENTS: Record<string, string> = {
+  main: 'Leadership',
+  larry: 'Engineering',
+  neo: 'Engineering',
+  bolt: 'Engineering',
+  caesar: 'Marketing',
+  elon: 'Marketing',
+  vegeta: 'Marketing',
+  achilles: 'Operations',
+  olivia: 'Operations',
+};
 
 export async function GET(request: NextRequest) {
   try {
@@ -16,7 +29,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
 
     // Build where clause
-    const where: any = {};
+    const where: Record<string, unknown> = {};
     
     if (assignee) where.assignee = assignee;
     if (priority) where.priority = priority.toUpperCase() as Priority;
@@ -37,10 +50,14 @@ export async function GET(request: NextRequest) {
     // Department filtering (assuming agent names map to departments)
     // This would be enhanced with proper agent-to-dept mapping
     if (department) {
-      // Placeholder: you'd map department to agent IDs
-      where.assignee = {
-        in: [], // Add agent IDs for department
-      };
+      const agentIds = Object.entries(AGENT_DEPARTMENTS)
+        .filter(([, dept]) => dept === department)
+        .map(([id]) => id);
+      if (agentIds.length > 0) {
+        where.assignee = {
+          in: agentIds,
+        };
+      }
     }
 
     const tasks = await prisma.task.findMany({
@@ -57,11 +74,16 @@ export async function GET(request: NextRequest) {
       ],
     });
 
-    return NextResponse.json({ tasks, count: tasks.length });
-  } catch (error: any) {
+    const tasksWithDepartment = tasks.map((task) => ({
+      ...task,
+      department: AGENT_DEPARTMENTS[task.assignee] ?? null,
+    }));
+
+    return NextResponse.json({ tasks: tasksWithDepartment, count: tasksWithDepartment.length });
+  } catch (error: unknown) {
     console.error('[GET_TASKS_ERROR]', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to get tasks' },
+      { error: error instanceof Error ? error.message : 'Failed to get tasks' },
       { status: 500 }
     );
   }
@@ -127,6 +149,46 @@ export async function POST(request: NextRequest) {
         message: `Task "${title}" requires approval from ${assignee}`,
         data: { task },
       });
+
+      await publishDomainEvent({
+        type: 'task.review_requested',
+        data: {
+          taskId: task.id,
+          title: task.title,
+          assignee: task.assignee,
+          status: task.status,
+          priority: task.priority,
+          tag: task.tag,
+          requiresApproval: task.requiresApproval,
+        },
+      });
+    }
+
+    await publishDomainEvent({
+      type: 'task.created',
+      data: {
+        taskId: task.id,
+        title: task.title,
+        assignee: task.assignee,
+        status: task.status,
+        priority: task.priority,
+        tag: task.tag,
+        requiresApproval: task.requiresApproval,
+      },
+    });
+
+    if (task.status === Status.DONE) {
+      await publishDomainEvent({
+        type: 'task.completed',
+        data: {
+          taskId: task.id,
+          title: task.title,
+          assignee: task.assignee,
+          status: task.status,
+          priority: task.priority,
+          tag: task.tag,
+        },
+      });
     }
 
     return NextResponse.json({ 
@@ -136,10 +198,10 @@ export async function POST(request: NextRequest) {
         'Task created and routed to Review' : 
         'Task created successfully'
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('[CREATE_TASK_ERROR]', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to create task' },
+      { error: error instanceof Error ? error.message : 'Failed to create task' },
       { status: 500 }
     );
   }

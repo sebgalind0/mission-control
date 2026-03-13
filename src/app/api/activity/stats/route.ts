@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { promises as fs } from 'fs';
+import path from 'path';
+import os from 'os';
+import { loadActiveAgentIds } from '@/lib/openclawRoster';
 
 export async function GET(request: NextRequest) {
   try {
@@ -20,21 +24,25 @@ export async function GET(request: NextRequest) {
       where: { timestamp: { gte: oneDayAgo } },
     });
     
-    // Active agents (agents with activity in last hour)
-    const activeAgentsData = await prisma.activityEvent.groupBy({
-      by: ['agent'],
-      where: { timestamp: { gte: oneHourAgo } },
-      _count: { agent: true },
-    });
-    
-    const activeAgents = activeAgentsData.length;
+    const activeAgentIds = await loadActiveAgentIds();
+    const recentlyActiveAgents = await countRecentlyActiveAgents(activeAgentIds);
     
     // Get active work count from Task table
-    const activeWorkCount = await prisma.task.count({
+    const activeWorkItems = await prisma.task.findMany({
       where: { 
         status: { in: ['IN_PROGRESS', 'REVIEW'] },
       },
+      select: {
+        assignee: true,
+      },
     });
+    const activeWorkCount = activeWorkItems.length;
+    const activeWorkAgents = new Set(
+      activeWorkItems
+        .map((task) => task.assignee)
+        .filter((assignee): assignee is string => typeof assignee === 'string' && assignee.length > 0)
+    ).size;
+    const activeAgents = Math.max(recentlyActiveAgents, activeWorkAgents);
     
     return NextResponse.json({
       totalEvents,
@@ -58,4 +66,31 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
+}
+
+async function countRecentlyActiveAgents(agentIds: string[]) {
+  const now = Date.now();
+  const fiveMinutesAgo = now - (5 * 60 * 1000);
+  const agentsRoot = path.join(os.homedir(), '.openclaw', 'agents');
+  let active = 0;
+
+  for (const agentId of agentIds) {
+    const sessionsPath = path.join(agentsRoot, agentId, 'sessions', 'sessions.json');
+    try {
+      const raw = await fs.readFile(sessionsPath, 'utf-8');
+      const sessions = JSON.parse(raw) as Record<string, any>;
+      const latest = Object.values(sessions)
+        .map((session) => new Date((session as any).updatedAt).getTime())
+        .filter((value) => Number.isFinite(value))
+        .sort((a, b) => b - a)[0];
+
+      if (latest && latest >= fiveMinutesAgo) {
+        active += 1;
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  return active;
 }

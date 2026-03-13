@@ -82,7 +82,7 @@ export default function AgentTerminal() {
           <Terminal size={16} className="text-zinc-400" />
           <h2 className="text-sm font-semibold text-white">Agent Terminal</h2>
           <span className="ml-auto text-xs text-zinc-500">
-            {agents.length} agent{agents.length !== 1 ? 's' : ''}
+            {agents.length} session{agents.length !== 1 ? 's' : ''}
           </span>
         </div>
 
@@ -100,7 +100,7 @@ export default function AgentTerminal() {
           ) : (
             agents.map((agent) => (
               <div
-                key={agent.id}
+                key={agent.sessionKey || agent.id}
                 className="p-3 md:p-4 hover:bg-[#1f1f23] transition-colors group"
               >
                 <div className="flex items-start gap-3">

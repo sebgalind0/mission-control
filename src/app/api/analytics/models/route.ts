@@ -2,41 +2,45 @@ import { NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import os from 'os';
+import { getAgentMeta, loadActiveAgentIds } from '@/lib/openclawRoster';
 
 export async function GET() {
   try {
     const homeDir = os.homedir();
-    const sessionsPath = path.join(homeDir, '.openclaw/agents/larry/sessions/sessions.json');
-    
-    // Read OpenClaw sessions file to get accurate model info
-    const sessionsData = await fs.readFile(sessionsPath, 'utf-8');
-    const sessions = JSON.parse(sessionsData);
-    
+    const activeAgentIds = await loadActiveAgentIds();
+    const weekStart = Date.now() - 7 * 24 * 60 * 60 * 1000;
+
     // Aggregate by agent and model
     const usage: Record<string, { agent: string; model: string; tokens: number; cost: number }> = {};
 
-    for (const [sessionKey, sessionData] of Object.entries(sessions)) {
-      const data = sessionData as any;
-      
-      // Extract agent name
-      const agent = extractAgentName(sessionKey);
-      
-      // Get model - prefer friendly name over raw model ID
-      const rawModel = data.model || data.modelProvider || 'unknown';
-      const model = formatModelName(rawModel);
-      
-      // Get token usage
-      const tokens = (data.inputTokens || 0) + (data.outputTokens || 0);
-      
-      // Calculate cost (Claude Sonnet 4.5: $3/M input, $15/M output)
-      const cost = ((data.inputTokens || 0) * 0.000003) + ((data.outputTokens || 0) * 0.000015);
+    for (const agentId of activeAgentIds) {
+      const sessionsPath = path.join(homeDir, '.openclaw/agents', agentId, 'sessions', 'sessions.json');
 
-      const key = `${agent}-${model}`;
-      if (!usage[key]) {
-        usage[key] = { agent, model, tokens: 0, cost: 0 };
+      let sessions: Record<string, any>;
+      try {
+        const sessionsData = await fs.readFile(sessionsPath, 'utf-8');
+        sessions = JSON.parse(sessionsData);
+      } catch {
+        continue;
       }
-      usage[key].tokens += tokens;
-      usage[key].cost += cost;
+
+      for (const sessionData of Object.values(sessions)) {
+        const data = sessionData as any;
+        const updatedAt = new Date(data.updatedAt || 0).getTime();
+        if (!Number.isFinite(updatedAt) || updatedAt < weekStart) continue;
+        const agent = getAgentMeta(agentId).name;
+        const rawModel = data.model || data.modelProvider || 'unknown';
+        const model = formatModelName(rawModel);
+        const tokens = (data.inputTokens || 0) + (data.outputTokens || 0);
+        const cost = estimateCost(rawModel, data.inputTokens || 0, data.outputTokens || 0);
+
+        const key = `${agent}-${model}`;
+        if (!usage[key]) {
+          usage[key] = { agent, model, tokens: 0, cost: 0 };
+        }
+        usage[key].tokens += tokens;
+        usage[key].cost += cost;
+      }
     }
 
     const modelUsage = Object.values(usage)
@@ -55,15 +59,6 @@ export async function GET() {
   }
 }
 
-function extractAgentName(sessionKey: string): string {
-  const match = sessionKey.match(/agent:([^:]+)/);
-  if (match) {
-    const name = match[1];
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  }
-  return 'Unknown';
-}
-
 function formatModelName(rawModel: string): string {
   // Convert technical model IDs to friendly names
   const modelMap: Record<string, string> = {
@@ -76,4 +71,14 @@ function formatModelName(rawModel: string): string {
   };
   
   return modelMap[rawModel] || rawModel;
+}
+
+function estimateCost(rawModel: string, inputTokens: number, outputTokens: number): number {
+  if (rawModel.includes('claude-sonnet-4-5')) {
+    return inputTokens * 0.000003 + outputTokens * 0.000015;
+  }
+  if (rawModel.includes('claude-opus-4-6')) {
+    return inputTokens * 0.000015 + outputTokens * 0.000075;
+  }
+  return 0;
 }

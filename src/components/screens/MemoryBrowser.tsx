@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react';
 import { Search, FileText, Brain, Clock, Loader2 } from 'lucide-react';
 
 interface MemoryFile {
+  key: string;
   name: string;
+  agent: string;
+  agentId: string;
   type: 'core' | 'daily' | 'state';
   size: number;
   modified: string;
@@ -50,10 +53,12 @@ export default function MemoryBrowser() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [contentLoading, setContentLoading] = useState(false);
+  const [scope, setScope] = useState<'curated' | 'all'>('curated');
 
   // Load file list
   useEffect(() => {
-    fetch('/api/memory')
+    setLoading(true);
+    fetch(`/api/memory?scope=${scope}`)
       .then(res => res.json())
       .then(data => {
         if (data.files) {
@@ -65,14 +70,14 @@ export default function MemoryBrowser() {
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
+  }, [scope]);
 
   // Load file content when selected
   useEffect(() => {
     if (!selectedFile) return;
     
     setContentLoading(true);
-    fetch(`/api/memory?file=${encodeURIComponent(selectedFile.name)}`)
+    fetch(`/api/memory?file=${encodeURIComponent(selectedFile.key)}`)
       .then(res => res.json())
       .then(data => {
         if (data.content) {
@@ -84,7 +89,7 @@ export default function MemoryBrowser() {
   }, [selectedFile]);
 
   const filteredFiles = searchQuery
-    ? files.filter(f => f.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    ? files.filter(f => `${f.name} ${f.agent}`.toLowerCase().includes(searchQuery.toLowerCase()))
     : files;
 
   return (
@@ -95,7 +100,30 @@ export default function MemoryBrowser() {
           Mission Control › Memory Browser
         </p>
         <h1 className="text-2xl font-semibold tracking-tight text-white">Memory Browser</h1>
-        <p className="text-sm text-zinc-500 mt-1">Browse and inspect agent memory files</p>
+        <p className="text-sm text-zinc-500 mt-1">Focused by default on active company memory, with the option to widen into full archives.</p>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => setScope('curated')}
+          className={`text-[11px] px-3 py-1.5 rounded-full font-medium transition-colors ${
+            scope === 'curated'
+              ? 'bg-blue-600 text-white'
+              : 'bg-[#18181b] border border-[#27272a] text-zinc-400 hover:text-white hover:border-[#3f3f46]'
+          }`}
+        >
+          Focused
+        </button>
+        <button
+          onClick={() => setScope('all')}
+          className={`text-[11px] px-3 py-1.5 rounded-full font-medium transition-colors ${
+            scope === 'all'
+              ? 'bg-blue-600 text-white'
+              : 'bg-[#18181b] border border-[#27272a] text-zinc-400 hover:text-white hover:border-[#3f3f46]'
+          }`}
+        >
+          All Memory
+        </button>
       </div>
 
       {/* Split Layout */}
@@ -132,7 +160,7 @@ export default function MemoryBrowser() {
                 const isSelected = selectedFile?.name === file.name;
                 return (
                   <button
-                    key={file.name}
+                    key={file.key}
                     onClick={() => setSelectedFile(file)}
                     className={`w-full text-left px-4 py-3 border-b border-[#27272a]/50 transition-colors ${
                       isSelected ? 'bg-[#1f1f23]' : 'hover:bg-[#1f1f23]/50'
@@ -140,7 +168,10 @@ export default function MemoryBrowser() {
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon size={14} style={{ color: typeColors[file.type] || '#6b7280' }} />
-                      <span className={`text-sm font-medium ${isSelected ? 'text-white' : 'text-zinc-300'}`}>{file.name}</span>
+                        <div className={`${isSelected ? 'text-white' : 'text-zinc-300'}`}>
+                          <div className="text-sm font-medium">{file.name}</div>
+                          <div className="text-[11px] text-zinc-500 mt-0.5">{file.agent}</div>
+                        </div>
                     </div>
                     <div className="flex items-center gap-2 mt-1 ml-[22px]">
                       <span className="text-[11px] text-zinc-600">{formatFileSize(file.size)}</span>

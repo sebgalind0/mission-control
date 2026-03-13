@@ -5,6 +5,7 @@ export const runtime = 'nodejs';
 import { prisma } from '@/lib/prisma';
 import { Status } from '@prisma/client';
 import { emitNotification } from '@/lib/taskUtils';
+import { publishDomainEvent } from '@/lib/events/publisher';
 
 export async function POST(
   request: NextRequest,
@@ -26,6 +27,14 @@ export async function POST(
       return NextResponse.json(
         { error: 'rejectionReason is required' },
         { status: 400 }
+      );
+    }
+
+    const existingTask = await prisma.task.findUnique({ where: { id } });
+    if (!existingTask) {
+      return NextResponse.json(
+        { error: 'Task not found' },
+        { status: 404 }
       );
     }
 
@@ -53,15 +62,44 @@ export async function POST(
       data: { task },
     });
 
+    await publishDomainEvent({
+      type: 'task.rejected',
+      data: {
+        taskId: task.id,
+        title: task.title,
+        assignee: task.assignee,
+        status: task.status,
+        previousStatus: existingTask.status,
+        priority: task.priority,
+        tag: task.tag,
+        actor: rejectedBy,
+        reason: rejectionReason,
+      },
+    });
+
+    await publishDomainEvent({
+      type: 'task.status_changed',
+      data: {
+        taskId: task.id,
+        title: task.title,
+        assignee: task.assignee,
+        status: task.status,
+        previousStatus: existingTask.status,
+        priority: task.priority,
+        tag: task.tag,
+        actor: rejectedBy,
+      },
+    });
+
     return NextResponse.json({ 
       success: true, 
       task,
       message: 'Task rejected and moved to In Progress'
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('[REJECT_TASK_ERROR]', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to reject task' },
+      { error: error instanceof Error ? error.message : 'Failed to reject task' },
       { status: 500 }
     );
   }

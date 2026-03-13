@@ -18,7 +18,8 @@ const SESSIONS_DIR = path.join(
   '.openclaw/agents/larry/sessions'
 );
 
-const MISSION_CONTROL_API = 'http://localhost:3333/api/events';
+const MISSION_CONTROL_PORT = process.env.MISSION_CONTROL_PORT || process.env.PORT || '3334';
+const MISSION_CONTROL_API = `http://localhost:${MISSION_CONTROL_PORT}/api/events`;
 
 let lastState = null;
 let processedEvents = new Set(); // Track processed event IDs to avoid duplicates

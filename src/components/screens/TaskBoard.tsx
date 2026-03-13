@@ -20,24 +20,28 @@ import {
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import type { Task, TaskAnalytics, Agent } from '@/lib/types/tasks';
+import type { Task, TaskAnalytics, Agent, TaskPriority } from '@/lib/types/tasks';
 import { fetchTasks, fetchTaskAnalytics, approveTask, rejectTask, addComment } from '@/lib/api/tasks';
 
 const agents: Agent[] = [
   { id: 'main', name: 'Rick Sanchez', color: '#3b82f6', initial: 'R', department: 'Leadership' },
-  { id: 'popeye', name: 'Cleopatra', color: '#22c55e', initial: 'C', department: 'Health' },
-  { id: 'nico', name: 'El Father', color: '#f59e0b', initial: 'E', department: 'Research' },
-  { id: 'together', name: 'Dr. Ashley', color: '#a855f7', initial: 'A', department: 'Therapy' },
-  { id: 'tesla', name: 'Tesla', color: '#06b6d4', initial: 'T', department: 'Education' },
+  { id: 'larry', name: 'Larry', color: '#10b981', initial: 'L', department: 'Engineering' },
+  { id: 'neo', name: 'Neo', color: '#6366f1', initial: 'N', department: 'Engineering' },
+  { id: 'bolt', name: 'Bolt', color: '#eab308', initial: 'B', department: 'Engineering' },
+  { id: 'caesar', name: 'Caesar', color: '#ef4444', initial: 'C', department: 'Marketing' },
+  { id: 'elon', name: 'Elon', color: '#f97316', initial: 'E', department: 'Marketing' },
+  { id: 'vegeta', name: 'Vegeta', color: '#8b5cf6', initial: 'V', department: 'Marketing' },
+  { id: 'achilles', name: 'Achilles', color: '#3b82f6', initial: 'A', department: 'Operations' },
+  { id: 'olivia', name: 'Olivia', color: '#f472b6', initial: 'O', department: 'Operations' },
 ];
 
-const priorityConfig = {
+const priorityConfig: Record<TaskPriority, { color: string; label: string; labelBg: string; labelText: string }> = {
   high: { color: 'bg-red-500', label: 'High', labelBg: 'bg-red-500/10', labelText: 'text-red-400' },
   medium: { color: 'bg-amber-500', label: 'Medium', labelBg: 'bg-amber-500/10', labelText: 'text-amber-400' },
   low: { color: 'bg-blue-500', label: 'Low', labelBg: 'bg-blue-500/10', labelText: 'text-blue-400' },
 };
 
-const departments = ['All', 'Leadership', 'Health', 'Research', 'Therapy', 'Education', 'Engineering'];
+const departments = ['All', 'Leadership', 'Engineering', 'Marketing', 'Operations'];
 
 type ViewMode = 'all' | 'myReview' | 'overdue';
 
@@ -135,7 +139,8 @@ export default function TaskBoard() {
   function getFilteredTasks() {
     return tasks.filter(task => {
       if (filterAgent !== 'all' && task.assignee !== filterAgent) return false;
-      if (filterDept !== 'All' && task.department !== filterDept) return false;
+      const taskDept = task.department ?? agents.find(a => a.id === task.assignee)?.department ?? null;
+      if (filterDept !== 'All' && taskDept !== filterDept) return false;
       if (filterPriority !== 'all' && task.priority !== filterPriority) return false;
       
       if (viewMode === 'myReview') {
@@ -469,7 +474,7 @@ function TaskCard({ task, agents, onApprove, onReject, onClick }: TaskCardProps)
       {/* Footer: Tag + Assignee */}
       <div className="flex items-center justify-between pl-4">
         <span className={`text-[10px] px-2 py-0.5 rounded-md font-medium ${priority.labelBg} ${priority.labelText}`}>
-          {task.tag}
+          {task.tag || priority.label}
         </span>
         <div className="flex items-center gap-2">
           <span className="text-[11px] text-zinc-500">

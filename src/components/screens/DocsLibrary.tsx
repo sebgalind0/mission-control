@@ -4,7 +4,10 @@ import { useState, useEffect } from 'react';
 import { FileText, Code, Image, File, Loader2, Search } from 'lucide-react';
 
 interface DocFile {
+  key: string;
   name: string;
+  agent: string;
+  agentId: string;
   type: 'markdown' | 'code' | 'config' | 'media' | 'file';
   size: number;
   modified: string;
@@ -53,12 +56,14 @@ export default function DocsLibrary() {
   const [fileContent, setFileContent] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
+  const [scope, setScope] = useState<'curated' | 'all'>('curated');
   const [loading, setLoading] = useState(true);
   const [contentLoading, setContentLoading] = useState(false);
 
   // Load file list
   useEffect(() => {
-    fetch('/api/docs')
+    setLoading(true);
+    fetch(`/api/docs?scope=${scope}`)
       .then(res => res.json())
       .then(data => {
         if (data.files) {
@@ -67,14 +72,14 @@ export default function DocsLibrary() {
       })
       .catch(console.error)
       .finally(() => setLoading(false));
-  }, []);
+  }, [scope]);
 
   // Load file content when selected
   useEffect(() => {
     if (!selectedFile) return;
     
     setContentLoading(true);
-    fetch(`/api/docs?file=${encodeURIComponent(selectedFile.name)}`)
+    fetch(`/api/docs?file=${encodeURIComponent(selectedFile.key)}`)
       .then(res => res.json())
       .then(data => {
         if (data.content) {
@@ -88,7 +93,7 @@ export default function DocsLibrary() {
   // Filter and search
   const filteredFiles = files.filter(f => {
     if (activeFilter !== 'all' && f.type !== activeFilter) return false;
-    if (searchQuery && !f.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    if (searchQuery && !`${f.name} ${f.agent}`.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     return true;
   });
 
@@ -117,7 +122,30 @@ export default function DocsLibrary() {
           Mission Control › Documents
         </p>
         <h1 className="text-2xl font-semibold tracking-tight text-white">Documents</h1>
-        <p className="text-sm text-zinc-500 mt-1">Browse workspace files and documentation</p>
+        <p className="text-sm text-zinc-500 mt-1">Focused by default on the documents that actually drive the company and current projects.</p>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => setScope('curated')}
+          className={`text-[11px] px-3 py-1.5 rounded-full font-medium transition-colors ${
+            scope === 'curated'
+              ? 'bg-blue-600 text-white'
+              : 'bg-[#18181b] border border-[#27272a] text-zinc-400 hover:text-white hover:border-[#3f3f46]'
+          }`}
+        >
+          Focused
+        </button>
+        <button
+          onClick={() => setScope('all')}
+          className={`text-[11px] px-3 py-1.5 rounded-full font-medium transition-colors ${
+            scope === 'all'
+              ? 'bg-blue-600 text-white'
+              : 'bg-[#18181b] border border-[#27272a] text-zinc-400 hover:text-white hover:border-[#3f3f46]'
+          }`}
+        >
+          All Docs
+        </button>
       </div>
 
       {/* Filter Pills */}
@@ -172,7 +200,7 @@ export default function DocsLibrary() {
                 const isSelected = selectedFile?.name === file.name;
                 return (
                   <button
-                    key={file.name}
+                    key={file.key}
                     onClick={() => setSelectedFile(file)}
                     className={`w-full text-left px-4 py-3 border-b border-[#27272a]/50 transition-colors ${
                       isSelected ? 'bg-[#1f1f23]' : 'hover:bg-[#1f1f23]/50'
@@ -184,8 +212,9 @@ export default function DocsLibrary() {
                         <Icon size={14} style={{ color }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className={`text-sm font-medium truncate ${isSelected ? 'text-white' : 'text-zinc-300'}`}>
-                          {file.name}
+                        <div className={`${isSelected ? 'text-white' : 'text-zinc-300'}`}>
+                          <div className="text-sm font-medium truncate">{file.name}</div>
+                          <div className="text-[11px] text-zinc-500 mt-0.5 truncate">{file.agent}</div>
                         </div>
                         <div className="flex items-center gap-2 mt-1">
                           <span className="text-[11px] text-zinc-600">{formatFileSize(file.size)}</span>

@@ -27,9 +27,31 @@ export async function GET(request: NextRequest) {
     const activeWork = await prisma.activeWork.findMany({
       orderBy: { startedAt: 'desc' },
     });
-    
-    // Return real work only (no sample data)
-    const workItems = activeWork;
+
+    const taskFallback = activeWork.length === 0
+      ? await prisma.task.findMany({
+          where: {
+            status: { in: ['IN_PROGRESS', 'REVIEW'] },
+          },
+          orderBy: [{ updatedAt: 'desc' }],
+        })
+      : [];
+
+    const taskDerivedWork = taskFallback.map((task) => ({
+      id: `task-${task.id}`,
+      agent: task.assignee || 'Unassigned',
+      task: task.title,
+      status: task.status === 'REVIEW' ? 'paused' : 'running',
+      progress: task.status === 'REVIEW' ? 90 : 50,
+      metadata: {
+        source: 'task',
+        priority: task.priority,
+        tag: task.tag,
+      },
+      startedAt: task.updatedAt.toISOString(),
+    }));
+
+    const workItems = activeWork.length > 0 ? activeWork : taskDerivedWork;
     
     // Separate running vs blocked tasks
     const running = workItems.filter((w: any) => w.status === 'running');

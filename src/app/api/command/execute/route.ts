@@ -11,27 +11,35 @@ const routeCommand = (command: string): string[] => {
     agents.push('Bolt');
   }
   
-  // Frontend keywords
+  // Frontend/design keywords
   if (cmd.includes('ui') || cmd.includes('frontend') || cmd.includes('component') || cmd.includes('design')) {
-    agents.push('Fuse');
+    agents.push('Neo');
   }
   
   // Deployment keywords
   if (cmd.includes('deploy') || cmd.includes('production') || cmd.includes('railway') || cmd.includes('vercel')) {
-    agents.push('Rick');
+    agents.push('Larry');
   }
   
   // Task management keywords
   if (cmd.includes('task') || cmd.includes('ticket') || cmd.includes('backlog')) {
     agents.push('Larry');
   }
+
+  if (cmd.includes('marketing') || cmd.includes('campaign') || cmd.includes('content')) {
+    agents.push('Julius Caesar');
+  }
+
+  if (cmd.includes('ops') || cmd.includes('incident') || cmd.includes('monitor') || cmd.includes('alert')) {
+    agents.push('Achilles');
+  }
   
   // Default to Rick (CEO) if no specific agent matched
   if (agents.length === 0) {
-    agents.push('Rick');
+    agents.push('Rick Sanchez');
   }
   
-  return agents;
+  return [...new Set(agents)];
 };
 
 export async function POST(request: NextRequest) {
@@ -61,8 +69,6 @@ export async function POST(request: NextRequest) {
       },
     });
     
-    // In a real implementation, this would dispatch to actual agents
-    // For now, we'll return a structured response
     const response = {
       status: 'received',
       targetAgents,

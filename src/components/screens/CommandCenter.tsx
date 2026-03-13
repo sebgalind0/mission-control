@@ -43,10 +43,13 @@ interface ActivityStats {
 }
 
 interface ActiveAgent {
+  id?: string;
   name: string;
   currentWork: string;
   startedAt: string;
   status: 'running' | 'idle' | 'blocked';
+  role?: string;
+  department?: string;
 }
 
 // Format relative time
@@ -201,43 +204,38 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
     return () => clearInterval(interval);
   }, []);
 
-  // Derive active agents from recent activity and active work
+  // Use current OpenClaw roster status for active agents
   useEffect(() => {
-    const deriveActiveAgents = () => {
-      const now = new Date();
-      const fiveMinutesAgo = new Date(now.getTime() - 5 * 60 * 1000);
-      
-      // Get agents with recent activity
-      const recentAgents = activities
-        .filter(a => new Date(a.timestamp) >= fiveMinutesAgo)
-        .map(a => a.agent);
-      
-      // Get agents with active work
-      const workingAgents = activeWork.map(w => w.agent);
-      
-      // Combine and deduplicate
-      const allActiveAgents = [...new Set([...recentAgents, ...workingAgents])];
-      
-      // Build agent details
-      const agents: ActiveAgent[] = allActiveAgents.map(agentName => {
-        const work = activeWork.find(w => w.agent === agentName);
-        const recentActivity = activities
-          .filter(a => a.agent === agentName)
-          .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())[0];
-        
-        return {
-          name: agentName,
-          currentWork: work?.task || recentActivity?.action || 'Idle',
-          startedAt: work?.startedAt || recentActivity?.timestamp || now.toISOString(),
-          status: work ? (work.status as 'running' | 'idle' | 'blocked') : 'idle',
-        };
-      });
-      
-      setActiveAgents(agents);
+    const fetchActiveAgents = async () => {
+      try {
+        const res = await fetch('/api/agents/status');
+        if (!res.ok) return;
+        const data = await res.json();
+        const agents: ActiveAgent[] = (data.agents || []).map((agent: any) => {
+          const work = activeWork.find((item) => item.agent === agent.name);
+          return {
+            id: agent.id,
+            name: agent.name,
+            currentWork: work?.task || agent.currentTask || 'Idle',
+            startedAt: work?.startedAt || agent.lastActivity,
+            status:
+              work?.status === 'blocked'
+                ? 'blocked'
+                : agent.status === 'active'
+                  ? 'running'
+                  : 'idle',
+            role: agent.role,
+            department: agent.department,
+          };
+        }).filter((agent: ActiveAgent) => agent.status !== 'idle' || agent.currentWork !== 'Idle');
+        setActiveAgents(agents);
+      } catch (error) {
+        console.error('Failed to fetch active agents:', error);
+      }
     };
-    
-    deriveActiveAgents();
-  }, [activities, activeWork]);
+
+    fetchActiveAgents();
+  }, [activeWork, activities]);
 
   // Auto-scroll activity feed to bottom
   useEffect(() => {
@@ -281,7 +279,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
         <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
           <div>
             <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-white">Command Center</h1>
-            <p className="text-sm text-zinc-500 mt-1">Live mission control nerve center</p>
+            <p className="text-sm text-zinc-500 mt-1">Executive nerve center for live company motion, priorities, and interventions.</p>
           </div>
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${sseConnected ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
@@ -301,7 +299,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
               <Activity size={20} className="text-blue-400 hidden md:block" />
             </div>
             <div>
-              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Events Today</p>
+              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Executive Feed</p>
               <p className="text-xl md:text-2xl font-semibold text-white">{stats.totalEvents}</p>
             </div>
           </div>
@@ -315,7 +313,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
               <GitCommit size={20} className="text-green-400 hidden md:block" />
             </div>
             <div>
-              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Commits (1h)</p>
+              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Build / Ship Signals</p>
               <p className="text-xl md:text-2xl font-semibold text-white">
                 {activities.filter(a => 
                   (a.action.includes('commit') || a.action.includes('git')) &&
@@ -334,7 +332,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
               <Users size={20} className="text-purple-400 hidden md:block" />
             </div>
             <div>
-              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Active Agents</p>
+              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Team In Motion</p>
               <p className="text-xl md:text-2xl font-semibold text-white">{activeAgents.length}</p>
             </div>
           </div>
@@ -348,7 +346,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
               <Zap size={20} className="text-orange-400 hidden md:block" />
             </div>
             <div>
-              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">In Progress</p>
+              <p className="text-[10px] md:text-xs text-zinc-500 uppercase tracking-wider">Priority Workstreams</p>
               <p className="text-xl md:text-2xl font-semibold text-white">{activeWork.length}</p>
             </div>
           </div>
@@ -363,8 +361,8 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
         <div className="md:col-span-7 bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: '400px', maxHeight: '400px' }}>
           <div className="px-4 md:px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
             <Activity size={16} className="text-zinc-400" />
-            <h2 className="text-sm font-semibold text-white">Activity Feed</h2>
-            <span className="ml-auto text-xs text-zinc-500">{activities.length} events today</span>
+            <h2 className="text-sm font-semibold text-white">Executive Feed</h2>
+            <span className="ml-auto text-xs text-zinc-500">{activities.length} events in scope</span>
           </div>
           <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2">
             {activities.length === 0 ? (
@@ -405,8 +403,8 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
           <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: '300px', maxHeight: '300px' }}>
             <div className="px-4 md:px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
               <Bot size={16} className="text-zinc-400" />
-              <h2 className="text-sm font-semibold text-white">Active Agents</h2>
-              <span className="ml-auto text-xs text-zinc-500">{activeAgents.length} online</span>
+              <h2 className="text-sm font-semibold text-white">Team In Motion</h2>
+              <span className="ml-auto text-xs text-zinc-500">{activeAgents.length} engaged</span>
             </div>
             <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2">
               {activeAgents.length === 0 ? (
@@ -444,8 +442,9 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
                         {agent.status}
                       </span>
                     </div>
+                    <p className="text-xs text-zinc-500 truncate mb-1">{agent.role || agent.department || 'Active agent'}</p>
                     <p className="text-xs text-zinc-400 truncate mb-1">{agent.currentWork}</p>
-                    <p className="text-xs text-zinc-600">Runtime: {formatDuration(agent.startedAt)}</p>
+                    <p className="text-xs text-zinc-600">In motion for {formatDuration(agent.startedAt)}</p>
                   </div>
                 ))
               )}
@@ -456,14 +455,14 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
           <div className="bg-[#18181b] border border-[#27272a] rounded-xl overflow-hidden flex flex-col" style={{ height: '350px', maxHeight: '350px' }}>
             <div className="px-4 md:px-5 py-3 border-b border-[#27272a] flex items-center gap-2">
               <Clock size={16} className="text-zinc-400" />
-              <h2 className="text-sm font-semibold text-white">Active Work</h2>
-              <span className="ml-auto text-xs text-zinc-500">{activeWork.length} in progress</span>
+              <h2 className="text-sm font-semibold text-white">Priority Workstreams</h2>
+              <span className="ml-auto text-xs text-zinc-500">{activeWork.length} active mandates</span>
             </div>
             <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-2">
               {activeWork.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full gap-3">
                   <Clock size={32} className="text-zinc-700" />
-                  <p className="text-sm text-zinc-500">All caught up. No tasks running.</p>
+                  <p className="text-sm text-zinc-500">No active mandates. The company is standing by.</p>
                 </div>
               ) : (
                 activeWork.map((work) => (
@@ -517,7 +516,7 @@ export default function CommandCenter({ onAgentClick }: CommandCenterProps) {
               type="text"
               value={commandInput}
               onChange={(e) => setCommandInput(e.target.value)}
-              placeholder="Send a command to your agents..."
+              placeholder="Issue an executive directive..."
               disabled={isSubmitting}
               className="flex-1 bg-[#111113] border border-[#27272a] rounded-lg px-4 py-3 md:py-2.5 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-blue-500/50 transition-colors disabled:opacity-50"
             />
