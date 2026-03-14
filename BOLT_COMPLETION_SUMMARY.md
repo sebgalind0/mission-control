@@ -31,7 +31,7 @@ Three production-ready API endpoints for the Mission Control Command Center:
   - Routes to appropriate agent(s) via keyword matching:
     - **Bolt**: api, backend, database, prisma
     - **Fuse**: ui, frontend, component, design
-    - **Rick**: deploy, production, railway, vercel
+    - **Rick**: deploy, production, vercel
     - **Larry**: task, ticket, backlog
   - Logs all commands to activity feed
   - Returns structured response with routing info
@@ -113,20 +113,14 @@ Route (app)
 ⚠️ **Database migration needs to be run in production environment:**
 
 ```bash
-# Option 1: Via Railway CLI (when logged in)
-cd ~/mission-control
-railway login
-railway run npx prisma migrate deploy
-
-# Option 2: Direct migration
+# Option 1: Direct migration
 npx prisma migrate dev --name add_command_center_models
 
-# Option 3: In production (Railway auto-deploys migrations)
+# Option 2: In production (Vercel auto-deploys migrations)
 git push
 ```
 
 **Why migration is pending:**
-- Local database at `localhost:51214` requires Railway tunnel/login
 - Production deployment will auto-run migrations via buildCommand
 - Code is complete and tested via build process
 
@@ -186,7 +180,7 @@ curl https://your-domain.com/api/activity/stream
 1. **Run migrations** (requires database access):
    ```bash
    npx prisma migrate dev --name add_command_center_models
-   # OR deploy to Railway (auto-migrates)
+   # OR deploy to Vercel (auto-migrates)
    git add . && git commit -m "feat: Command Center backend APIs" && git push
    ```
 

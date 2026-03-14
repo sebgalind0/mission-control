@@ -52,7 +52,7 @@ We monitor everything:
 - **FID** (First Input Delay): <100ms
 - **TTFB** (Time to First Byte): <600ms
 
-### Database: Railway Metrics
+### Database: Vercel Postgres Metrics
 - **Purpose:** PostgreSQL monitoring
 - **Coverage:** All databases
 - **Metrics:** CPU, memory, disk, connections
@@ -279,7 +279,6 @@ curl -I https://api.twilio.com/2010-04-01/Accounts.json \
 
 ### Required Access
 - **Vercel:** Larry, Roger, Seb
-- **Railway:** Larry, Roger
 - **Sentry:** All engineers
 - **LogTail:** All engineers
 - **Database:** Read-only for engineers, write for Larry/Roger
@@ -288,9 +287,6 @@ curl -I https://api.twilio.com/2010-04-01/Accounts.json \
 ```bash
 # Vercel
 vercel logs --prod --follow
-
-# Railway
-railway logs --follow
 
 # Database
 psql $DATABASE_URL

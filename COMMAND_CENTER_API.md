@@ -72,7 +72,7 @@ Parse natural language command and route to appropriate agent(s).
 **Routing Keywords:**
 - **Bolt** (Backend): api, backend, database, prisma
 - **Fuse** (Frontend): ui, frontend, component, design
-- **Rick** (Deployment): deploy, production, railway, vercel
+- **Rick** (Deployment): deploy, production, vercel
 - **Larry** (Tasks): task, ticket, backlog
 
 ---

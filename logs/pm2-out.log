@@ -1,0 +1,1189 @@
+2026-03-09 14:08:27 -04:00: 
+2026-03-09 14:08:27 -04:00: > mission-control@0.1.0 dev
+2026-03-09 14:08:27 -04:00: > PORT=3333 next dev
+2026-03-09 14:08:27 -04:00: 
+2026-03-09 14:08:28 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-09 14:08:28 -04:00: - Local:         http://localhost:3333
+2026-03-09 14:08:28 -04:00: - Network:       http://192.168.5.41:3333
+2026-03-09 14:08:28 -04:00: - Environments: .env
+2026-03-09 14:08:28 -04:00: 
+2026-03-09 14:08:28 -04:00: ✓ Starting...
+2026-03-09 14:08:28 -04:00: ✓ Ready in 603ms
+2026-03-09 14:08:29 -04:00:  GET / 200 in 709ms (compile: 578ms, render: 131ms)
+2026-03-09 14:08:30 -04:00:  GET /api/costs/live 200 in 163ms (compile: 71ms, render: 93ms)
+2026-03-09 14:08:34 -04:00:  GET /api/costs/live 200 in 6ms (compile: 1400µs, render: 5ms)
+2026-03-09 14:08:39 -04:00:  GET /api/costs/live 200 in 9ms (compile: 3ms, render: 6ms)
+2026-03-09 14:08:41 -04:00:  GET / 200 in 54ms (compile: 2ms, render: 52ms)
+2026-03-09 14:08:44 -04:00:  GET /api/costs/live 200 in 6ms (compile: 1408µs, render: 4ms)
+2026-03-09 14:08:49 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1355µs, render: 4ms)
+2026-03-09 14:08:54 -04:00:  GET /api/costs/live 200 in 7ms (compile: 1791µs, render: 5ms)
+2026-03-09 14:08:57 -04:00:  GET /api/agents/status 200 in 65ms (compile: 19ms, render: 46ms)
+2026-03-09 14:08:57 -04:00:  GET /api/activity/stats 200 in 87ms (compile: 34ms, render: 53ms)
+2026-03-09 14:08:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 90ms (compile: 53ms, render: 37ms)
+2026-03-09 14:08:57 -04:00:  GET /api/agents/status 200 in 27ms (compile: 1252µs, render: 26ms)
+2026-03-09 14:08:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 8ms (compile: 1661µs, render: 6ms)
+2026-03-09 14:08:57 -04:00:  GET /api/agents/status 200 in 6ms (compile: 4ms, render: 3ms)
+2026-03-09 14:08:57 -04:00:  GET /api/activity/stats 200 in 18ms (compile: 1988µs, render: 16ms)
+2026-03-09 14:08:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 715µs, render: 2ms)
+2026-03-09 14:08:58 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1101µs, render: 5ms)
+2026-03-09 14:08:58 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1349µs, render: 5ms)
+2026-03-09 14:08:59 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1471µs, render: 4ms)
+2026-03-09 14:09:04 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1150µs, render: 3ms)
+2026-03-09 14:09:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 8ms (compile: 1667µs, render: 7ms)
+2026-03-09 14:09:07 -04:00:  GET /api/agents/status 200 in 6ms (compile: 1246µs, render: 5ms)
+2026-03-09 14:09:07 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1087µs, render: 5ms)
+2026-03-09 14:09:09 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1183µs, render: 4ms)
+2026-03-09 14:09:14 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1146µs, render: 3ms)
+2026-03-09 14:09:17 -04:00:  GET /api/agents/status 200 in 4ms (compile: 1544µs, render: 2ms)
+2026-03-09 14:09:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 1640µs, render: 12ms)
+2026-03-09 14:09:17 -04:00:  GET /api/activity/stats 200 in 9ms (compile: 1421µs, render: 8ms)
+2026-03-09 14:09:18 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1741µs, render: 5ms)
+2026-03-09 14:09:19 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1084µs, render: 3ms)
+2026-03-09 14:09:24 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1254µs, render: 3ms)
+2026-03-09 14:09:27 -04:00:  GET /api/agents/status 200 in 6ms (compile: 1234µs, render: 5ms)
+2026-03-09 14:09:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 6ms (compile: 1008µs, render: 5ms)
+2026-03-09 14:09:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 1102µs, render: 2ms)
+2026-03-09 14:09:27 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1092µs, render: 6ms)
+2026-03-09 14:09:29 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1157µs, render: 3ms)
+2026-03-09 14:09:34 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1220µs, render: 3ms)
+2026-03-09 14:09:37 -04:00:  GET /api/agents/status 200 in 5ms (compile: 2ms, render: 3ms)
+2026-03-09 14:09:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 14ms (compile: 1059µs, render: 13ms)
+2026-03-09 14:09:37 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1043µs, render: 6ms)
+2026-03-09 14:09:38 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 945µs, render: 5ms)
+2026-03-09 14:09:39 -04:00:  GET /api/costs/live 200 in 4ms (compile: 990µs, render: 3ms)
+2026-03-09 14:09:44 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1077µs, render: 3ms)
+2026-03-09 14:09:47 -04:00:  GET /api/agents/status 200 in 6ms (compile: 4ms, render: 1911µs)
+2026-03-09 14:09:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 1227µs, render: 12ms)
+2026-03-09 14:09:48 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1071µs, render: 6ms)
+2026-03-09 14:09:49 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1057µs, render: 4ms)
+2026-03-09 14:09:54 -04:00:  GET /api/costs/live 200 in 9ms (compile: 3ms, render: 6ms)
+2026-03-09 14:09:57 -04:00:  GET /api/agents/status 200 in 11ms (compile: 2ms, render: 8ms)
+2026-03-09 14:09:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 5ms, render: 8ms)
+2026-03-09 14:09:57 -04:00:  GET /api/agents/status 200 in 4ms (compile: 1353µs, render: 2ms)
+2026-03-09 14:09:58 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1053µs, render: 5ms)
+2026-03-09 14:09:59 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:10:04 -04:00:  GET /api/costs/live 200 in 9ms (compile: 3ms, render: 6ms)
+2026-03-09 14:10:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 4ms, render: 7ms)
+2026-03-09 14:10:07 -04:00:  GET /api/agents/status 200 in 11ms (compile: 5ms, render: 6ms)
+2026-03-09 14:10:07 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1008µs, render: 5ms)
+2026-03-09 14:10:09 -04:00:  GET / 200 in 65ms (compile: 2ms, render: 63ms)
+2026-03-09 14:10:09 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:10:13 -04:00: ✓ Compiled in 136ms
+2026-03-09 14:10:14 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:10:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 3ms, render: 9ms)
+2026-03-09 14:10:17 -04:00:  GET /api/agents/status 200 in 13ms (compile: 6ms, render: 7ms)
+2026-03-09 14:10:17 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 918µs, render: 5ms)
+2026-03-09 14:10:19 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:10:24 -04:00:  GET /api/costs/live 200 in 7ms (compile: 3ms, render: 5ms)
+2026-03-09 14:10:27 -04:00:  GET /api/agents/status 200 in 11ms (compile: 3ms, render: 9ms)
+2026-03-09 14:10:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 7ms, render: 6ms)
+2026-03-09 14:10:27 -04:00:  GET /api/agents/status 200 in 4ms (compile: 828µs, render: 3ms)
+2026-03-09 14:10:27 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 909µs, render: 5ms)
+2026-03-09 14:10:29 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:10:34 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1012µs, render: 3ms)
+2026-03-09 14:10:37 -04:00:  GET /api/agents/status 200 in 5ms (compile: 3ms, render: 1944µs)
+2026-03-09 14:10:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 14ms (compile: 1140µs, render: 13ms)
+2026-03-09 14:10:37 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 1050µs, render: 7ms)
+2026-03-09 14:10:38 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 978µs, render: 5ms)
+2026-03-09 14:10:39 -04:00:  GET /api/costs/live 200 in 4ms (compile: 919µs, render: 3ms)
+2026-03-09 14:10:44 -04:00:  GET /api/costs/live 200 in 4ms (compile: 979µs, render: 3ms)
+2026-03-09 14:10:47 -04:00:  GET /api/agents/status 200 in 5ms (compile: 3ms, render: 2ms)
+2026-03-09 14:10:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 14ms (compile: 961µs, render: 13ms)
+2026-03-09 14:10:48 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 838µs, render: 6ms)
+2026-03-09 14:10:49 -04:00:  GET /api/costs/live 200 in 4ms (compile: 964µs, render: 3ms)
+2026-03-09 14:10:54 -04:00:  GET /api/costs/live 200 in 8ms (compile: 1990µs, render: 6ms)
+2026-03-09 14:10:57 -04:00:  GET /api/agents/status 200 in 11ms (compile: 3ms, render: 8ms)
+2026-03-09 14:10:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 742µs, render: 3ms)
+2026-03-09 14:10:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 20ms (compile: 7ms, render: 13ms)
+2026-03-09 14:10:58 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 822µs, render: 6ms)
+2026-03-09 14:10:59 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:11:04 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:11:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 14:11:07 -04:00:  GET /api/agents/status 200 in 13ms (compile: 6ms, render: 6ms)
+2026-03-09 14:11:07 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 860µs, render: 4ms)
+2026-03-09 14:11:09 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:11:14 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:11:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 12ms (compile: 2ms, render: 10ms)
+2026-03-09 14:11:17 -04:00:  GET /api/agents/status 200 in 6ms (compile: 1467µs, render: 5ms)
+2026-03-09 14:11:17 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 868µs, render: 4ms)
+2026-03-09 14:11:19 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:11:24 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:11:27 -04:00:  GET /api/agents/status 200 in 12ms (compile: 4ms, render: 8ms)
+2026-03-09 14:11:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 793µs, render: 2ms)
+2026-03-09 14:11:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 17ms (compile: 5ms, render: 12ms)
+2026-03-09 14:11:27 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 831µs, render: 7ms)
+2026-03-09 14:11:28 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 633µs, render: 4ms)
+2026-03-09 14:11:29 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:11:34 -04:00:  GET /api/costs/live 200 in 9ms (compile: 3ms, render: 6ms)
+2026-03-09 14:11:37 -04:00:  GET /api/agents/status 200 in 11ms (compile: 7ms, render: 4ms)
+2026-03-09 14:11:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 20ms (compile: 3ms, render: 17ms)
+2026-03-09 14:11:38 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 878µs, render: 5ms)
+2026-03-09 14:11:39 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:11:44 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:11:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 14:11:47 -04:00:  GET /api/agents/status 200 in 12ms (compile: 7ms, render: 5ms)
+2026-03-09 14:11:47 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 1240µs, render: 4ms)
+2026-03-09 14:11:49 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:11:54 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:11:57 -04:00:  GET /api/agents/status 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 14:11:57 -04:00:  GET /api/agents/status 200 in 4ms (compile: 1197µs, render: 2ms)
+2026-03-09 14:11:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 20ms (compile: 6ms, render: 15ms)
+2026-03-09 14:11:57 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 865µs, render: 7ms)
+2026-03-09 14:11:58 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 810µs, render: 4ms)
+2026-03-09 14:11:59 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:12:04 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:12:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 14:12:07 -04:00:  GET /api/agents/status 200 in 13ms (compile: 7ms, render: 6ms)
+2026-03-09 14:12:07 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 795µs, render: 6ms)
+2026-03-09 14:12:09 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1039µs, render: 4ms)
+2026-03-09 14:12:14 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:12:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 3ms, render: 9ms)
+2026-03-09 14:12:17 -04:00:  GET /api/agents/status 200 in 13ms (compile: 7ms, render: 6ms)
+2026-03-09 14:12:17 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 856µs, render: 5ms)
+2026-03-09 14:12:19 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:12:24 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:12:27 -04:00:  GET /api/agents/status 200 in 10ms (compile: 3ms, render: 7ms)
+2026-03-09 14:12:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 769µs, render: 1985µs)
+2026-03-09 14:12:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 6ms, render: 12ms)
+2026-03-09 14:12:27 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 834µs, render: 7ms)
+2026-03-09 14:12:28 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 1027µs, render: 4ms)
+2026-03-09 14:12:29 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:12:34 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:12:37 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 3ms)
+2026-03-09 14:12:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 17ms (compile: 3ms, render: 14ms)
+2026-03-09 14:12:38 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 924µs, render: 6ms)
+2026-03-09 14:12:39 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:12:44 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:12:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 10ms (compile: 3ms, render: 7ms)
+2026-03-09 14:12:47 -04:00:  GET /api/agents/status 200 in 11ms (compile: 7ms, render: 4ms)
+2026-03-09 14:12:47 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 761µs, render: 5ms)
+2026-03-09 14:12:49 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1196µs, render: 3ms)
+2026-03-09 14:12:54 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:12:57 -04:00:  GET /api/agents/status 200 in 11ms (compile: 3ms, render: 8ms)
+2026-03-09 14:12:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 7ms (compile: 948µs, render: 6ms)
+2026-03-09 14:12:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 700µs, render: 2ms)
+2026-03-09 14:12:58 -04:00:  GET /api/activity/stats 200 in 4ms (compile: 676µs, render: 4ms)
+2026-03-09 14:12:59 -04:00:  GET /api/costs/live 200 in 7ms (compile: 3ms, render: 5ms)
+2026-03-09 14:13:04 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:13:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 14:13:07 -04:00:  GET /api/agents/status 200 in 13ms (compile: 7ms, render: 6ms)
+2026-03-09 14:13:08 -04:00:  GET /api/activity/stats 200 in 4ms (compile: 699µs, render: 4ms)
+2026-03-09 14:13:09 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:13:14 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 6ms)
+2026-03-09 14:13:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 14:13:17 -04:00:  GET /api/agents/status 200 in 12ms (compile: 7ms, render: 5ms)
+2026-03-09 14:13:18 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1031µs, render: 5ms)
+2026-03-09 14:13:19 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:13:24 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:13:27 -04:00:  GET /api/agents/status 200 in 10ms (compile: 4ms, render: 6ms)
+2026-03-09 14:13:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 5ms, render: 6ms)
+2026-03-09 14:13:27 -04:00:  GET /api/agents/status 200 in 4ms (compile: 785µs, render: 3ms)
+2026-03-09 14:13:28 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 766µs, render: 4ms)
+2026-03-09 14:13:29 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:13:34 -04:00:  GET /api/costs/live 200 in 7ms (compile: 1952µs, render: 5ms)
+2026-03-09 14:13:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 3ms, render: 8ms)
+2026-03-09 14:13:37 -04:00:  GET /api/agents/status 200 in 11ms (compile: 6ms, render: 6ms)
+2026-03-09 14:13:37 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 1034µs, render: 4ms)
+2026-03-09 14:13:39 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:13:44 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:13:47 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 4ms)
+2026-03-09 14:13:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 20ms (compile: 3ms, render: 16ms)
+2026-03-09 14:13:48 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 1359µs, render: 7ms)
+2026-03-09 14:13:48 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 987µs, render: 5ms)
+2026-03-09 14:13:49 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:13:54 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1019µs, render: 3ms)
+2026-03-09 14:13:57 -04:00:  GET /api/agents/status 200 in 10ms (compile: 3ms, render: 8ms)
+2026-03-09 14:13:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 12ms (compile: 7ms, render: 5ms)
+2026-03-09 14:13:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 881µs, render: 3ms)
+2026-03-09 14:13:57 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1085µs, render: 5ms)
+2026-03-09 14:13:59 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 4ms)
+2026-03-09 14:14:04 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:14:07 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 3ms)
+2026-03-09 14:14:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 19ms (compile: 1970µs, render: 17ms)
+2026-03-09 14:14:07 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 880µs, render: 6ms)
+2026-03-09 14:14:08 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 924µs, render: 4ms)
+2026-03-09 14:14:09 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:14:14 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1058µs, render: 3ms)
+2026-03-09 14:14:17 -04:00:  GET /api/agents/status 200 in 7ms (compile: 4ms, render: 3ms)
+2026-03-09 14:14:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 14ms (compile: 1576µs, render: 13ms)
+2026-03-09 14:14:18 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1023µs, render: 6ms)
+2026-03-09 14:14:19 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:14:24 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:14:27 -04:00:  GET /api/agents/status 200 in 10ms (compile: 3ms, render: 7ms)
+2026-03-09 14:14:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 12ms (compile: 7ms, render: 5ms)
+2026-03-09 14:14:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 722µs, render: 2ms)
+2026-03-09 14:14:27 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 987µs, render: 4ms)
+2026-03-09 14:14:29 -04:00:  GET /api/costs/live 200 in 8ms (compile: 1773µs, render: 6ms)
+2026-03-09 14:14:34 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1796µs, render: 4ms)
+2026-03-09 14:14:37 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 3ms)
+2026-03-09 14:14:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 3ms, render: 15ms)
+2026-03-09 14:14:37 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1046µs, render: 6ms)
+2026-03-09 14:14:38 -04:00:  GET /api/activity/stats 200 in 4ms (compile: 759µs, render: 4ms)
+2026-03-09 14:14:39 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:14:44 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:14:47 -04:00:  GET /api/agents/status 200 in 5ms (compile: 1273µs, render: 3ms)
+2026-03-09 14:14:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 15ms (compile: 1047µs, render: 14ms)
+2026-03-09 14:14:48 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 952µs, render: 7ms)
+2026-03-09 14:14:49 -04:00:  GET /api/costs/live 200 in 4ms (compile: 958µs, render: 3ms)
+2026-03-09 14:14:54 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:14:57 -04:00:  GET /api/agents/status 200 in 9ms (compile: 3ms, render: 7ms)
+2026-03-09 14:14:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 5ms, render: 6ms)
+2026-03-09 14:14:57 -04:00:  GET /api/agents/status 200 in 4ms (compile: 1079µs, render: 3ms)
+2026-03-09 14:14:57 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 905µs, render: 5ms)
+2026-03-09 14:14:59 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1571µs, render: 4ms)
+2026-03-09 14:15:04 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1053µs, render: 3ms)
+2026-03-09 14:15:07 -04:00:  GET /api/agents/status 200 in 7ms (compile: 4ms, render: 3ms)
+2026-03-09 14:15:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 16ms (compile: 1283µs, render: 14ms)
+2026-03-09 14:15:08 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 825µs, render: 8ms)
+2026-03-09 14:15:08 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 865µs, render: 4ms)
+2026-03-09 14:15:09 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1359µs, render: 3ms)
+2026-03-09 14:15:14 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:15:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 10ms (compile: 3ms, render: 8ms)
+2026-03-09 14:15:17 -04:00:  GET /api/agents/status 200 in 11ms (compile: 6ms, render: 5ms)
+2026-03-09 14:15:18 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 906µs, render: 5ms)
+2026-03-09 14:15:19 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:15:24 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 6ms)
+2026-03-09 14:15:27 -04:00:  GET /api/agents/status 200 in 6ms (compile: 1234µs, render: 5ms)
+2026-03-09 14:15:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 9ms (compile: 3ms, render: 6ms)
+2026-03-09 14:15:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 800µs, render: 2ms)
+2026-03-09 14:15:27 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 694µs, render: 4ms)
+2026-03-09 14:15:29 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1589µs, render: 3ms)
+2026-03-09 14:15:34 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:15:37 -04:00:  GET /api/agents/status 200 in 3ms (compile: 959µs, render: 1963µs)
+2026-03-09 14:15:37 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 625µs, render: 4ms)
+2026-03-09 14:15:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 17ms (compile: 2ms, render: 15ms)
+2026-03-09 14:15:38 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 940µs, render: 7ms)
+2026-03-09 14:15:39 -04:00:  GET /api/costs/live 200 in 8ms (compile: 1968µs, render: 6ms)
+2026-03-09 14:15:44 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:15:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 14:15:47 -04:00:  GET /api/agents/status 200 in 13ms (compile: 8ms, render: 5ms)
+2026-03-09 14:15:48 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 963µs, render: 4ms)
+2026-03-09 14:15:49 -04:00:  GET /api/costs/live 200 in 7ms (compile: 1889µs, render: 5ms)
+2026-03-09 14:15:54 -04:00:  GET /api/costs/live 200 in 6ms (compile: 1499µs, render: 4ms)
+2026-03-09 14:15:57 -04:00:  GET /api/agents/status 200 in 6ms (compile: 1178µs, render: 5ms)
+2026-03-09 14:15:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 5ms (compile: 935µs, render: 4ms)
+2026-03-09 14:15:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 921µs, render: 1892µs)
+2026-03-09 14:15:57 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1107µs, render: 5ms)
+2026-03-09 14:15:59 -04:00:  GET /api/costs/live 200 in 6ms (compile: 2ms, render: 4ms)
+2026-03-09 14:16:04 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:16:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 10ms (compile: 3ms, render: 7ms)
+2026-03-09 14:16:07 -04:00:  GET /api/agents/status 200 in 10ms (compile: 5ms, render: 5ms)
+2026-03-09 14:16:07 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 884µs, render: 5ms)
+2026-03-09 14:16:09 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1199µs, render: 3ms)
+2026-03-09 14:16:14 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:16:17 -04:00:  GET /api/agents/status 200 in 5ms (compile: 3ms, render: 2ms)
+2026-03-09 14:16:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 14ms (compile: 1112µs, render: 13ms)
+2026-03-09 14:16:17 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 915µs, render: 7ms)
+2026-03-09 14:16:18 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 830µs, render: 5ms)
+2026-03-09 14:16:19 -04:00:  GET /api/costs/live 200 in 4ms (compile: 898µs, render: 3ms)
+2026-03-09 14:16:24 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1046µs, render: 3ms)
+2026-03-09 14:16:27 -04:00:  GET /api/agents/status 200 in 5ms (compile: 1109µs, render: 4ms)
+2026-03-09 14:16:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 7ms (compile: 3ms, render: 4ms)
+2026-03-09 14:16:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 891µs, render: 1747µs)
+2026-03-09 14:16:27 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 897µs, render: 5ms)
+2026-03-09 14:16:29 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1048µs, render: 3ms)
+2026-03-09 14:16:34 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1019µs, render: 3ms)
+2026-03-09 14:16:37 -04:00:  GET /api/agents/status 200 in 5ms (compile: 1079µs, render: 4ms)
+2026-03-09 14:16:37 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:16:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 867µs, render: 12ms)
+2026-03-09 14:16:38 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1037µs, render: 6ms)
+2026-03-09 14:16:39 -04:00:  GET /api/costs/live 200 in 4ms (compile: 996µs, render: 3ms)
+2026-03-09 14:16:44 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:16:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 3ms, render: 8ms)
+2026-03-09 14:16:47 -04:00:  GET /api/agents/status 200 in 12ms (compile: 6ms, render: 6ms)
+2026-03-09 14:16:48 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 921µs, render: 5ms)
+2026-03-09 14:16:49 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:16:54 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1313µs, render: 3ms)
+2026-03-09 14:16:57 -04:00:  GET /api/agents/status 200 in 5ms (compile: 944µs, render: 4ms)
+2026-03-09 14:16:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 6ms (compile: 1869µs, render: 4ms)
+2026-03-09 14:16:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 759µs, render: 3ms)
+2026-03-09 14:16:57 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1189µs, render: 6ms)
+2026-03-09 14:16:59 -04:00:  GET /api/costs/live 200 in 18ms (compile: 1120µs, render: 17ms)
+2026-03-09 14:17:04 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1066µs, render: 3ms)
+2026-03-09 14:17:07 -04:00:  GET /api/agents/status 200 in 4ms (compile: 2ms, render: 2ms)
+2026-03-09 14:17:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 7ms (compile: 993µs, render: 6ms)
+2026-03-09 14:17:07 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 938µs, render: 5ms)
+2026-03-09 14:17:08 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 965µs, render: 5ms)
+2026-03-09 14:17:09 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1262µs, render: 3ms)
+2026-03-09 14:17:14 -04:00:  GET /api/costs/live 200 in 7ms (compile: 1986µs, render: 5ms)
+2026-03-09 14:17:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 14:17:17 -04:00:  GET /api/agents/status 200 in 11ms (compile: 5ms, render: 6ms)
+2026-03-09 14:17:17 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1002µs, render: 5ms)
+2026-03-09 14:17:19 -04:00:  GET /api/costs/live 200 in 6ms (compile: 1882µs, render: 5ms)
+2026-03-09 14:17:24 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 6ms)
+2026-03-09 14:17:27 -04:00:  GET /api/agents/status 200 in 11ms (compile: 2ms, render: 8ms)
+2026-03-09 14:17:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 665µs, render: 2ms)
+2026-03-09 14:17:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 21ms (compile: 6ms, render: 15ms)
+2026-03-09 14:17:28 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 1021µs, render: 7ms)
+2026-03-09 14:17:28 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 800µs, render: 4ms)
+2026-03-09 14:17:29 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:17:34 -04:00:  GET /api/costs/live 200 in 8ms (compile: 1992µs, render: 6ms)
+2026-03-09 14:17:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 8ms (compile: 1731µs, render: 7ms)
+2026-03-09 14:17:37 -04:00:  GET /api/agents/status 200 in 11ms (compile: 4ms, render: 6ms)
+2026-03-09 14:17:37 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1260µs, render: 6ms)
+2026-03-09 14:17:39 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:17:44 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:17:47 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 3ms)
+2026-03-09 14:17:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 21ms (compile: 3ms, render: 18ms)
+2026-03-09 14:17:48 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1139µs, render: 6ms)
+2026-03-09 14:17:48 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1013µs, render: 5ms)
+2026-03-09 14:17:49 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:17:54 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:17:57 -04:00:  GET /api/agents/status 200 in 9ms (compile: 1862µs, render: 7ms)
+2026-03-09 14:17:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 10ms (compile: 5ms, render: 5ms)
+2026-03-09 14:17:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 700µs, render: 3ms)
+2026-03-09 14:17:57 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1086µs, render: 4ms)
+2026-03-09 14:17:59 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1399µs, render: 3ms)
+2026-03-09 14:18:04 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1479µs, render: 3ms)
+2026-03-09 14:18:07 -04:00:  GET /api/agents/status 200 in 6ms (compile: 4ms, render: 2ms)
+2026-03-09 14:18:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 17ms (compile: 2ms, render: 15ms)
+2026-03-09 14:18:07 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 1059µs, render: 7ms)
+2026-03-09 14:18:08 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1147µs, render: 5ms)
+2026-03-09 14:18:09 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1035µs, render: 3ms)
+2026-03-09 14:18:14 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:18:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 9ms (compile: 3ms, render: 6ms)
+2026-03-09 14:18:17 -04:00:  GET /api/agents/status 200 in 11ms (compile: 4ms, render: 6ms)
+2026-03-09 14:18:17 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 859µs, render: 6ms)
+2026-03-09 14:18:19 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:18:24 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 4ms)
+2026-03-09 14:18:27 -04:00:  GET /api/agents/status 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 14:18:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 5ms, render: 6ms)
+2026-03-09 14:18:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 1021µs, render: 2ms)
+2026-03-09 14:18:27 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 1019µs, render: 4ms)
+2026-03-09 14:18:29 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:18:34 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 6ms)
+2026-03-09 14:18:37 -04:00:  GET /api/agents/status 200 in 4ms (compile: 936µs, render: 3ms)
+2026-03-09 14:18:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 15ms (compile: 987µs, render: 14ms)
+2026-03-09 14:18:38 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1070µs, render: 6ms)
+2026-03-09 14:18:38 -04:00:  GET /api/activity/stats 200 in 4ms (compile: 700µs, render: 4ms)
+2026-03-09 14:18:39 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1486µs, render: 3ms)
+2026-03-09 14:18:44 -04:00:  GET /api/costs/live 200 in 4ms (compile: 997µs, render: 3ms)
+2026-03-09 14:18:47 -04:00:  GET /api/agents/status 200 in 5ms (compile: 2ms, render: 2ms)
+2026-03-09 14:18:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 1181µs, render: 12ms)
+2026-03-09 14:18:48 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 1046µs, render: 7ms)
+2026-03-09 14:18:49 -04:00:  GET /api/costs/live 200 in 4ms (compile: 994µs, render: 3ms)
+2026-03-09 14:18:54 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1046µs, render: 3ms)
+2026-03-09 14:18:57 -04:00:  GET /api/agents/status 200 in 5ms (compile: 1018µs, render: 4ms)
+2026-03-09 14:18:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 6ms (compile: 1886µs, render: 4ms)
+2026-03-09 14:18:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 717µs, render: 3ms)
+2026-03-09 14:18:57 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1277µs, render: 5ms)
+2026-03-09 14:18:59 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1077µs, render: 3ms)
+2026-03-09 14:19:04 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1003µs, render: 3ms)
+2026-03-09 14:19:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 6ms (compile: 1061µs, render: 5ms)
+2026-03-09 14:19:07 -04:00:  GET /api/agents/status 200 in 5ms (compile: 756µs, render: 4ms)
+2026-03-09 14:19:07 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1136µs, render: 5ms)
+2026-03-09 14:19:09 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1547µs, render: 3ms)
+2026-03-09 14:19:14 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:19:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 14:19:17 -04:00:  GET /api/agents/status 200 in 12ms (compile: 7ms, render: 5ms)
+2026-03-09 14:19:17 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 870µs, render: 4ms)
+2026-03-09 14:19:19 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:19:24 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:19:27 -04:00:  GET /api/agents/status 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 14:19:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 20ms (compile: 6ms, render: 13ms)
+2026-03-09 14:19:27 -04:00:  GET /api/agents/status 200 in 5ms (compile: 1093µs, render: 4ms)
+2026-03-09 14:19:27 -04:00:  GET /api/activity/stats 200 in 11ms (compile: 1035µs, render: 9ms)
+2026-03-09 14:19:27 -04:00:  GET /api/activity/stats 200 in 4ms (compile: 874µs, render: 4ms)
+2026-03-09 14:19:29 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:19:34 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:19:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 14:19:37 -04:00:  GET /api/agents/status 200 in 14ms (compile: 7ms, render: 8ms)
+2026-03-09 14:19:37 -04:00:  GET /api/activity/stats 200 in 9ms (compile: 1082µs, render: 8ms)
+2026-03-09 14:19:39 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:19:44 -04:00:  GET /api/costs/live 200 in 7ms (compile: 3ms, render: 5ms)
+2026-03-09 14:19:47 -04:00:  GET /api/agents/status 200 in 9ms (compile: 7ms, render: 3ms)
+2026-03-09 14:19:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 2ms, render: 15ms)
+2026-03-09 14:19:47 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 743µs, render: 6ms)
+2026-03-09 14:19:48 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 906µs, render: 4ms)
+2026-03-09 14:19:49 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:19:54 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:19:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 9ms (compile: 5ms, render: 5ms)
+2026-03-09 14:19:57 -04:00:  GET /api/agents/status 200 in 11ms (compile: 2ms, render: 8ms)
+2026-03-09 14:19:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 655µs, render: 2ms)
+2026-03-09 14:19:57 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1109µs, render: 5ms)
+2026-03-09 14:19:59 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:20:04 -04:00:  GET /api/costs/live 200 in 6ms (compile: 1904µs, render: 4ms)
+2026-03-09 14:20:07 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 4ms)
+2026-03-09 14:20:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 2ms, render: 16ms)
+2026-03-09 14:20:07 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 959µs, render: 6ms)
+2026-03-09 14:20:08 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 801µs, render: 4ms)
+2026-03-09 14:20:09 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1261µs, render: 3ms)
+2026-03-09 14:20:14 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:20:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 10ms (compile: 2ms, render: 8ms)
+2026-03-09 14:20:17 -04:00:  GET /api/agents/status 200 in 11ms (compile: 5ms, render: 6ms)
+2026-03-09 14:20:17 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1011µs, render: 5ms)
+2026-03-09 14:20:19 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:20:24 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:20:27 -04:00:  GET /api/agents/status 200 in 10ms (compile: 1978µs, render: 9ms)
+2026-03-09 14:20:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 848µs, render: 2ms)
+2026-03-09 14:20:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 20ms (compile: 6ms, render: 13ms)
+2026-03-09 14:20:27 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 879µs, render: 6ms)
+2026-03-09 14:20:28 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 756µs, render: 4ms)
+2026-03-09 14:20:29 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:20:34 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:20:37 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 3ms)
+2026-03-09 14:20:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 17ms (compile: 2ms, render: 15ms)
+2026-03-09 14:20:38 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 972µs, render: 7ms)
+2026-03-09 14:20:39 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:20:44 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:20:47 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 3ms)
+2026-03-09 14:20:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 4ms, render: 14ms)
+2026-03-09 14:20:48 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 767µs, render: 6ms)
+2026-03-09 14:20:49 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 4ms)
+2026-03-09 14:20:54 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:20:57 -04:00:  GET /api/agents/status 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 14:20:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 6ms, render: 5ms)
+2026-03-09 14:20:57 -04:00:  GET /api/agents/status 200 in 4ms (compile: 695µs, render: 3ms)
+2026-03-09 14:20:57 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 981µs, render: 5ms)
+2026-03-09 14:20:59 -04:00:  GET /api/costs/live 200 in 6ms (compile: 1982µs, render: 4ms)
+2026-03-09 14:21:04 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:21:07 -04:00:  GET /api/agents/status 200 in 10ms (compile: 6ms, render: 4ms)
+2026-03-09 14:21:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 3ms, render: 16ms)
+2026-03-09 14:21:07 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 987µs, render: 6ms)
+2026-03-09 14:21:08 -04:00:  GET /api/activity/stats 200 in 4ms (compile: 917µs, render: 3ms)
+2026-03-09 14:21:09 -04:00:  GET /api/costs/live 200 in 7ms (compile: 1895µs, render: 5ms)
+2026-03-09 14:21:14 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:21:17 -04:00:  GET /api/agents/status 200 in 10ms (compile: 6ms, render: 3ms)
+2026-03-09 14:21:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 2ms, render: 16ms)
+2026-03-09 14:21:18 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 903µs, render: 6ms)
+2026-03-09 14:21:19 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:21:23 -04:00:  GET / 200 in 163ms (compile: 53ms, render: 110ms)
+2026-03-09 14:21:23 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1118µs, render: 3ms)
+2026-03-09 14:21:24 -04:00:  GET /api/costs/live 200 in 7ms (compile: 1977µs, render: 5ms)
+2026-03-09 14:21:27 -04:00:  GET / 200 in 49ms (compile: 1579µs, render: 47ms)
+2026-03-09 14:21:27 -04:00:  GET /api/costs/live 200 in 4ms (compile: 993µs, render: 3ms)
+2026-03-09 14:21:27 -04:00:  GET /api/agents/status 200 in 10ms (compile: 3ms, render: 7ms)
+2026-03-09 14:21:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 5ms, render: 6ms)
+2026-03-09 14:21:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 908µs, render: 1858µs)
+2026-03-09 14:21:28 -04:00:  GET /api/activity/stats 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 14:21:29 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:21:32 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:21:34 -04:00:  GET /api/costs/live 200 in 9ms (compile: 3ms, render: 6ms)
+2026-03-09 14:21:37 -04:00:  GET /api/agents/status 200 in 10ms (compile: 6ms, render: 4ms)
+2026-03-09 14:21:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 19ms (compile: 2ms, render: 17ms)
+2026-03-09 14:21:38 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 1029µs, render: 7ms)
+2026-03-09 14:21:38 -04:00:  GET /api/activity/stats 200 in 4ms (compile: 762µs, render: 4ms)
+2026-03-09 14:21:39 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 14:21:44 -04:00:  GET /api/costs/live 200 in 7ms (compile: 3ms, render: 5ms)
+2026-03-09 14:21:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 9ms (compile: 3ms, render: 7ms)
+2026-03-09 14:21:47 -04:00:  GET /api/agents/status 200 in 7ms (compile: 4ms, render: 3ms)
+2026-03-09 14:21:47 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1170µs, render: 5ms)
+2026-03-09 14:21:49 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1252µs, render: 4ms)
+2026-03-09 14:21:54 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 6ms)
+2026-03-09 14:21:57 -04:00:  GET /api/agents/status 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 14:21:57 -04:00:  GET /api/agents/status 200 in 4ms (compile: 1032µs, render: 3ms)
+2026-03-09 14:21:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 16ms (compile: 1569µs, render: 14ms)
+2026-03-09 14:21:57 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 928µs, render: 7ms)
+2026-03-09 14:21:58 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 757µs, render: 4ms)
+2026-03-09 14:21:59 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 6ms)
+2026-03-09 14:22:04 -04:00:  GET /api/costs/live 200 in 7ms (compile: 1946µs, render: 5ms)
+2026-03-09 14:22:07 -04:00:  GET /api/agents/status 200 in 5ms (compile: 3ms, render: 1891µs)
+2026-03-09 14:22:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 943µs, render: 13ms)
+2026-03-09 14:22:08 -04:00:  GET /api/activity/stats 200 in 9ms (compile: 913µs, render: 8ms)
+2026-03-09 14:22:09 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:22:14 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 6ms)
+2026-03-09 14:22:17 -04:00:  GET /api/agents/status 200 in 4ms (compile: 1239µs, render: 3ms)
+2026-03-09 14:22:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 17ms (compile: 2ms, render: 15ms)
+2026-03-09 14:22:18 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1150µs, render: 6ms)
+2026-03-09 14:22:18 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 707µs, render: 5ms)
+2026-03-09 14:22:19 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 6ms)
+2026-03-09 14:22:24 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:22:27 -04:00:  GET /api/agents/status 200 in 11ms (compile: 3ms, render: 8ms)
+2026-03-09 14:22:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 6ms, render: 7ms)
+2026-03-09 14:22:27 -04:00:  GET /api/agents/status 200 in 4ms (compile: 964µs, render: 3ms)
+2026-03-09 14:22:27 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 829µs, render: 4ms)
+2026-03-09 14:22:29 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:22:34 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 6ms)
+2026-03-09 14:22:37 -04:00:  GET /api/agents/status 200 in 11ms (compile: 7ms, render: 4ms)
+2026-03-09 14:22:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 21ms (compile: 4ms, render: 17ms)
+2026-03-09 14:22:37 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 1089µs, render: 6ms)
+2026-03-09 14:22:38 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 942µs, render: 5ms)
+2026-03-09 14:22:39 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:22:44 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 14:22:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:22:47 -04:00:  GET /api/agents/status 200 in 9ms (compile: 4ms, render: 5ms)
+2026-03-09 14:22:47 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1103µs, render: 5ms)
+2026-03-09 14:22:49 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1602µs, render: 3ms)
+2026-03-09 14:22:54 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:22:57 -04:00:  GET /api/agents/status 200 in 10ms (compile: 4ms, render: 6ms)
+2026-03-09 14:22:57 -04:00:  GET /api/agents/status 200 in 4ms (compile: 1221µs, render: 3ms)
+2026-03-09 14:22:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 4ms, render: 13ms)
+2026-03-09 14:22:57 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 890µs, render: 7ms)
+2026-03-09 14:22:58 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 682µs, render: 4ms)
+2026-03-09 14:22:59 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 6ms)
+2026-03-09 14:23:04 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:23:07 -04:00:  GET /api/agents/status 200 in 3ms (compile: 777µs, render: 2ms)
+2026-03-09 14:23:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 13ms (compile: 1253µs, render: 12ms)
+2026-03-09 14:23:08 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 968µs, render: 6ms)
+2026-03-09 14:23:09 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1401µs, render: 3ms)
+2026-03-09 14:23:14 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:23:17 -04:00:  GET /api/agents/status 200 in 10ms (compile: 7ms, render: 4ms)
+2026-03-09 14:23:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 18ms (compile: 3ms, render: 15ms)
+2026-03-09 14:23:18 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 1164µs, render: 7ms)
+2026-03-09 14:23:19 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:23:24 -04:00:  GET /api/costs/live 200 in 6ms (compile: 2ms, render: 4ms)
+2026-03-09 14:23:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 9ms (compile: 5ms, render: 4ms)
+2026-03-09 14:23:27 -04:00:  GET /api/agents/status 200 in 11ms (compile: 3ms, render: 9ms)
+2026-03-09 14:23:27 -04:00:  GET /api/agents/status 200 in 3ms (compile: 808µs, render: 2ms)
+2026-03-09 14:23:27 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 876µs, render: 4ms)
+2026-03-09 14:23:29 -04:00:  GET /api/costs/live 200 in 7ms (compile: 1800µs, render: 5ms)
+2026-03-09 14:23:34 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1041µs, render: 3ms)
+2026-03-09 14:23:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 15ms (compile: 4ms, render: 11ms)
+2026-03-09 14:23:37 -04:00:  GET /api/agents/status 200 in 15ms (compile: 9ms, render: 6ms)
+2026-03-09 14:23:37 -04:00:  GET /api/activity/stats 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 14:23:39 -04:00:  GET /api/costs/live 200 in 7ms (compile: 2ms, render: 5ms)
+2026-03-09 14:23:44 -04:00:  GET /api/costs/live 200 in 3ms (compile: 894µs, render: 3ms)
+2026-03-09 14:23:47 -04:00:  GET /api/agents/status 200 in 14ms (compile: 10ms, render: 4ms)
+2026-03-09 14:23:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 16ms (compile: 4ms, render: 13ms)
+2026-03-09 14:23:48 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 1257µs, render: 4ms)
+2026-03-09 14:23:49 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 6ms)
+2026-03-09 14:23:54 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1585µs, render: 3ms)
+2026-03-09 14:23:57 -04:00:  GET /api/agents/status 200 in 10ms (compile: 3ms, render: 7ms)
+2026-03-09 14:23:57 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 7ms (compile: 1676µs, render: 5ms)
+2026-03-09 14:23:57 -04:00:  GET /api/agents/status 200 in 3ms (compile: 647µs, render: 1981µs)
+2026-03-09 14:23:58 -04:00:  GET /api/activity/stats 200 in 12ms (compile: 3ms, render: 10ms)
+2026-03-09 14:23:59 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:24:04 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:24:07 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 3ms, render: 9ms)
+2026-03-09 14:24:07 -04:00:  GET /api/agents/status 200 in 12ms (compile: 6ms, render: 5ms)
+2026-03-09 14:24:08 -04:00:  GET /api/activity/stats 200 in 11ms (compile: 3ms, render: 8ms)
+2026-03-09 14:24:09 -04:00:  GET /api/costs/live 200 in 4ms (compile: 840µs, render: 3ms)
+2026-03-09 14:24:14 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1043µs, render: 3ms)
+2026-03-09 14:24:17 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 7ms (compile: 1252µs, render: 5ms)
+2026-03-09 14:24:17 -04:00:  GET /api/agents/status 200 in 5ms (compile: 745µs, render: 4ms)
+2026-03-09 14:24:17 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 1127µs, render: 5ms)
+2026-03-09 14:24:19 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 14:24:24 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 5ms)
+2026-03-09 14:24:27 -04:00:  GET /api/agents/status 200 in 6ms (compile: 1082µs, render: 5ms)
+2026-03-09 14:24:27 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 5ms (compile: 746µs, render: 4ms)
+2026-03-09 14:24:27 -04:00:  GET /api/agents/status 200 in 1817µs (compile: 493µs, render: 1324µs)
+2026-03-09 14:24:28 -04:00:  GET /api/activity/stats 200 in 5ms (compile: 1059µs, render: 4ms)
+2026-03-09 14:24:29 -04:00:  GET /api/costs/live 200 in 5ms (compile: 1503µs, render: 3ms)
+2026-03-09 14:24:34 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1156µs, render: 3ms)
+2026-03-09 14:24:37 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 14:24:37 -04:00:  GET /api/agents/status 200 in 12ms (compile: 6ms, render: 6ms)
+2026-03-09 14:24:38 -04:00:  GET /api/activity/stats 200 in 10ms (compile: 2ms, render: 8ms)
+2026-03-09 14:24:39 -04:00:  GET /api/costs/live 200 in 4ms (compile: 990µs, render: 3ms)
+2026-03-09 14:24:44 -04:00:  GET /api/costs/live 200 in 4ms (compile: 1126µs, render: 3ms)
+2026-03-09 14:24:47 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 7ms (compile: 949µs, render: 6ms)
+2026-03-09 14:24:47 -04:00:  GET /api/agents/status 200 in 7ms (compile: 3ms, render: 4ms)
+2026-03-09 14:24:48 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 996µs, render: 5ms)
+2026-03-09 14:24:48 -04:00:  GET /api/activity/live 200 in 15.8min (compile: 17ms, render: 15.8min)
+2026-03-09 17:56:38 -04:00:  GET / 200 in 109ms (compile: 25ms, render: 84ms)
+2026-03-09 18:01:41 -04:00:  GET / 200 in 84ms (compile: 9ms, render: 76ms)
+2026-03-09 18:18:05 -04:00:  GET / 200 in 82ms (compile: 7ms, render: 75ms)
+2026-03-09 18:22:40 -04:00:  GET / 200 in 71ms (compile: 5ms, render: 66ms)
+2026-03-09 19:26:05 -04:00:  GET / 200 in 77ms (compile: 15ms, render: 62ms)
+2026-03-09 20:13:53 -04:00:  GET / 200 in 80ms (compile: 11ms, render: 69ms)
+2026-03-09 21:00:49 -04:00:  GET / 200 in 86ms (compile: 16ms, render: 70ms)
+2026-03-09 22:00:18 -04:00:  GET / 200 in 85ms (compile: 15ms, render: 70ms)
+2026-03-09 22:01:23 -04:00:  GET / 200 in 93ms (compile: 7ms, render: 86ms)
+2026-03-09 22:01:23 -04:00:  GET /api/costs/live 200 in 27ms (compile: 4ms, render: 23ms)
+2026-03-09 22:01:28 -04:00:  GET /api/costs/live 200 in 10ms (compile: 2ms, render: 8ms)
+2026-03-09 22:01:33 -04:00:  GET /api/costs/live 200 in 10ms (compile: 4ms, render: 5ms)
+2026-03-09 22:01:38 -04:00:  GET /api/costs/live 200 in 10ms (compile: 2ms, render: 7ms)
+2026-03-09 22:01:43 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 22:01:48 -04:00:  GET /api/costs/live 200 in 11ms (compile: 2ms, render: 8ms)
+2026-03-09 22:01:53 -04:00:  GET /api/costs/live 200 in 9ms (compile: 1802µs, render: 7ms)
+2026-03-09 22:01:58 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 22:02:03 -04:00:  GET /api/costs/live 200 in 10ms (compile: 2ms, render: 8ms)
+2026-03-09 22:02:08 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 22:02:09 -04:00:  GET /api/agents/status 200 in 24ms (compile: 4ms, render: 19ms)
+2026-03-09 22:02:09 -04:00:  GET /api/agents/status 200 in 6ms (compile: 4ms, render: 2ms)
+2026-03-09 22:02:09 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 33ms (compile: 5ms, render: 28ms)
+2026-03-09 22:02:09 -04:00:  GET /api/agents/status 200 in 6ms (compile: 943µs, render: 5ms)
+2026-03-09 22:02:09 -04:00:  GET /api/activity/stats 200 in 36ms (compile: 11ms, render: 25ms)
+2026-03-09 22:02:09 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 6ms (compile: 645µs, render: 6ms)
+2026-03-09 22:02:09 -04:00:  GET /api/agents/status 200 in 7ms (compile: 1439µs, render: 6ms)
+2026-03-09 22:02:09 -04:00:  GET /api/activity/stats 200 in 6ms (compile: 920µs, render: 5ms)
+2026-03-09 22:02:09 -04:00:  GET /api/activity/stats 200 in 7ms (compile: 1559µs, render: 5ms)
+2026-03-09 22:02:09 -04:00:  GET /api/activity/stats 200 in 12ms (compile: 2ms, render: 10ms)
+2026-03-09 22:02:13 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 6ms)
+2026-03-09 22:02:18 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 22:02:19 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 19ms (compile: 3ms, render: 16ms)
+2026-03-09 22:02:19 -04:00:  GET /api/agents/status 200 in 24ms (compile: 9ms, render: 15ms)
+2026-03-09 22:02:19 -04:00:  GET /api/activity/stats 200 in 19ms (compile: 3ms, render: 16ms)
+2026-03-09 22:02:23 -04:00:  GET /api/costs/live 200 in 10ms (compile: 3ms, render: 8ms)
+2026-03-09 22:02:28 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 22:02:29 -04:00:  GET /api/agents/status 200 in 19ms (compile: 12ms, render: 8ms)
+2026-03-09 22:02:29 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 28ms (compile: 5ms, render: 23ms)
+2026-03-09 22:02:29 -04:00:  GET /api/activity/stats 200 in 18ms (compile: 3ms, render: 15ms)
+2026-03-09 22:02:29 -04:00:  GET /api/activity/stats 200 in 13ms (compile: 1780µs, render: 11ms)
+2026-03-09 22:02:33 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 22:02:38 -04:00:  GET /api/costs/live 200 in 9ms (compile: 3ms, render: 7ms)
+2026-03-09 22:02:39 -04:00:  GET /api/agents/status 200 in 13ms (compile: 3ms, render: 11ms)
+2026-03-09 22:02:39 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 19ms (compile: 6ms, render: 13ms)
+2026-03-09 22:02:39 -04:00:  GET /api/agents/status 200 in 6ms (compile: 1993µs, render: 4ms)
+2026-03-09 22:02:39 -04:00:  GET /api/activity/stats 200 in 17ms (compile: 4ms, render: 13ms)
+2026-03-09 22:02:43 -04:00:  GET /api/costs/live 200 in 8ms (compile: 2ms, render: 6ms)
+2026-03-09 22:02:48 -04:00:  GET /api/costs/live 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 22:02:49 -04:00:  GET /api/agents/status 200 in 17ms (compile: 8ms, render: 8ms)
+2026-03-09 22:02:49 -04:00:  GET /api/activity/feed?limit=100&since=2026-03-09T04:00:00.000Z 200 in 25ms (compile: 3ms, render: 23ms)
+2026-03-09 22:02:49 -04:00:  GET /api/activity/stats 200 in 18ms (compile: 3ms, render: 15ms)
+2026-03-09 22:02:49 -04:00:  GET /api/activity/stats 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 22:02:52 -04:00:  GET /api/activity/live 200 in 43s (compile: 3ms, render: 43s)
+2026-03-09 22:02:52 -04:00:  GET /api/tasks 200 in 74ms (compile: 61ms, render: 13ms)
+2026-03-09 22:02:52 -04:00:  GET /api/tasks/analytics 200 in 79ms (compile: 39ms, render: 40ms)
+2026-03-09 22:02:52 -04:00:  GET /api/tasks 200 in 87ms (compile: 72ms, render: 15ms)
+2026-03-09 22:02:52 -04:00:  GET /api/tasks/analytics 200 in 87ms (compile: 72ms, render: 15ms)
+2026-03-09 22:02:53 -04:00:  GET /api/costs/live 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 22:02:58 -04:00:  GET /api/costs/live 200 in 12ms (compile: 2ms, render: 10ms)
+2026-03-09 22:03:03 -04:00:  GET /api/costs/live 200 in 9ms (compile: 3ms, render: 7ms)
+2026-03-09 22:03:08 -04:00:  GET /api/costs/live 200 in 10ms (compile: 2ms, render: 8ms)
+2026-03-09 22:03:10 -04:00:  GET /api/analytics/embeddings 200 in 81ms (compile: 79ms, render: 1732µs)
+2026-03-09 22:03:10 -04:00:  GET /api/analytics/models 200 in 92ms (compile: 44ms, render: 48ms)
+2026-03-09 22:03:10 -04:00:  GET /api/analytics/embeddings 200 in 4ms (compile: 3ms, render: 1340µs)
+2026-03-09 22:03:10 -04:00:  GET /api/analytics 200 in 99ms (compile: 60ms, render: 39ms)
+2026-03-09 22:03:10 -04:00:  GET /api/analytics/models 200 in 6ms (compile: 1879µs, render: 4ms)
+2026-03-09 22:03:10 -04:00:  GET /api/analytics 200 in 23ms (compile: 874µs, render: 22ms)
+2026-03-09 22:03:13 -04:00:  GET /api/costs/live 200 in 11ms (compile: 4ms, render: 8ms)
+2026-03-09 22:03:18 -04:00:  GET /api/costs/live 200 in 14ms (compile: 4ms, render: 9ms)
+2026-03-09 22:03:23 -04:00:  GET /api/costs/live 200 in 12ms (compile: 3ms, render: 9ms)
+2026-03-09 22:03:28 -04:00:  GET /api/costs/live 200 in 15ms (compile: 3ms, render: 12ms)
+2026-03-09 22:03:33 -04:00:  GET /api/costs/live 200 in 8ms (compile: 3ms, render: 5ms)
+2026-03-09 22:03:38 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 22:03:43 -04:00:  GET /api/costs/live 200 in 9ms (compile: 2ms, render: 7ms)
+2026-03-09 22:03:48 -04:00:  GET /api/costs/live 200 in 11ms (compile: 2ms, render: 9ms)
+2026-03-09 22:03:53 -04:00:  GET /api/costs/live 200 in 11ms (compile: 3ms, render: 8ms)
+2026-03-09 23:12:54 -04:00:  GET / 200 in 87ms (compile: 7ms, render: 80ms)
+2026-03-10 00:13:12 -04:00:  GET / 200 in 81ms (compile: 7ms, render: 74ms)
+2026-03-10 01:42:32 -04:00:  GET / 200 in 79ms (compile: 7ms, render: 71ms)
+2026-03-10 02:12:51 -04:00:  GET / 200 in 80ms (compile: 7ms, render: 74ms)
+2026-03-12 19:13:43 -04:00:   Downloading swc package @next/swc-wasm-nodejs... to /Users/sebastiangalindo/Library/Caches/next-swc
+2026-03-13 00:01:31 -04:00: 
+2026-03-13 00:01:31 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:01:31 -04:00: > PORT=3333 next dev
+2026-03-13 00:01:31 -04:00: 
+2026-03-13 00:01:31 -04:00: [?25h
+2026-03-13 00:01:31 -04:00: 
+2026-03-13 00:01:35 -04:00: 
+2026-03-13 00:01:35 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:01:35 -04:00: > PORT=3333 next dev
+2026-03-13 00:01:35 -04:00: 
+2026-03-13 00:01:36 -04:00: [?25h
+2026-03-13 00:01:36 -04:00: 
+2026-03-13 00:01:40 -04:00: 
+2026-03-13 00:01:40 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:01:40 -04:00: > PORT=3333 next dev
+2026-03-13 00:01:40 -04:00: 
+2026-03-13 00:01:41 -04:00: [?25h
+2026-03-13 00:01:41 -04:00: 
+2026-03-13 00:01:45 -04:00: 
+2026-03-13 00:01:45 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:01:45 -04:00: > PORT=3333 next dev
+2026-03-13 00:01:45 -04:00: 
+2026-03-13 00:01:45 -04:00: [?25h
+2026-03-13 00:01:45 -04:00: 
+2026-03-13 00:01:50 -04:00: 
+2026-03-13 00:01:50 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:01:50 -04:00: > PORT=3333 next dev
+2026-03-13 00:01:50 -04:00: 
+2026-03-13 00:01:50 -04:00: [?25h
+2026-03-13 00:01:50 -04:00: 
+2026-03-13 00:01:54 -04:00: 
+2026-03-13 00:01:54 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:01:54 -04:00: > PORT=3333 next dev
+2026-03-13 00:01:54 -04:00: 
+2026-03-13 00:01:55 -04:00: [?25h
+2026-03-13 00:01:55 -04:00: 
+2026-03-13 00:01:59 -04:00: 
+2026-03-13 00:01:59 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:01:59 -04:00: > PORT=3333 next dev
+2026-03-13 00:01:59 -04:00: 
+2026-03-13 00:02:00 -04:00: [?25h
+2026-03-13 00:02:00 -04:00: 
+2026-03-13 00:02:04 -04:00: 
+2026-03-13 00:02:04 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:04 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:04 -04:00: 
+2026-03-13 00:02:04 -04:00: [?25h
+2026-03-13 00:02:04 -04:00: 
+2026-03-13 00:02:04 -04:00: 
+2026-03-13 00:02:04 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:04 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:04 -04:00: 
+2026-03-13 00:02:05 -04:00: [?25h
+2026-03-13 00:02:05 -04:00: 
+2026-03-13 00:02:09 -04:00: 
+2026-03-13 00:02:09 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:09 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:09 -04:00: 
+2026-03-13 00:02:10 -04:00: [?25h
+2026-03-13 00:02:10 -04:00: 
+2026-03-13 00:02:14 -04:00: 
+2026-03-13 00:02:14 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:14 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:14 -04:00: 
+2026-03-13 00:02:14 -04:00: [?25h
+2026-03-13 00:02:14 -04:00: 
+2026-03-13 00:02:19 -04:00: 
+2026-03-13 00:02:19 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:19 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:19 -04:00: 
+2026-03-13 00:02:19 -04:00: [?25h
+2026-03-13 00:02:19 -04:00: 
+2026-03-13 00:02:23 -04:00: 
+2026-03-13 00:02:23 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:23 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:23 -04:00: 
+2026-03-13 00:02:24 -04:00: [?25h
+2026-03-13 00:02:24 -04:00: 
+2026-03-13 00:02:28 -04:00: 
+2026-03-13 00:02:28 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:28 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:28 -04:00: 
+2026-03-13 00:02:29 -04:00: [?25h
+2026-03-13 00:02:29 -04:00: 
+2026-03-13 00:02:33 -04:00: 
+2026-03-13 00:02:33 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:33 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:33 -04:00: 
+2026-03-13 00:02:33 -04:00: [?25h
+2026-03-13 00:02:33 -04:00: 
+2026-03-13 00:02:37 -04:00: 
+2026-03-13 00:02:37 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:37 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:37 -04:00: 
+2026-03-13 00:02:38 -04:00: [?25h
+2026-03-13 00:02:38 -04:00: 
+2026-03-13 00:02:42 -04:00: 
+2026-03-13 00:02:42 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:02:42 -04:00: > PORT=3333 next dev
+2026-03-13 00:02:42 -04:00: 
+2026-03-13 00:02:43 -04:00: [?25h
+2026-03-13 00:02:43 -04:00: 
+2026-03-13 00:04:00 -04:00: 
+2026-03-13 00:04:00 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:00 -04:00: > PORT=3333 next dev
+2026-03-13 00:04:00 -04:00: 
+2026-03-13 00:04:01 -04:00: [?25h
+2026-03-13 00:04:01 -04:00: 
+2026-03-13 00:04:05 -04:00: 
+2026-03-13 00:04:05 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:05 -04:00: > PORT=3333 next dev
+2026-03-13 00:04:05 -04:00: 
+2026-03-13 00:04:05 -04:00: [?25h
+2026-03-13 00:04:05 -04:00: 
+2026-03-13 00:04:10 -04:00: 
+2026-03-13 00:04:10 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:10 -04:00: > PORT=3333 next dev
+2026-03-13 00:04:10 -04:00: 
+2026-03-13 00:04:10 -04:00: [?25h
+2026-03-13 00:04:10 -04:00: 
+2026-03-13 00:04:14 -04:00: 
+2026-03-13 00:04:14 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:14 -04:00: > PORT=3333 next dev
+2026-03-13 00:04:14 -04:00: 
+2026-03-13 00:04:15 -04:00: [?25h
+2026-03-13 00:04:15 -04:00: 
+2026-03-13 00:04:19 -04:00: 
+2026-03-13 00:04:19 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:19 -04:00: > PORT=3333 next dev
+2026-03-13 00:04:19 -04:00: 
+2026-03-13 00:04:20 -04:00: [?25h
+2026-03-13 00:04:20 -04:00: 
+2026-03-13 00:04:24 -04:00: 
+2026-03-13 00:04:24 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:24 -04:00: > PORT=3333 next dev
+2026-03-13 00:04:24 -04:00: 
+2026-03-13 00:04:24 -04:00: [?25h
+2026-03-13 00:04:24 -04:00: 
+2026-03-13 00:04:28 -04:00: 
+2026-03-13 00:04:28 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:28 -04:00: > PORT=3333 next dev
+2026-03-13 00:04:28 -04:00: 
+2026-03-13 00:04:29 -04:00: [?25h
+2026-03-13 00:04:29 -04:00: 
+2026-03-13 00:04:33 -04:00: 
+2026-03-13 00:04:33 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:33 -04:00: > PORT=3334 next dev
+2026-03-13 00:04:33 -04:00: 
+2026-03-13 00:04:34 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:04:34 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:04:34 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:04:34 -04:00: - Environments: .env
+2026-03-13 00:04:34 -04:00: 
+2026-03-13 00:04:34 -04:00: ✓ Starting...
+2026-03-13 00:04:35 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:04:35 -04:00: [?25h
+2026-03-13 00:04:35 -04:00: 
+2026-03-13 00:04:39 -04:00: 
+2026-03-13 00:04:39 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:39 -04:00: > PORT=3334 next dev
+2026-03-13 00:04:39 -04:00: 
+2026-03-13 00:04:40 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:04:40 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:04:40 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:04:40 -04:00: - Environments: .env
+2026-03-13 00:04:40 -04:00: 
+2026-03-13 00:04:40 -04:00: ✓ Starting...
+2026-03-13 00:04:41 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:04:41 -04:00: [?25h
+2026-03-13 00:04:41 -04:00: 
+2026-03-13 00:04:45 -04:00: 
+2026-03-13 00:04:45 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:45 -04:00: > PORT=3334 next dev
+2026-03-13 00:04:45 -04:00: 
+2026-03-13 00:04:46 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:04:46 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:04:46 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:04:46 -04:00: - Environments: .env
+2026-03-13 00:04:46 -04:00: 
+2026-03-13 00:04:46 -04:00: ✓ Starting...
+2026-03-13 00:04:47 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:04:47 -04:00: [?25h
+2026-03-13 00:04:47 -04:00: 
+2026-03-13 00:04:51 -04:00: 
+2026-03-13 00:04:51 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:51 -04:00: > PORT=3334 next dev
+2026-03-13 00:04:51 -04:00: 
+2026-03-13 00:04:52 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:04:52 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:04:52 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:04:52 -04:00: - Environments: .env
+2026-03-13 00:04:52 -04:00: 
+2026-03-13 00:04:52 -04:00: ✓ Starting...
+2026-03-13 00:04:53 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:04:53 -04:00: [?25h
+2026-03-13 00:04:53 -04:00: 
+2026-03-13 00:04:57 -04:00: 
+2026-03-13 00:04:57 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:04:57 -04:00: > PORT=3334 next dev
+2026-03-13 00:04:57 -04:00: 
+2026-03-13 00:04:57 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:04:57 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:04:57 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:04:57 -04:00: - Environments: .env
+2026-03-13 00:04:57 -04:00: 
+2026-03-13 00:04:57 -04:00: ✓ Starting...
+2026-03-13 00:04:59 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:04:59 -04:00: [?25h
+2026-03-13 00:04:59 -04:00: 
+2026-03-13 00:05:23 -04:00: 
+2026-03-13 00:05:23 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:05:23 -04:00: > PORT=3334 next dev
+2026-03-13 00:05:23 -04:00: 
+2026-03-13 00:05:24 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:05:24 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:05:24 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:05:24 -04:00: - Environments: .env
+2026-03-13 00:05:24 -04:00: 
+2026-03-13 00:05:24 -04:00: ✓ Starting...
+2026-03-13 00:05:25 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:05:25 -04:00: [?25h
+2026-03-13 00:05:25 -04:00: 
+2026-03-13 00:05:29 -04:00: 
+2026-03-13 00:05:29 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:05:29 -04:00: > PORT=3334 next dev
+2026-03-13 00:05:29 -04:00: 
+2026-03-13 00:05:30 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:05:30 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:05:30 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:05:30 -04:00: - Environments: .env
+2026-03-13 00:05:30 -04:00: 
+2026-03-13 00:05:30 -04:00: ✓ Starting...
+2026-03-13 00:05:31 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:05:31 -04:00: [?25h
+2026-03-13 00:05:31 -04:00: 
+2026-03-13 00:05:35 -04:00: 
+2026-03-13 00:05:35 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:05:35 -04:00: > PORT=3334 next dev
+2026-03-13 00:05:35 -04:00: 
+2026-03-13 00:05:36 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:05:36 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:05:36 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:05:36 -04:00: - Environments: .env
+2026-03-13 00:05:36 -04:00: 
+2026-03-13 00:05:36 -04:00: ✓ Starting...
+2026-03-13 00:05:37 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:05:37 -04:00: [?25h
+2026-03-13 00:05:37 -04:00: 
+2026-03-13 00:05:41 -04:00: 
+2026-03-13 00:05:41 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:05:41 -04:00: > PORT=3334 next dev
+2026-03-13 00:05:41 -04:00: 
+2026-03-13 00:05:42 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:05:42 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:05:42 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:05:42 -04:00: - Environments: .env
+2026-03-13 00:05:42 -04:00: 
+2026-03-13 00:05:42 -04:00: ✓ Starting...
+2026-03-13 00:05:43 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:05:43 -04:00: [?25h
+2026-03-13 00:05:43 -04:00: 
+2026-03-13 00:05:47 -04:00: 
+2026-03-13 00:05:47 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:05:47 -04:00: > PORT=3334 next dev
+2026-03-13 00:05:47 -04:00: 
+2026-03-13 00:05:47 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:05:47 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:05:47 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:05:47 -04:00: - Environments: .env
+2026-03-13 00:05:47 -04:00: 
+2026-03-13 00:05:47 -04:00: ✓ Starting...
+2026-03-13 00:05:48 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:05:49 -04:00: [?25h
+2026-03-13 00:05:49 -04:00: 
+2026-03-13 00:05:53 -04:00: 
+2026-03-13 00:05:53 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:05:53 -04:00: > PORT=3334 next dev
+2026-03-13 00:05:53 -04:00: 
+2026-03-13 00:05:53 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:05:53 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:05:53 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:05:53 -04:00: - Environments: .env
+2026-03-13 00:05:53 -04:00: 
+2026-03-13 00:05:53 -04:00: ✓ Starting...
+2026-03-13 00:05:54 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:05:55 -04:00: [?25h
+2026-03-13 00:05:55 -04:00: 
+2026-03-13 00:05:59 -04:00: 
+2026-03-13 00:05:59 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:05:59 -04:00: > PORT=3334 next dev
+2026-03-13 00:05:59 -04:00: 
+2026-03-13 00:05:59 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:05:59 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:05:59 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:05:59 -04:00: - Environments: .env
+2026-03-13 00:05:59 -04:00: 
+2026-03-13 00:05:59 -04:00: ✓ Starting...
+2026-03-13 00:06:00 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:06:01 -04:00: [?25h
+2026-03-13 00:06:01 -04:00: 
+2026-03-13 00:06:05 -04:00: 
+2026-03-13 00:06:05 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:06:05 -04:00: > PORT=3334 next dev
+2026-03-13 00:06:05 -04:00: 
+2026-03-13 00:06:05 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:06:05 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:06:05 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:06:05 -04:00: - Environments: .env
+2026-03-13 00:06:05 -04:00: 
+2026-03-13 00:06:05 -04:00: ✓ Starting...
+2026-03-13 00:06:06 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:06:07 -04:00: [?25h
+2026-03-13 00:06:07 -04:00: 
+2026-03-13 00:06:11 -04:00: 
+2026-03-13 00:06:11 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:06:11 -04:00: > PORT=3334 next dev
+2026-03-13 00:06:11 -04:00: 
+2026-03-13 00:06:11 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:06:11 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:06:11 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:06:11 -04:00: - Environments: .env
+2026-03-13 00:06:11 -04:00: 
+2026-03-13 00:06:11 -04:00: ✓ Starting...
+2026-03-13 00:06:12 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:06:13 -04:00: [?25h
+2026-03-13 00:06:13 -04:00: 
+2026-03-13 00:06:17 -04:00: 
+2026-03-13 00:06:17 -04:00: > mission-control@0.1.0 dev
+2026-03-13 00:06:17 -04:00: > PORT=3334 next dev
+2026-03-13 00:06:17 -04:00: 
+2026-03-13 00:06:17 -04:00: ▲ Next.js 16.1.6 (Turbopack)
+2026-03-13 00:06:17 -04:00: - Local:         http://localhost:3334
+2026-03-13 00:06:17 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 00:06:17 -04:00: - Environments: .env
+2026-03-13 00:06:17 -04:00: 
+2026-03-13 00:06:17 -04:00: ✓ Starting...
+2026-03-13 00:06:18 -04:00:   Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+2026-03-13 00:06:18 -04:00: [?25h
+2026-03-13 00:06:18 -04:00: 
+2026-03-13 15:17:53 -04:00: 
+2026-03-13 15:17:53 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:17:53 -04:00: > next start
+2026-03-13 15:17:53 -04:00: 
+2026-03-13 15:17:57 -04:00: 
+2026-03-13 15:17:57 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:17:57 -04:00: > next start
+2026-03-13 15:17:57 -04:00: 
+2026-03-13 15:18:02 -04:00: 
+2026-03-13 15:18:02 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:02 -04:00: > next start
+2026-03-13 15:18:02 -04:00: 
+2026-03-13 15:18:06 -04:00: 
+2026-03-13 15:18:06 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:06 -04:00: > next start
+2026-03-13 15:18:06 -04:00: 
+2026-03-13 15:18:11 -04:00: 
+2026-03-13 15:18:11 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:11 -04:00: > next start
+2026-03-13 15:18:11 -04:00: 
+2026-03-13 15:18:15 -04:00: 
+2026-03-13 15:18:15 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:15 -04:00: > next start
+2026-03-13 15:18:15 -04:00: 
+2026-03-13 15:18:19 -04:00: 
+2026-03-13 15:18:19 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:19 -04:00: > next start
+2026-03-13 15:18:19 -04:00: 
+2026-03-13 15:18:24 -04:00: 
+2026-03-13 15:18:24 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:24 -04:00: > next start
+2026-03-13 15:18:24 -04:00: 
+2026-03-13 15:18:28 -04:00: 
+2026-03-13 15:18:28 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:28 -04:00: > next start
+2026-03-13 15:18:28 -04:00: 
+2026-03-13 15:18:32 -04:00: 
+2026-03-13 15:18:32 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:32 -04:00: > next start
+2026-03-13 15:18:32 -04:00: 
+2026-03-13 15:18:55 -04:00: 
+2026-03-13 15:18:55 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:18:55 -04:00: > next start
+2026-03-13 15:18:55 -04:00: 
+2026-03-13 15:18:55 -04:00: ▲ Next.js 16.1.6
+2026-03-13 15:18:55 -04:00: - Local:         http://localhost:3334
+2026-03-13 15:18:55 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 15:18:55 -04:00: 
+2026-03-13 15:18:55 -04:00: ✓ Starting...
+2026-03-13 15:18:56 -04:00: ✓ Ready in 268ms
+2026-03-13 15:20:08 -04:00: 
+2026-03-13 15:20:08 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:20:08 -04:00: > next start
+2026-03-13 15:20:08 -04:00: 
+2026-03-13 15:20:08 -04:00: ▲ Next.js 16.1.6
+2026-03-13 15:20:08 -04:00: - Local:         http://localhost:3334
+2026-03-13 15:20:08 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 15:20:08 -04:00: 
+2026-03-13 15:20:08 -04:00: ✓ Starting...
+2026-03-13 15:20:08 -04:00: ✓ Ready in 289ms
+2026-03-13 15:21:10 -04:00: 
+2026-03-13 15:21:10 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:21:10 -04:00: > next start
+2026-03-13 15:21:10 -04:00: 
+2026-03-13 15:21:10 -04:00: ▲ Next.js 16.1.6
+2026-03-13 15:21:10 -04:00: - Local:         http://localhost:3334
+2026-03-13 15:21:10 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 15:21:10 -04:00: 
+2026-03-13 15:21:10 -04:00: ✓ Starting...
+2026-03-13 15:21:10 -04:00: ✓ Ready in 397ms
+2026-03-13 15:21:27 -04:00: 
+2026-03-13 15:21:27 -04:00: > mission-control@0.1.0 start
+2026-03-13 15:21:27 -04:00: > next start
+2026-03-13 15:21:27 -04:00: 
+2026-03-13 15:21:27 -04:00: ▲ Next.js 16.1.6
+2026-03-13 15:21:27 -04:00: - Local:         http://localhost:3334
+2026-03-13 15:21:27 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 15:21:27 -04:00: 
+2026-03-13 15:21:27 -04:00: ✓ Starting...
+2026-03-13 15:21:27 -04:00: ✓ Ready in 275ms
+2026-03-13 16:06:25 -04:00: 
+2026-03-13 16:06:25 -04:00: > mission-control@0.1.0 start
+2026-03-13 16:06:25 -04:00: > next start
+2026-03-13 16:06:25 -04:00: 
+2026-03-13 16:06:26 -04:00: ▲ Next.js 16.1.6
+2026-03-13 16:06:26 -04:00: - Local:         http://localhost:3334
+2026-03-13 16:06:26 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 16:06:26 -04:00: 
+2026-03-13 16:06:26 -04:00: ✓ Starting...
+2026-03-13 16:06:26 -04:00: ✓ Ready in 274ms
+2026-03-13 16:14:14 -04:00: 
+2026-03-13 16:14:14 -04:00: > mission-control@0.1.0 start
+2026-03-13 16:14:14 -04:00: > next start
+2026-03-13 16:14:14 -04:00: 
+2026-03-13 16:14:15 -04:00: ▲ Next.js 16.1.6
+2026-03-13 16:14:15 -04:00: - Local:         http://localhost:3334
+2026-03-13 16:14:15 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 16:14:15 -04:00: 
+2026-03-13 16:14:15 -04:00: ✓ Starting...
+2026-03-13 16:14:15 -04:00: ✓ Ready in 268ms
+2026-03-13 16:15:13 -04:00: 
+2026-03-13 16:15:13 -04:00: > mission-control@0.1.0 start
+2026-03-13 16:15:13 -04:00: > next start
+2026-03-13 16:15:13 -04:00: 
+2026-03-13 16:15:13 -04:00: ▲ Next.js 16.1.6
+2026-03-13 16:15:13 -04:00: - Local:         http://localhost:3334
+2026-03-13 16:15:13 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 16:15:13 -04:00: 
+2026-03-13 16:15:13 -04:00: ✓ Starting...
+2026-03-13 16:15:14 -04:00: ✓ Ready in 271ms
+2026-03-13 16:50:16 -04:00: 
+2026-03-13 16:50:16 -04:00: > mission-control@0.1.0 start
+2026-03-13 16:50:16 -04:00: > next start
+2026-03-13 16:50:16 -04:00: 
+2026-03-13 16:50:16 -04:00: ▲ Next.js 16.1.6
+2026-03-13 16:50:16 -04:00: - Local:         http://localhost:3334
+2026-03-13 16:50:16 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 16:50:16 -04:00: 
+2026-03-13 16:50:16 -04:00: ✓ Starting...
+2026-03-13 16:50:20 -04:00: 
+2026-03-13 16:50:20 -04:00: > mission-control@0.1.0 start
+2026-03-13 16:50:20 -04:00: > next start
+2026-03-13 16:50:20 -04:00: 
+2026-03-13 16:50:21 -04:00: ▲ Next.js 16.1.6
+2026-03-13 16:50:21 -04:00: - Local:         http://localhost:3334
+2026-03-13 16:50:21 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 16:50:21 -04:00: 
+2026-03-13 16:50:21 -04:00: ✓ Starting...
+2026-03-13 16:50:21 -04:00: ✓ Ready in 273ms
+2026-03-13 16:51:04 -04:00: 
+2026-03-13 16:51:04 -04:00: > mission-control@0.1.0 start
+2026-03-13 16:51:04 -04:00: > next start
+2026-03-13 16:51:04 -04:00: 
+2026-03-13 16:51:04 -04:00: ▲ Next.js 16.1.6
+2026-03-13 16:51:04 -04:00: - Local:         http://localhost:3334
+2026-03-13 16:51:04 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 16:51:04 -04:00: 
+2026-03-13 16:51:04 -04:00: ✓ Starting...
+2026-03-13 16:51:08 -04:00: 
+2026-03-13 16:51:08 -04:00: > mission-control@0.1.0 start
+2026-03-13 16:51:08 -04:00: > next start
+2026-03-13 16:51:08 -04:00: 
+2026-03-13 16:51:09 -04:00: ▲ Next.js 16.1.6
+2026-03-13 16:51:09 -04:00: - Local:         http://localhost:3334
+2026-03-13 16:51:09 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 16:51:09 -04:00: 
+2026-03-13 16:51:09 -04:00: ✓ Starting...
+2026-03-13 16:51:09 -04:00: ✓ Ready in 271ms
+2026-03-13 17:54:15 -04:00: 
+2026-03-13 17:54:15 -04:00: > mission-control@0.1.0 start
+2026-03-13 17:54:15 -04:00: > next start
+2026-03-13 17:54:15 -04:00: 
+2026-03-13 17:54:16 -04:00: ▲ Next.js 16.1.6
+2026-03-13 17:54:16 -04:00: - Local:         http://localhost:3334
+2026-03-13 17:54:16 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 17:54:16 -04:00: 
+2026-03-13 17:54:16 -04:00: ✓ Starting...
+2026-03-13 17:54:16 -04:00: ✓ Ready in 281ms
+2026-03-13 18:16:43 -04:00: 
+2026-03-13 18:16:43 -04:00: > mission-control@0.1.0 start
+2026-03-13 18:16:43 -04:00: > next start
+2026-03-13 18:16:43 -04:00: 
+2026-03-13 18:16:44 -04:00: ▲ Next.js 16.1.6
+2026-03-13 18:16:44 -04:00: - Local:         http://localhost:3334
+2026-03-13 18:16:44 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 18:16:44 -04:00: 
+2026-03-13 18:16:44 -04:00: ✓ Starting...
+2026-03-13 18:16:44 -04:00: ✓ Ready in 274ms
+2026-03-13 19:53:17 -04:00: 
+2026-03-13 19:53:17 -04:00: > mission-control@0.1.0 start
+2026-03-13 19:53:17 -04:00: > next start
+2026-03-13 19:53:17 -04:00: 
+2026-03-13 19:53:17 -04:00: ▲ Next.js 16.1.6
+2026-03-13 19:53:17 -04:00: - Local:         http://localhost:3334
+2026-03-13 19:53:17 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 19:53:17 -04:00: 
+2026-03-13 19:53:17 -04:00: ✓ Starting...
+2026-03-13 19:53:18 -04:00: ✓ Ready in 364ms
+2026-03-13 20:16:58 -04:00: 
+2026-03-13 20:16:58 -04:00: > mission-control@0.1.0 start
+2026-03-13 20:16:58 -04:00: > next start
+2026-03-13 20:16:58 -04:00: 
+2026-03-13 20:16:58 -04:00: ▲ Next.js 16.1.6
+2026-03-13 20:16:58 -04:00: - Local:         http://localhost:3334
+2026-03-13 20:16:58 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 20:16:58 -04:00: 
+2026-03-13 20:16:58 -04:00: ✓ Starting...
+2026-03-13 20:16:59 -04:00: ✓ Ready in 380ms
+2026-03-13 20:17:18 -04:00: 
+2026-03-13 20:17:18 -04:00: > mission-control@0.1.0 start
+2026-03-13 20:17:18 -04:00: > next start
+2026-03-13 20:17:18 -04:00: 
+2026-03-13 20:17:18 -04:00: ▲ Next.js 16.1.6
+2026-03-13 20:17:18 -04:00: - Local:         http://localhost:3334
+2026-03-13 20:17:18 -04:00: - Network:       http://192.168.5.41:3334
+2026-03-13 20:17:18 -04:00: 
+2026-03-13 20:17:18 -04:00: ✓ Starting...
+2026-03-13 20:17:18 -04:00: ✓ Ready in 283ms

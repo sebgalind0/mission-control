@@ -27,9 +27,9 @@ else
   echo "❌ Cannot connect to database"
   echo ""
   echo "Options:"
-  echo "  1. Start Railway tunnel: railway connect"
-  echo "  2. Run via Railway: railway run npx prisma migrate dev"
-  echo "  3. Deploy to production (auto-migrates)"
+  echo "  1. Verify DATABASE_URL in .env or your shell"
+  echo "  2. Run locally: npx prisma migrate dev"
+  echo "  3. Deploy to Vercel after the database is reachable from production"
   exit 1
 fi
 

@@ -17,7 +17,7 @@ const routeCommand = (command: string): string[] => {
   }
   
   // Deployment keywords
-  if (cmd.includes('deploy') || cmd.includes('production') || cmd.includes('railway') || cmd.includes('vercel')) {
+  if (cmd.includes('deploy') || cmd.includes('production') || cmd.includes('vercel')) {
     agents.push('Larry');
   }
   
